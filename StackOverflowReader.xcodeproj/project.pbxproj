@@ -13,9 +13,12 @@
 		BF621C3C1FE8000600DFDAA4 /* StackOverflowReader.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BF621C3A1FE8000600DFDAA4 /* StackOverflowReader.xcdatamodeld */; };
 		BF621C3E1FE8000600DFDAA4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF621C3D1FE8000600DFDAA4 /* Assets.xcassets */; };
 		BF621C411FE8000600DFDAA4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF621C3F1FE8000600DFDAA4 /* LaunchScreen.storyboard */; };
+		FA9AB4B6B66FB3939FA6636E /* Pods_StackOverflowReader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 120BAEF672886FDF3982DD99 /* Pods_StackOverflowReader.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		120BAEF672886FDF3982DD99 /* Pods_StackOverflowReader.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StackOverflowReader.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		78048D32AA22662E474B0049 /* Pods-StackOverflowReader.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StackOverflowReader.debug.xcconfig"; path = "Pods/Target Support Files/Pods-StackOverflowReader/Pods-StackOverflowReader.debug.xcconfig"; sourceTree = "<group>"; };
 		BF621C301FE8000500DFDAA4 /* StackOverflowReader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StackOverflowReader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF621C331FE8000600DFDAA4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BF621C351FE8000600DFDAA4 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -24,6 +27,7 @@
 		BF621C3D1FE8000600DFDAA4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BF621C401FE8000600DFDAA4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BF621C421FE8000600DFDAA4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F93117EE3B476877F4741F94 /* Pods-StackOverflowReader.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StackOverflowReader.release.xcconfig"; path = "Pods/Target Support Files/Pods-StackOverflowReader/Pods-StackOverflowReader.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,17 +35,29 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA9AB4B6B66FB3939FA6636E /* Pods_StackOverflowReader.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4AC36091D535EC36A7AEAA4C /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				78048D32AA22662E474B0049 /* Pods-StackOverflowReader.debug.xcconfig */,
+				F93117EE3B476877F4741F94 /* Pods-StackOverflowReader.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		BF621C271FE8000500DFDAA4 = {
 			isa = PBXGroup;
 			children = (
 				BF621C321FE8000500DFDAA4 /* StackOverflowReader */,
 				BF621C311FE8000500DFDAA4 /* Products */,
+				4AC36091D535EC36A7AEAA4C /* Pods */,
+				EF714B4C9D8CD38252A48BCF /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -56,15 +72,63 @@
 		BF621C321FE8000500DFDAA4 /* StackOverflowReader */ = {
 			isa = PBXGroup;
 			children = (
+				BF6E445D1FED42A4004BEF13 /* Helpers */,
+				BF6E445C1FED428C004BEF13 /* Stores */,
+				BF6E445B1FED427F004BEF13 /* Controllers */,
+				BF6E445A1FED4279004BEF13 /* Views */,
+				BF6E44591FED423F004BEF13 /* Models */,
 				BF621C331FE8000600DFDAA4 /* AppDelegate.swift */,
-				BF621C351FE8000600DFDAA4 /* ViewController.swift */,
-				BF621C371FE8000600DFDAA4 /* Main.storyboard */,
 				BF621C3D1FE8000600DFDAA4 /* Assets.xcassets */,
-				BF621C3F1FE8000600DFDAA4 /* LaunchScreen.storyboard */,
 				BF621C421FE8000600DFDAA4 /* Info.plist */,
 				BF621C3A1FE8000600DFDAA4 /* StackOverflowReader.xcdatamodeld */,
 			);
 			path = StackOverflowReader;
+			sourceTree = "<group>";
+		};
+		BF6E44591FED423F004BEF13 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		BF6E445A1FED4279004BEF13 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				BF621C371FE8000600DFDAA4 /* Main.storyboard */,
+				BF621C3F1FE8000600DFDAA4 /* LaunchScreen.storyboard */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		BF6E445B1FED427F004BEF13 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				BF621C351FE8000600DFDAA4 /* ViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		BF6E445C1FED428C004BEF13 /* Stores */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Stores;
+			sourceTree = "<group>";
+		};
+		BF6E445D1FED42A4004BEF13 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		EF714B4C9D8CD38252A48BCF /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				120BAEF672886FDF3982DD99 /* Pods_StackOverflowReader.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -74,9 +138,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = BF621C451FE8000600DFDAA4 /* Build configuration list for PBXNativeTarget "StackOverflowReader" */;
 			buildPhases = (
+				84E4C4B8ED4DE174778BE2DA /* [CP] Check Pods Manifest.lock */,
 				BF621C2C1FE8000500DFDAA4 /* Sources */,
 				BF621C2D1FE8000500DFDAA4 /* Frameworks */,
 				BF621C2E1FE8000500DFDAA4 /* Resources */,
+				E2658D0D9B5CF6DCB541DD78 /* [CP] Embed Pods Frameworks */,
+				0A7D28ECDF895CBDF7FC7066 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -133,6 +200,62 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0A7D28ECDF895CBDF7FC7066 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-StackOverflowReader/Pods-StackOverflowReader-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		84E4C4B8ED4DE174778BE2DA /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-StackOverflowReader-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E2658D0D9B5CF6DCB541DD78 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-StackOverflowReader/Pods-StackOverflowReader-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/CodableAlamofire/CodableAlamofire.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CodableAlamofire.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-StackOverflowReader/Pods-StackOverflowReader-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		BF621C2C1FE8000500DFDAA4 /* Sources */ = {
@@ -276,10 +399,12 @@
 		};
 		BF621C461FE8000600DFDAA4 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 78048D32AA22662E474B0049 /* Pods-StackOverflowReader.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = StackOverflowReader/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = chisw.StackOverflowReader;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -290,10 +415,12 @@
 		};
 		BF621C471FE8000600DFDAA4 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F93117EE3B476877F4741F94 /* Pods-StackOverflowReader.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = StackOverflowReader/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = chisw.StackOverflowReader;
 				PRODUCT_NAME = "$(TARGET_NAME)";
