@@ -7,3 +7,7 @@
 //
 
 import Foundation
+
+class Answer: SOCommonData {
+    let comments : [Comment]? = nil
+}

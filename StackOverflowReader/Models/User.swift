@@ -7,3 +7,13 @@
 //
 
 import Foundation
+
+struct User : Codable {
+    let profilePictureURL : String?
+    let userName : String?
+    let reputation : Int?
+    let about : String?
+    let age : Int?
+    let location : String?
+    let website : String?
+}

@@ -7,3 +7,10 @@
 //
 
 import Foundation
+
+class Question : SOCommonData {
+    var title : String?
+    var answers: [Answer]? = nil
+    var comments : [Comment]? = nil
+    var acceptedAnswer : Answer? = nil
+}

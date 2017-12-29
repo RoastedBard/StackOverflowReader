@@ -7,26 +7,52 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BF1F429D1FF4FCB100863373 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF1F429C1FF4FCB100863373 /* TestViewController.swift */; };
 		BF621C341FE8000600DFDAA4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF621C331FE8000600DFDAA4 /* AppDelegate.swift */; };
-		BF621C361FE8000600DFDAA4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF621C351FE8000600DFDAA4 /* ViewController.swift */; };
+		BF621C361FE8000600DFDAA4 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF621C351FE8000600DFDAA4 /* SearchViewController.swift */; };
 		BF621C391FE8000600DFDAA4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF621C371FE8000600DFDAA4 /* Main.storyboard */; };
 		BF621C3C1FE8000600DFDAA4 /* StackOverflowReader.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BF621C3A1FE8000600DFDAA4 /* StackOverflowReader.xcdatamodeld */; };
 		BF621C3E1FE8000600DFDAA4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF621C3D1FE8000600DFDAA4 /* Assets.xcassets */; };
 		BF621C411FE8000600DFDAA4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF621C3F1FE8000600DFDAA4 /* LaunchScreen.storyboard */; };
+		BF6E445F1FED4897004BEF13 /* SOCommonData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6E445E1FED4897004BEF13 /* SOCommonData.swift */; };
+		BF6E44611FED48A7004BEF13 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6E44601FED48A7004BEF13 /* User.swift */; };
+		BF6E44631FED49D2004BEF13 /* Question.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6E44621FED49D2004BEF13 /* Question.swift */; };
+		BF6E44651FED4ACB004BEF13 /* Answer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6E44641FED4ACB004BEF13 /* Answer.swift */; };
+		BF6E44671FED4AD2004BEF13 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF6E44661FED4AD2004BEF13 /* Comment.swift */; };
+		BFB4AD6E1FF3A2AA00097C05 /* SavedPostsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB4AD6D1FF3A2AA00097C05 /* SavedPostsViewController.swift */; };
+		BFC2F2581FF6889000C434CF /* CommentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BFC2F2571FF6889000C434CF /* CommentView.xib */; };
+		BFC2F25A1FF688A600C434CF /* CommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFC2F2591FF688A600C434CF /* CommentView.swift */; };
+		BFC2F25C1FF690D600C434CF /* AnswerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BFC2F25B1FF690D500C434CF /* AnswerView.xib */; };
+		BFC2F25E1FF690EC00C434CF /* AnswerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFC2F25D1FF690EC00C434CF /* AnswerView.swift */; };
+		BFC2F2601FF6934900C434CF /* QuestionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BFC2F25F1FF6934900C434CF /* QuestionView.xib */; };
+		BFC2F2621FF6941B00C434CF /* QuestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFC2F2611FF6941B00C434CF /* QuestionView.swift */; };
 		FA9AB4B6B66FB3939FA6636E /* Pods_StackOverflowReader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 120BAEF672886FDF3982DD99 /* Pods_StackOverflowReader.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		120BAEF672886FDF3982DD99 /* Pods_StackOverflowReader.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StackOverflowReader.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		78048D32AA22662E474B0049 /* Pods-StackOverflowReader.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StackOverflowReader.debug.xcconfig"; path = "Pods/Target Support Files/Pods-StackOverflowReader/Pods-StackOverflowReader.debug.xcconfig"; sourceTree = "<group>"; };
+		BF1F429C1FF4FCB100863373 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		BF621C301FE8000500DFDAA4 /* StackOverflowReader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StackOverflowReader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF621C331FE8000600DFDAA4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		BF621C351FE8000600DFDAA4 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		BF621C351FE8000600DFDAA4 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		BF621C381FE8000600DFDAA4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		BF621C3B1FE8000600DFDAA4 /* StackOverflowReader.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = StackOverflowReader.xcdatamodel; sourceTree = "<group>"; };
 		BF621C3D1FE8000600DFDAA4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BF621C401FE8000600DFDAA4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BF621C421FE8000600DFDAA4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BF6E445E1FED4897004BEF13 /* SOCommonData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SOCommonData.swift; sourceTree = "<group>"; };
+		BF6E44601FED48A7004BEF13 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		BF6E44621FED49D2004BEF13 /* Question.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Question.swift; sourceTree = "<group>"; };
+		BF6E44641FED4ACB004BEF13 /* Answer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Answer.swift; sourceTree = "<group>"; };
+		BF6E44661FED4AD2004BEF13 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
+		BFB4AD6D1FF3A2AA00097C05 /* SavedPostsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedPostsViewController.swift; sourceTree = "<group>"; };
+		BFC2F2571FF6889000C434CF /* CommentView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CommentView.xib; sourceTree = "<group>"; };
+		BFC2F2591FF688A600C434CF /* CommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentView.swift; sourceTree = "<group>"; };
+		BFC2F25B1FF690D500C434CF /* AnswerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AnswerView.xib; sourceTree = "<group>"; };
+		BFC2F25D1FF690EC00C434CF /* AnswerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerView.swift; sourceTree = "<group>"; };
+		BFC2F25F1FF6934900C434CF /* QuestionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QuestionView.xib; sourceTree = "<group>"; };
+		BFC2F2611FF6941B00C434CF /* QuestionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionView.swift; sourceTree = "<group>"; };
 		F93117EE3B476877F4741F94 /* Pods-StackOverflowReader.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StackOverflowReader.release.xcconfig"; path = "Pods/Target Support Files/Pods-StackOverflowReader/Pods-StackOverflowReader.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -72,6 +98,7 @@
 		BF621C321FE8000500DFDAA4 /* StackOverflowReader */ = {
 			isa = PBXGroup;
 			children = (
+				BFB4AD6F1FF3FA4A00097C05 /* Xib */,
 				BF6E445D1FED42A4004BEF13 /* Helpers */,
 				BF6E445C1FED428C004BEF13 /* Stores */,
 				BF6E445B1FED427F004BEF13 /* Controllers */,
@@ -88,6 +115,11 @@
 		BF6E44591FED423F004BEF13 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				BF6E445E1FED4897004BEF13 /* SOCommonData.swift */,
+				BF6E44601FED48A7004BEF13 /* User.swift */,
+				BF6E44621FED49D2004BEF13 /* Question.swift */,
+				BF6E44641FED4ACB004BEF13 /* Answer.swift */,
+				BF6E44661FED4AD2004BEF13 /* Comment.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -104,7 +136,9 @@
 		BF6E445B1FED427F004BEF13 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				BF621C351FE8000600DFDAA4 /* ViewController.swift */,
+				BFB4AD6D1FF3A2AA00097C05 /* SavedPostsViewController.swift */,
+				BF621C351FE8000600DFDAA4 /* SearchViewController.swift */,
+				BF1F429C1FF4FCB100863373 /* TestViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -121,6 +155,19 @@
 			children = (
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		BFB4AD6F1FF3FA4A00097C05 /* Xib */ = {
+			isa = PBXGroup;
+			children = (
+				BFC2F2571FF6889000C434CF /* CommentView.xib */,
+				BFC2F2591FF688A600C434CF /* CommentView.swift */,
+				BFC2F25B1FF690D500C434CF /* AnswerView.xib */,
+				BFC2F25D1FF690EC00C434CF /* AnswerView.swift */,
+				BFC2F25F1FF6934900C434CF /* QuestionView.xib */,
+				BFC2F2611FF6941B00C434CF /* QuestionView.swift */,
+			);
+			path = Xib;
 			sourceTree = "<group>";
 		};
 		EF714B4C9D8CD38252A48BCF /* Frameworks */ = {
@@ -194,6 +241,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				BF621C411FE8000600DFDAA4 /* LaunchScreen.storyboard in Resources */,
+				BFC2F2581FF6889000C434CF /* CommentView.xib in Resources */,
+				BFC2F2601FF6934900C434CF /* QuestionView.xib in Resources */,
+				BFC2F25C1FF690D600C434CF /* AnswerView.xib in Resources */,
 				BF621C3E1FE8000600DFDAA4 /* Assets.xcassets in Resources */,
 				BF621C391FE8000600DFDAA4 /* Main.storyboard in Resources */,
 			);
@@ -262,9 +312,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BF621C361FE8000600DFDAA4 /* ViewController.swift in Sources */,
+				BFB4AD6E1FF3A2AA00097C05 /* SavedPostsViewController.swift in Sources */,
+				BF621C361FE8000600DFDAA4 /* SearchViewController.swift in Sources */,
+				BFC2F25E1FF690EC00C434CF /* AnswerView.swift in Sources */,
 				BF621C3C1FE8000600DFDAA4 /* StackOverflowReader.xcdatamodeld in Sources */,
+				BF6E445F1FED4897004BEF13 /* SOCommonData.swift in Sources */,
+				BF6E44671FED4AD2004BEF13 /* Comment.swift in Sources */,
+				BFC2F2621FF6941B00C434CF /* QuestionView.swift in Sources */,
+				BF6E44651FED4ACB004BEF13 /* Answer.swift in Sources */,
+				BFC2F25A1FF688A600C434CF /* CommentView.swift in Sources */,
+				BF6E44631FED49D2004BEF13 /* Question.swift in Sources */,
+				BF6E44611FED48A7004BEF13 /* User.swift in Sources */,
 				BF621C341FE8000600DFDAA4 /* AppDelegate.swift in Sources */,
+				BF1F429D1FF4FCB100863373 /* TestViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

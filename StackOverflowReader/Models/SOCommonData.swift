@@ -7,3 +7,10 @@
 //
 
 import Foundation
+
+class SOCommonData : Codable {
+    let author : User?
+    let body : String?
+    let votes : Int?
+    let date : Date?
+}
