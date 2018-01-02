@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="HelveticaNeue.ttc">
+            <string>HelveticaNeue</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="AnswerCell" rowHeight="798" id="KGk-i7-Jjw" customClass="AnswerTableViewCell" customModule="StackOverflowReader" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="798"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="797.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="35" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dhR-cM-Tb1" userLabel="scoreLabel">
+                        <rect key="frame" x="8" y="20" width="27" height="28"/>
+                        <color key="backgroundColor" red="0.0" green="0.99143940210000003" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="24"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="749" scrollEnabled="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="2s2-vP-cTD" userLabel="answerBody">
+                        <rect key="frame" x="8" y="56" width="304" height="625"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <string key="text">For such a case, instead of adding it as a UILabel component, I would rather use UITextView, because it has dataDetectorTypes property:
+
+The types of data converted to tappable URLs in the text view.
+
+You can use this property to specify the types of data (phone numbers, http links, and so on) that should be automatically converted to URLs in the text view. When tapped, the text view opens the application responsible for handling the URL type and passes it the URL. Note that data detection does not occur if the text view's isEditable property is set to true.
+
+So, you can implement it as:
+
+// as mentioned in the documentation, make sure to let it be uneditable:
+textView.isEditable = false
+textView.dataDetectorTypes = .link
+For your case, I assume that you should it be .link, I would suggest to check the other options for the UIDataDetectorTypes.</string>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                    </textView>
+                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="680450_accept_512x512" translatesAutoresizingMaskIntoConstraints="NO" id="gOL-01-zSh" userLabel="acceptedPicture">
+                        <rect key="frame" x="43" y="20" width="28" height="28"/>
+                        <color key="tintColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="28" id="3oC-EE-aiR"/>
+                            <constraint firstAttribute="height" constant="28" id="JpT-fS-Kyi"/>
+                        </constraints>
+                    </imageView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WEa-PH-R1L" userLabel="nameDateView">
+                        <rect key="frame" x="8" y="689" width="304" height="25"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="14.02.2017" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OJ1-zE-wVV" userLabel="dateLabel">
+                                <rect key="frame" x="238" y="9" width="66" height="16"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="SkP-Hh-bx9" userLabel="profilePic">
+                                <rect key="frame" x="0.0" y="0.0" width="25" height="25"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="25" id="ZC5-UD-inY"/>
+                                    <constraint firstAttribute="width" constant="25" id="e2Y-2f-bLT"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="mohamadkamal" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qOV-l9-6pg" userLabel="nameLabel">
+                                <rect key="frame" x="33" y="0.0" width="96" height="16"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                <color key="textColor" red="0.016804177310000001" green="0.19835099580000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="25" id="0PL-pZ-12R"/>
+                            <constraint firstAttribute="bottom" secondItem="SkP-Hh-bx9" secondAttribute="bottom" id="DDL-cB-4Xx"/>
+                            <constraint firstItem="qOV-l9-6pg" firstAttribute="top" secondItem="WEa-PH-R1L" secondAttribute="top" id="DhH-78-4jf"/>
+                            <constraint firstAttribute="trailing" secondItem="OJ1-zE-wVV" secondAttribute="trailing" id="ERF-Z0-RI4"/>
+                            <constraint firstItem="SkP-Hh-bx9" firstAttribute="top" secondItem="WEa-PH-R1L" secondAttribute="top" id="GHI-dZ-tHh"/>
+                            <constraint firstAttribute="bottom" secondItem="qOV-l9-6pg" secondAttribute="bottom" constant="9" id="MFl-J9-nV8"/>
+                            <constraint firstItem="SkP-Hh-bx9" firstAttribute="leading" secondItem="WEa-PH-R1L" secondAttribute="leading" id="Z8z-7N-mqr"/>
+                            <constraint firstAttribute="bottom" secondItem="OJ1-zE-wVV" secondAttribute="bottom" id="nTc-Og-7bL"/>
+                            <constraint firstItem="qOV-l9-6pg" firstAttribute="leading" secondItem="SkP-Hh-bx9" secondAttribute="trailing" constant="8" id="zIa-J8-rqL"/>
+                        </constraints>
+                    </view>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="ojF-YI-eG6" userLabel="commentsStackView">
+                        <rect key="frame" x="8" y="722" width="304" height="55.5"/>
+                    </stackView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="gOL-01-zSh" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="20" symbolic="YES" id="2ms-bl-a9i"/>
+                    <constraint firstItem="WEa-PH-R1L" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="93k-Nl-GXk"/>
+                    <constraint firstItem="WEa-PH-R1L" firstAttribute="top" secondItem="2s2-vP-cTD" secondAttribute="bottom" constant="8" id="FxQ-Fu-88d"/>
+                    <constraint firstItem="ojF-YI-eG6" firstAttribute="top" secondItem="WEa-PH-R1L" secondAttribute="bottom" constant="8" id="JT9-SJ-c4u"/>
+                    <constraint firstAttribute="trailing" secondItem="WEa-PH-R1L" secondAttribute="trailing" constant="8" id="OTy-UO-qhR"/>
+                    <constraint firstItem="ojF-YI-eG6" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="QGN-at-Bay"/>
+                    <constraint firstItem="2s2-vP-cTD" firstAttribute="top" secondItem="dhR-cM-Tb1" secondAttribute="bottom" constant="8" id="VWn-mo-y42"/>
+                    <constraint firstAttribute="trailing" secondItem="2s2-vP-cTD" secondAttribute="trailing" constant="8" id="Zsv-Wm-yO1"/>
+                    <constraint firstItem="gOL-01-zSh" firstAttribute="leading" secondItem="dhR-cM-Tb1" secondAttribute="trailing" constant="8" id="cff-BB-hYu"/>
+                    <constraint firstAttribute="trailing" secondItem="ojF-YI-eG6" secondAttribute="trailing" constant="8" id="d2h-9b-9jj"/>
+                    <constraint firstAttribute="bottom" secondItem="ojF-YI-eG6" secondAttribute="bottom" constant="20" symbolic="YES" id="eTe-di-JJS"/>
+                    <constraint firstItem="2s2-vP-cTD" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="gOz-hz-B5U"/>
+                    <constraint firstItem="dhR-cM-Tb1" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="20" symbolic="YES" id="iXI-ie-7gW"/>
+                    <constraint firstItem="dhR-cM-Tb1" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="pPs-af-06i"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="answerAcceptedPicture" destination="gOL-01-zSh" id="Ehf-I1-p5h"/>
+                <outlet property="answerAuthorNameLabel" destination="qOV-l9-6pg" id="pjD-KG-xPn"/>
+                <outlet property="answerBodyTextView" destination="2s2-vP-cTD" id="lO0-Tn-UZA"/>
+                <outlet property="answerDateLabel" destination="OJ1-zE-wVV" id="WJQ-qW-mgg"/>
+                <outlet property="answerScoreLabel" destination="dhR-cM-Tb1" id="puD-i3-lqb"/>
+                <outlet property="commentsStackView" destination="ojF-YI-eG6" id="Ryf-DK-cBr"/>
+            </connections>
+            <point key="canvasLocation" x="26" y="96"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="680450_accept_512x512" width="512" height="512"/>
+    </resources>
+</document>

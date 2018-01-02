@@ -10,6 +10,11 @@ import UIKit
 
 class CommentView: UIView {
 
+    @IBOutlet weak var commentBodyTextView: UITextView!
+    @IBOutlet weak var commentScoreLabel: UILabel!
+    @IBOutlet weak var commentAuthorLabel: UILabel!
+    
+    
     override init(frame: CGRect) {
         super.init(frame:frame)
     }
@@ -17,5 +22,10 @@ class CommentView: UIView {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-
+    
+    func initCommentView(comment : Comment){
+        commentScoreLabel.text = "\(comment.votes!)"
+        commentBodyTextView.text = comment.body!
+        commentAuthorLabel.text = comment.author?.userName
+    }
 }

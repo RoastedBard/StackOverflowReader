@@ -9,5 +9,6 @@
 import Foundation
 
 class Answer: SOCommonData {
-    let comments : [Comment]? = nil
+    var isAccepted : Bool = false
+    var comments : [Comment]?
 }

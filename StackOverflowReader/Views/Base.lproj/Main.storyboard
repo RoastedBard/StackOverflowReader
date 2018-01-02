@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="yD7-dN-62y">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="bNg-b3-8M9">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -35,7 +35,7 @@
                                 <rect key="frame" x="0.0" y="60" width="375" height="558"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SOPostCell" rowHeight="79" id="yr8-cj-WvJ">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SOPostCell" rowHeight="79" id="yr8-cj-WvJ">
                                         <rect key="frame" x="0.0" y="28" width="375" height="79"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="yr8-cj-WvJ" id="FhG-FK-rsE">
@@ -110,7 +110,7 @@
                                 <rect key="frame" x="0.0" y="106" width="375" height="512"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SOPostCell" rowHeight="79" id="hSO-qf-P6a">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SOPostCell" rowHeight="79" id="hSO-qf-P6a">
                                         <rect key="frame" x="0.0" y="28" width="375" height="79"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hSO-qf-P6a" id="7HS-i9-v5Z">
@@ -557,46 +557,23 @@
             <point key="canvasLocation" x="2073.913043478261" y="-709.23913043478262"/>
         </scene>
         <!--Test View Controller-->
-        <scene sceneID="WR6-Dl-Ctf">
+        <scene sceneID="X9Z-fa-Qew">
             <objects>
-                <viewController id="yD7-dN-62y" customClass="TestViewController" customModule="StackOverflowReader" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="a57-ey-yP9">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                <tableViewController id="bNg-b3-8M9" customClass="TestViewController" customModule="StackOverflowReader" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="HsS-Ae-y6b">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="1000"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BSG-CF-BpN">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
-                                <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="vze-LO-r9P">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="865"/>
-                                    </stackView>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstItem="vze-LO-r9P" firstAttribute="leading" secondItem="BSG-CF-BpN" secondAttribute="leading" id="Hkk-K7-vc2"/>
-                                    <constraint firstItem="vze-LO-r9P" firstAttribute="top" secondItem="BSG-CF-BpN" secondAttribute="top" id="XS3-be-sq3"/>
-                                    <constraint firstAttribute="bottom" secondItem="vze-LO-r9P" secondAttribute="bottom" id="brM-Aw-LSG"/>
-                                    <constraint firstAttribute="trailing" secondItem="vze-LO-r9P" secondAttribute="trailing" id="gpF-C1-pXO"/>
-                                </constraints>
-                            </scrollView>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="BSG-CF-BpN" firstAttribute="width" secondItem="a57-ey-yP9" secondAttribute="width" id="53J-Pv-bTO"/>
-                            <constraint firstAttribute="bottom" secondItem="BSG-CF-BpN" secondAttribute="bottom" id="Ikj-CR-VLc"/>
-                            <constraint firstItem="vze-LO-r9P" firstAttribute="width" secondItem="a57-ey-yP9" secondAttribute="width" id="L4K-zq-9cT"/>
-                            <constraint firstItem="BSG-CF-BpN" firstAttribute="trailing" secondItem="uh2-34-eOR" secondAttribute="trailing" id="RI5-OM-vSC"/>
-                            <constraint firstItem="BSG-CF-BpN" firstAttribute="top" secondItem="uh2-34-eOR" secondAttribute="top" id="chg-Rp-R22"/>
-                            <constraint firstItem="BSG-CF-BpN" firstAttribute="leading" secondItem="uh2-34-eOR" secondAttribute="leading" id="vrc-J7-ntK"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="uh2-34-eOR"/>
-                    </view>
-                    <connections>
-                        <outlet property="postStackView" destination="vze-LO-r9P" id="myg-NV-wxS"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="S7f-PU-iRY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                        <connections>
+                            <outlet property="dataSource" destination="bNg-b3-8M9" id="RxO-cz-1zW"/>
+                            <outlet property="delegate" destination="bNg-b3-8M9" id="hlM-NU-Wvn"/>
+                        </connections>
+                    </tableView>
+                    <size key="freeformSize" width="600" height="1000"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="x7k-Ez-Q6j" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3677.5999999999999" y="-718.29085457271367"/>
+            <point key="canvasLocation" x="4056" y="-717.84107946026995"/>
         </scene>
     </scenes>
 </document>

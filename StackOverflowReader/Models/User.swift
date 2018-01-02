@@ -8,12 +8,12 @@
 
 import Foundation
 
-struct User : Codable {
-    let profilePictureURL : String?
-    let userName : String?
-    let reputation : Int?
-    let about : String?
-    let age : Int?
-    let location : String?
-    let website : String?
+struct User {
+    var profilePictureURL : String?
+    var userName : String?
+    var reputation : Int?
+    var about : String?
+    var age : Int?
+    var location : String?
+    var website : String?
 }

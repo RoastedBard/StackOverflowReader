@@ -8,9 +8,9 @@
 
 import Foundation
 
-class SOCommonData : Codable {
-    let author : User?
-    let body : String?
-    let votes : Int?
-    let date : Date?
+class SOCommonData {
+    var author : User?
+    var body : String?
+    var votes : Int?
+    var date : Date?
 }

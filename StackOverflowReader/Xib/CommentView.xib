@@ -38,7 +38,7 @@
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
-            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
             <constraints>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="mU7-2p-Ut8" secondAttribute="bottom" id="1ct-r1-6RB"/>
                 <constraint firstItem="WIr-s0-Ot0" firstAttribute="top" secondItem="ERX-Cj-Hd5" secondAttribute="bottom" id="627-ui-XYi"/>
@@ -51,6 +51,11 @@
                 <constraint firstItem="ERX-Cj-Hd5" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="fdg-Mv-0vB"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="commentAuthorLabel" destination="mU7-2p-Ut8" id="gIo-he-Fcm"/>
+                <outlet property="commentBodyTextView" destination="ERX-Cj-Hd5" id="wTa-iz-Ma6"/>
+                <outlet property="commentScoreLabel" destination="WIr-s0-Ot0" id="N2O-4o-JvH"/>
+            </connections>
             <point key="canvasLocation" x="26.5" y="51.5"/>
         </view>
     </objects>
