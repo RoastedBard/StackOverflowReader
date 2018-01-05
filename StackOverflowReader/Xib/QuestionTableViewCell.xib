@@ -105,7 +105,7 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="commentsStackView" destination="1hU-uF-a1U" id="PF3-vt-c2e"/>
-                <outlet property="questionAuthorNameLabel" destination="m33-UZ-4Dc" id="uKy-uy-pUW"/>
+                <outlet property="questionAuthorNameLabel" destination="m33-UZ-4Dc" id="k1N-xq-Pnp"/>
                 <outlet property="questionBodyTextView" destination="6kj-k1-B0l" id="CnM-3Y-qpB"/>
                 <outlet property="questionDateLabel" destination="kV1-px-BvT" id="oyI-yo-gB3"/>
                 <outlet property="questionScoreLabel" destination="vhL-B4-K6g" id="H9A-R0-TeQ"/>

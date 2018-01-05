@@ -18,8 +18,6 @@ class QuestionTableViewCell: UITableViewCell{
     
     @IBOutlet weak var commentsStackView: UIStackView!
     
-    var isInitialized : Bool = false
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -33,36 +31,39 @@ class QuestionTableViewCell: UITableViewCell{
     }
     
     func initCell(question: Question) {
-        if isInitialized {
-            return
-        }
         
         questionTitleLabel.text = question.title
-        questionScoreLabel.text = "\((question.votes)!)"
+        questionScoreLabel.text = "\(question.score)"
         questionBodyTextView.text = question.body
         
-        questionAuthorNameLabel.text = question.author?.userName
+        if let owner = question.owner {
+            questionAuthorNameLabel.text = owner.displayName
+        }
         
         let dateFormatter = DateFormatter()
         
         dateFormatter.locale = Locale(identifier: "en_US")
         
-        questionDateLabel.text = dateFormatter.string(from: question.date!)
+        questionDateLabel.text = "\(question.creationDate)"
         
         if let comments = question.comments{
             for comment in comments {
                 addComment(comment: comment)
             }
         }
-        
-        isInitialized = true
     }
     
     func addComment(comment : Comment){
+//        if comment.isCommentInitialized {
+//            return
+//        }
+        
         let commentView = UINib(nibName: "CommentView", bundle: nil).instantiate(withOwner: self, options: nil).first as! CommentView
         
         commentView.initCommentView(comment : comment)
         
         commentsStackView.addArrangedSubview(commentView)
+        
+        //comment.isCommentInitialized = true
     }
 }

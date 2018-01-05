@@ -14,7 +14,6 @@ class CommentView: UIView {
     @IBOutlet weak var commentScoreLabel: UILabel!
     @IBOutlet weak var commentAuthorLabel: UILabel!
     
-    
     override init(frame: CGRect) {
         super.init(frame:frame)
     }
@@ -24,8 +23,11 @@ class CommentView: UIView {
     }
     
     func initCommentView(comment : Comment){
-        commentScoreLabel.text = "\(comment.votes!)"
-        commentBodyTextView.text = comment.body!
-        commentAuthorLabel.text = comment.author?.userName
+        commentScoreLabel.text = "\(comment.score)"
+        commentBodyTextView.text = comment.body
+        
+        if let owner = comment.owner {
+            commentAuthorLabel.text = owner.displayName
+        }
     }
 }

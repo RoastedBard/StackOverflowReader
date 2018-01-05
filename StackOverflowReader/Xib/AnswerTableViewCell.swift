@@ -33,24 +33,21 @@ class AnswerTableViewCell: UITableViewCell {
     }
     
     func initCell(answer: Answer) {
-        if isInitialized {
-            return
-        }
         
-        answerScoreLabel.text = "\((answer.votes)!)"
+        answerScoreLabel.text = "\(answer.score)"
         answerBodyTextView.text = answer.body
         
         if answer.isAccepted == true {
             answerAcceptedPicture.isHidden = false
+        } else {
+            answerAcceptedPicture.isHidden = true
         }
         
-        answerAuthorNameLabel.text = answer.author?.userName
+        if let owner = answer.owner {
+            answerAuthorNameLabel.text = owner.displayName
+        }
         
-        let dateFormatter = DateFormatter()
-        
-        dateFormatter.locale = Locale(identifier: "en_US")
-        print(dateFormatter.string(from: answer.date!))
-        answerDateLabel.text = dateFormatter.string(from: answer.date!)
+        answerDateLabel.text = "\(answer.creationDate)"
         
         if let comments = answer.comments{
             for comment in comments {
@@ -62,10 +59,16 @@ class AnswerTableViewCell: UITableViewCell {
     }
     
     func addComment(comment : Comment){
+//        if comment.isCommentInitialized == true {
+//            return
+//        }
+        
         let commentView = UINib(nibName: "CommentView", bundle: nil).instantiate(withOwner: self, options: nil).first as! CommentView
         
         commentView.initCommentView(comment : comment)
         
         commentsStackView.addArrangedSubview(commentView)
+        
+        //comment.isCommentInitialized = true
     }
 }
