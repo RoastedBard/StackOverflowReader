@@ -10,6 +10,10 @@ import UIKit
 
 class CommentTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var commentBodyTextView: UITextView!
+    @IBOutlet weak var commentScoreLabel: UILabel!
+    @IBOutlet weak var commentAuthorNameLabel: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -21,4 +25,12 @@ class CommentTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    func initializeCommentCell(_ comment: Comment) {
+        commentBodyTextView.text = comment.body
+        commentScoreLabel.text = "\(comment.score)"
+        
+        if let owner = comment.owner {
+            commentAuthorNameLabel.text = owner.displayName
+        }
+    }
 }

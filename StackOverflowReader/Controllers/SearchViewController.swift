@@ -67,8 +67,6 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         
         let url = URL(string: "https://api.stackexchange.com/2.2/search/advanced?order=desc&sort=relevance&q=\(searchQuery)&site=stackoverflow&filter=!3vHg3*UddE8Rou9YzZ_cPH*zk6qEqkEAowsKjb6Vds12Pkmyf3mA)m8v83LYFwH")!
         
-        //"https://api.stackexchange.com/2.2/search/advanced?order=desc&sort=relevance&q=\(searchQuery)&site=stackoverflow&filter=!gNu88FRcJaWK5h4rqd_B2IG)TDd8Hd1n_1e"
-        
         let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
             if let data = data {
                 let decoder = JSONDecoder()

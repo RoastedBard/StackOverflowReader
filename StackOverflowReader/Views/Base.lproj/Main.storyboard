@@ -74,7 +74,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="4lr-93-dYg" kind="show" id="wS5-XA-i6a"/>
+                                            <segue destination="K0H-hH-LP6" kind="show" id="rUx-tx-5eK"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -156,7 +156,7 @@
                                             <outlet property="dateLabel" destination="s0r-Qg-vs9" id="8xw-Om-TDw"/>
                                             <outlet property="scoreLabel" destination="hgT-if-gwz" id="ddr-oM-Fb9"/>
                                             <outlet property="titleLabel" destination="ag5-QC-KMt" id="kAs-O9-SEt"/>
-                                            <segue destination="4lr-93-dYg" kind="show" id="bC4-hm-VEe"/>
+                                            <segue destination="K0H-hH-LP6" kind="show" id="JIv-W0-1We"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -260,6 +260,76 @@
             </objects>
             <point key="canvasLocation" x="2102" y="-1113"/>
         </scene>
+        <!--Question Table View Controller-->
+        <scene sceneID="uST-1y-5EJ">
+            <objects>
+                <tableViewController id="K0H-hH-LP6" customClass="QuestionTableViewController" customModule="StackOverflowReader" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="3Qw-HY-9LU">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CommentCell" rowHeight="130" id="IWN-gK-qGi" customClass="CommentTableViewCell" customModule="StackOverflowReader" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="55.5" width="375" height="130"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="IWN-gK-qGi" id="5hG-3s-FeI">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="130"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="rVg-2J-60Y">
+                                            <rect key="frame" x="8" y="0.0" width="359" height="114"/>
+                                            <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <string key="text">Select Freeform in Simulated Metrics for the UIViewController question to make it bigger. Then you can resize your scroll view to show all the sub views. When finished, you can resize the scroll view to the required size.</string>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                        </textView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="23" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aQQ-MN-SKv">
+                                            <rect key="frame" x="8" y="114" width="16" height="16"/>
+                                            <color key="backgroundColor" red="0.0" green="0.99143940210000003" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ricky Zhou" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0sJ-qG-IAn">
+                                            <rect key="frame" x="299" y="114" width="68" height="16"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                            <color key="textColor" red="0.016804177310000001" green="0.19835099580000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                    <constraints>
+                                        <constraint firstAttribute="bottom" secondItem="0sJ-qG-IAn" secondAttribute="bottom" id="00I-If-9rb"/>
+                                        <constraint firstAttribute="bottom" secondItem="aQQ-MN-SKv" secondAttribute="bottom" id="1kc-U3-9mU"/>
+                                        <constraint firstItem="aQQ-MN-SKv" firstAttribute="leading" secondItem="5hG-3s-FeI" secondAttribute="leading" constant="8" id="9U3-3f-wOB"/>
+                                        <constraint firstItem="0sJ-qG-IAn" firstAttribute="top" secondItem="rVg-2J-60Y" secondAttribute="bottom" id="Bje-7U-3MK"/>
+                                        <constraint firstItem="aQQ-MN-SKv" firstAttribute="top" secondItem="rVg-2J-60Y" secondAttribute="bottom" id="EGl-fE-aqf"/>
+                                        <constraint firstAttribute="trailing" secondItem="0sJ-qG-IAn" secondAttribute="trailing" constant="8" id="Ed2-OA-9nB"/>
+                                        <constraint firstItem="0sJ-qG-IAn" firstAttribute="top" secondItem="rVg-2J-60Y" secondAttribute="bottom" id="GpW-gY-yT2"/>
+                                        <constraint firstItem="aQQ-MN-SKv" firstAttribute="top" secondItem="rVg-2J-60Y" secondAttribute="bottom" id="lIF-do-VmE"/>
+                                        <constraint firstAttribute="trailing" secondItem="rVg-2J-60Y" secondAttribute="trailing" constant="8" id="qhD-bC-BbZ"/>
+                                        <constraint firstItem="rVg-2J-60Y" firstAttribute="top" secondItem="5hG-3s-FeI" secondAttribute="top" id="rQw-SF-ww3"/>
+                                        <constraint firstItem="rVg-2J-60Y" firstAttribute="leading" secondItem="5hG-3s-FeI" secondAttribute="leading" constant="8" id="wN6-Cd-yCV"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="commentAuthorNameLabel" destination="0sJ-qG-IAn" id="yxc-1w-d2s"/>
+                                    <outlet property="commentBodyTextView" destination="rVg-2J-60Y" id="Uz2-lC-584"/>
+                                    <outlet property="commentScoreLabel" destination="aQQ-MN-SKv" id="WuG-oA-1iZ"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="K0H-hH-LP6" id="1cJ-7w-sz8"/>
+                            <outlet property="delegate" destination="K0H-hH-LP6" id="gsc-Ga-KqL"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Iv2-bq-pnr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3229.5999999999999" y="-752.47376311844084"/>
+        </scene>
         <!--Item-->
         <scene sceneID="xhA-Md-D3h">
             <objects>
@@ -344,28 +414,10 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YXC-dv-Saz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4420" y="-751.57421289355329"/>
-        </scene>
-        <!--Question Table View Controller-->
-        <scene sceneID="iCC-cQ-4Ac">
-            <objects>
-                <tableViewController id="4lr-93-dYg" customClass="QuestionTableViewController" customModule="StackOverflowReader" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="3T0-iI-xeo">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <connections>
-                            <outlet property="dataSource" destination="4lr-93-dYg" id="jGX-ZR-dnt"/>
-                            <outlet property="delegate" destination="4lr-93-dYg" id="uCt-oG-3oB"/>
-                        </connections>
-                    </tableView>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="p3d-Fb-Siq" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3230" y="-752"/>
+            <point key="canvasLocation" x="4286" y="-752"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="bC4-hm-VEe"/>
+        <segue reference="rUx-tx-5eK"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -14,12 +14,11 @@ class QuestionTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let questionCell = UINib(nibName: "QuestionTableViewCell", bundle: nil)
-        self.tableView.register(questionCell, forCellReuseIdentifier: "QuestionCell")
-
-        let answerCell = UINib(nibName: "AnswerTableViewCell", bundle: nil)
-        self.tableView.register(answerCell, forCellReuseIdentifier: "AnswerCell")
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        tableView.estimatedSectionHeaderHeight = UITableViewAutomaticDimension
     }
     
     override func didReceiveMemoryWarning() {
@@ -28,47 +27,65 @@ class QuestionTableViewController: UITableViewController {
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        if question?.answers != nil {
+            return question!.answers!.count
+        } else {
+            return 1
+        }
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
-            return 1
-        } else {
-            if question?.answers == nil{
+            if question?.comments != nil {
+                return question!.comments!.count
+            } else {
                 return 0
-            } else {
-                return question!.answers!.count
-            }
-        }
-    }
-
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if section == 1 {
-            if question?.answers == nil{
-                return "No answers"
-            } else {
-                return "\(question!.answers!.count) Answers"
             }
         } else {
-            return nil
+            if question?.answers?[section - 1].comments != nil{
+                return question!.answers![section - 1].comments!.count
+            } else {
+                return 0
+            }
         }
     }
 
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        if section == 0 {
+            let questionView = Bundle.main.loadNibNamed("QuestionView", owner: self, options: nil)?.first as! QuestionView
+            
+            questionView.initializeQuestionView(question!)
+            
+            return questionView
+        } else {
+            let answerView = Bundle.main.loadNibNamed("AnswerView", owner: self, options: nil)?.first as! AnswerView
+            
+            let answer = question!.answers![section - 1]
+            
+            answerView.initializeAnswerView(answer)
+            
+            return answerView
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return UITableViewAutomaticDimension
+    }
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "QuestionCell", for: indexPath) as! QuestionTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "CommentCell", for: indexPath) as! CommentTableViewCell
             
-            cell.initCell(question: question!)
-
+            if let comments = question?.comments {
+                cell.initializeCommentCell(comments[indexPath.item])
+            }
+            
             return cell
         } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "AnswerCell", for: indexPath) as! AnswerTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "CommentCell", for: indexPath) as! CommentTableViewCell
             
-            if cell.isInitialized == false {
-                if let answer = question?.answers![indexPath.item] {
-                    cell.initCell(answer: answer)
-                }
+            if let comments = question?.answers?[indexPath.section - 1].comments {
+                cell.initializeCommentCell(comments[indexPath.item])
             }
             
             return cell

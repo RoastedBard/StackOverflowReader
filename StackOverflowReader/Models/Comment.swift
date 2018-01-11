@@ -16,8 +16,6 @@ class Comment : Codable {
     var commentId : Int
     var body : String
     
-    //var isCommentInitialized : Bool = false
-    
     enum CodingKeys : String, CodingKey {
         case creationDate = "creation_date"
         case postId = "post_id"
