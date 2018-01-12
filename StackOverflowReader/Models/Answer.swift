@@ -8,7 +8,8 @@
 
 import Foundation
 
-class Answer : Codable {
+class Answer : Codable
+{
     var owner : User?
     var isAccepted : Bool
     var score : Int
@@ -18,7 +19,8 @@ class Answer : Codable {
     var body : String
     var comments : [Comment]?
     
-    enum CodingKeys: String, CodingKey {
+    enum CodingKeys: String, CodingKey
+    {
         case owner
         case isAccepted = "is_accepted"
         case score

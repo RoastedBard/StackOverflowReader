@@ -8,7 +8,8 @@
 
 import Foundation
 
-class Comment : Codable {
+class Comment : Codable
+{
     var owner : User?
     var score : Int
     var creationDate : Int // unix epoch time
@@ -16,7 +17,8 @@ class Comment : Codable {
     var commentId : Int
     var body : String
     
-    enum CodingKeys : String, CodingKey {
+    enum CodingKeys : String, CodingKey
+    {
         case creationDate = "creation_date"
         case postId = "post_id"
         case commentId = "comment_id"

@@ -41,7 +41,7 @@
                             <rect key="frame" x="293" y="9" width="66" height="16"/>
                             <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                         </label>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="CZy-hz-uRc" userLabel="profilePic">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="CZy-hz-uRc" userLabel="profilePic">
                             <rect key="frame" x="0.0" y="0.0" width="25" height="25"/>
                             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
@@ -51,24 +51,26 @@
                                 <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="25" id="wkp-cr-w0H"/>
                             </constraints>
                         </imageView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="mohamadkamal" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hlx-H0-ZDj" userLabel="nameLabel">
-                            <rect key="frame" x="33" y="0.0" width="96" height="16"/>
-                            <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
-                            <color key="textColor" red="0.016804177310000001" green="0.19835099580000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="avc-Ca-VSS">
+                            <rect key="frame" x="33" y="0.0" width="75" height="25"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                            <state key="normal" title="Author Name"/>
+                            <connections>
+                                <action selector="authorNamePressed:" destination="iN0-l3-epB" eventType="touchUpInside" id="ESJ-g8-63W"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
+                        <constraint firstItem="avc-Ca-VSS" firstAttribute="leading" secondItem="CZy-hz-uRc" secondAttribute="trailing" constant="8" id="6uF-B8-WmP"/>
                         <constraint firstItem="CZy-hz-uRc" firstAttribute="leading" secondItem="J3T-80-NeA" secondAttribute="leading" id="FG0-g8-eJD"/>
                         <constraint firstAttribute="bottom" secondItem="CZy-hz-uRc" secondAttribute="bottom" id="H2E-rP-Phh"/>
+                        <constraint firstAttribute="bottom" secondItem="avc-Ca-VSS" secondAttribute="bottom" id="JKN-7k-pbI"/>
                         <constraint firstAttribute="bottom" secondItem="axJ-4V-03I" secondAttribute="bottom" id="MRT-37-9oe"/>
                         <constraint firstAttribute="height" constant="25" id="SAN-Jn-NUn"/>
-                        <constraint firstItem="hlx-H0-ZDj" firstAttribute="leading" secondItem="CZy-hz-uRc" secondAttribute="trailing" constant="8" id="SZ1-0I-6aC"/>
                         <constraint firstAttribute="trailing" secondItem="axJ-4V-03I" secondAttribute="trailing" id="Xme-Rp-cQy"/>
                         <constraint firstItem="CZy-hz-uRc" firstAttribute="top" secondItem="J3T-80-NeA" secondAttribute="top" id="bp5-Ez-CQY"/>
-                        <constraint firstItem="hlx-H0-ZDj" firstAttribute="leading" secondItem="CZy-hz-uRc" secondAttribute="trailing" constant="8" id="kCb-fk-vEu"/>
-                        <constraint firstItem="hlx-H0-ZDj" firstAttribute="top" secondItem="J3T-80-NeA" secondAttribute="top" id="rL4-J7-jKq"/>
+                        <constraint firstItem="avc-Ca-VSS" firstAttribute="top" secondItem="J3T-80-NeA" secondAttribute="top" id="fCX-cS-Ims"/>
                     </constraints>
                 </view>
                 <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" image="680450_accept_512x512" translatesAutoresizingMaskIntoConstraints="NO" id="duM-pu-TgN" userLabel="acceptedPicture">
@@ -98,7 +100,8 @@
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
                 <outlet property="answerAcceptedPicture" destination="duM-pu-TgN" id="SHM-R4-Y4H"/>
-                <outlet property="answerAuthorNameLabel" destination="hlx-H0-ZDj" id="whN-GJ-zPx"/>
+                <outlet property="answerAuthorNameButton" destination="avc-Ca-VSS" id="IBR-Fz-97c"/>
+                <outlet property="answerAuthorProfileImage" destination="CZy-hz-uRc" id="F5D-cv-AiZ"/>
                 <outlet property="answerBodyTextView" destination="y2M-8q-BHe" id="Cv3-Oo-J18"/>
                 <outlet property="answerDateLabel" destination="axJ-4V-03I" id="bqb-sl-duB"/>
                 <outlet property="answerScoreLabel" destination="pN9-4e-80w" id="JpW-Ew-P3I"/>

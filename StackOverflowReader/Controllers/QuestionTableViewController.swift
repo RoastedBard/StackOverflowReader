@@ -8,25 +8,29 @@
 
 import UIKit
 
-class QuestionTableViewController: UITableViewController {
-
+class QuestionTableViewController: UITableViewController
+{
     var question : Question?
     
-    override func viewDidLoad() {
+    override func viewDidLoad()
+    {
         super.viewDidLoad()
     }
     
-    override func viewDidLayoutSubviews() {
+    override func viewDidLayoutSubviews()
+    {
         super.viewDidLayoutSubviews()
         tableView.estimatedSectionHeaderHeight = UITableViewAutomaticDimension
     }
     
-    override func didReceiveMemoryWarning() {
+    override func didReceiveMemoryWarning()
+    {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-    override func numberOfSections(in tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int
+    {
         if question?.answers != nil {
             return question!.answers!.count
         } else {
@@ -34,7 +38,8 @@ class QuestionTableViewController: UITableViewController {
         }
     }
     
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+    {
         if section == 0 {
             if question?.comments != nil {
                 return question!.comments!.count
@@ -50,9 +55,14 @@ class QuestionTableViewController: UITableViewController {
         }
     }
 
-    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?
+    {
         if section == 0 {
             let questionView = Bundle.main.loadNibNamed("QuestionView", owner: self, options: nil)?.first as! QuestionView
+            
+            questionView.owner = question?.owner
+            
+            questionView.delegate = self
             
             questionView.initializeQuestionView(question!)
             
@@ -62,33 +72,53 @@ class QuestionTableViewController: UITableViewController {
             
             let answer = question!.answers![section - 1]
             
+            answerView.owner = question!.answers![section - 1].owner
+            
+            answerView.delegate = self
+            
             answerView.initializeAnswerView(answer)
             
             return answerView
         }
     }
     
-    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat
+    {
         return UITableViewAutomaticDimension
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
+    {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CommentCell", for: indexPath) as! CommentTableViewCell
+        
+        cell.delegate = self
+        
         if indexPath.section == 0 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "CommentCell", for: indexPath) as! CommentTableViewCell
-            
             if let comments = question?.comments {
                 cell.initializeCommentCell(comments[indexPath.item])
             }
-            
-            return cell
         } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "CommentCell", for: indexPath) as! CommentTableViewCell
-            
             if let comments = question?.answers?[indexPath.section - 1].comments {
                 cell.initializeCommentCell(comments[indexPath.item])
             }
-            
-            return cell
+        }
+        return cell
+    }
+}
+
+extension QuestionTableViewController : AuthorNamePressedProtocol
+{
+    func authorNamePressed(_ owner : User?)
+    {
+        performSegue(withIdentifier: "ShowUserInfo", sender: owner)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+    {
+        let owner = sender as? User
+        
+        if let uvc = segue.destination as? UserViewController {
+            uvc.user = owner
         }
     }
 }

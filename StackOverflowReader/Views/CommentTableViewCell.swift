@@ -8,29 +8,42 @@
 
 import UIKit
 
-class CommentTableViewCell: UITableViewCell {
-
+class CommentTableViewCell: UITableViewCell
+{
     @IBOutlet weak var commentBodyTextView: UITextView!
     @IBOutlet weak var commentScoreLabel: UILabel!
-    @IBOutlet weak var commentAuthorNameLabel: UILabel!
+    @IBOutlet weak var commentAuthorNameButton: UIButton!
     
-    override func awakeFromNib() {
+    var delegate : AuthorNamePressedProtocol?
+    
+    var owner : User?
+    
+    override func awakeFromNib()
+    {
         super.awakeFromNib()
         // Initialization code
     }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool)
+    {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
     }
     
-    func initializeCommentCell(_ comment: Comment) {
+    func initializeCommentCell(_ comment: Comment)
+    {
         commentBodyTextView.text = comment.body
         commentScoreLabel.text = "\(comment.score)"
         
         if let owner = comment.owner {
-            commentAuthorNameLabel.text = owner.displayName
+            self.owner = owner
+            commentAuthorNameButton.setTitle(owner.displayName, for: .normal)
         }
+    }
+    
+    @IBAction func authorNamePressed(_ sender: UIButton)
+    {
+        delegate?.authorNamePressed(owner)
     }
 }

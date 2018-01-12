@@ -8,8 +8,8 @@
 
 import UIKit
 
-class SOPostCell: UITableViewCell {
-
+class SOPostCell: UITableViewCell
+{
     @IBOutlet weak var scoreLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
@@ -18,21 +18,32 @@ class SOPostCell: UITableViewCell {
     
     var isInitialized : Bool = false
     
-    override func awakeFromNib() {
+    override func awakeFromNib()
+    {
         super.awakeFromNib()
         // Initialization code
     }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool)
+    {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
     }
     
-    func initCell(question : Question, index : Int) {
+    func initCell(question : Question, index : Int)
+    {
         titleLabel.text = question.title
         scoreLabel.text = "\(question.score)"
-        dateLabel.text = "\(question.creationDate)"
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        
+        let date = Date(timeIntervalSince1970: TimeInterval(question.creationDate))
+        
+        dateFormatter.locale = Locale(identifier: "en_US")
+        
+        dateLabel.text = "\(dateFormatter.string(from: date))"
         
         questionIndex = index
         

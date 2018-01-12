@@ -10,12 +10,13 @@ import UIKit
 import Alamofire
 import CodableAlamofire
 
-struct QuestionList : Codable {
+struct QuestionList : Codable
+{
     var items : [Question]
 }
 
-class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource {
-    
+class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource
+{
     var questionList : QuestionList?
     
     @IBOutlet var searchSortButtons: [UIButton]!
@@ -59,6 +60,10 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar)
     {
+        if searchBar.text!.isEmpty {
+            return
+        }
+        
         let searchQuery = searchBar.text!.replacingOccurrences(of: " ", with: "%20")
         
         if self.questionList != nil {

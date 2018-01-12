@@ -8,23 +8,32 @@
 
 import UIKit
 
-class AnswerView: UIView {
-
+class AnswerView: UIView
+{
     @IBOutlet weak var answerScoreLabel: UILabel!
     @IBOutlet weak var answerAcceptedPicture: UIImageView!
     @IBOutlet weak var answerBodyTextView: UITextView!
-    @IBOutlet weak var answerAuthorNameLabel: UILabel!
-    @IBOutlet weak var answerDateLabel: UILabel!
     
-    override init(frame: CGRect) {
+    @IBOutlet weak var answerAuthorNameButton: UIButton!
+    @IBOutlet weak var answerDateLabel: UILabel!
+    @IBOutlet weak var answerAuthorProfileImage: UIImageView!
+    
+    var delegate : AuthorNamePressedProtocol?
+    
+    var owner : User?
+    
+    override init(frame: CGRect)
+    {
         super.init(frame:frame)
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder)
+    {
         super.init(coder: aDecoder)
     }
     
-    func initializeAnswerView(_ answer : Answer) {
+    func initializeAnswerView(_ answer : Answer)
+    {
         answerScoreLabel.text = "\(answer.score)"
         answerBodyTextView.text = answer.body
         
@@ -35,10 +44,27 @@ class AnswerView: UIView {
         }
         
         if let owner = answer.owner {
-            answerAuthorNameLabel.text = owner.displayName
+            answerAuthorNameButton.setTitle(owner.displayName, for: .normal)
+            
+            if let userImageLink = owner.profileImage {
+                if let url = URL(string: userImageLink) {
+                    LinkToImageViewHelper.downloadImage(from: url, to: answerAuthorProfileImage)
+                }
+            }
         }
         
-        answerDateLabel.text = "\(answer.creationDate)"
+        let date = Date(timeIntervalSince1970: TimeInterval(answer.creationDate))
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        dateFormatter.locale = Locale(identifier: "en_US")
+        
+        answerDateLabel.text = "\(dateFormatter.string(from: date))"
     }
-
+    
+    @IBAction func authorNamePressed(_ sender: UIButton)
+    {
+        delegate?.authorNamePressed(owner)
+    }
+    
 }

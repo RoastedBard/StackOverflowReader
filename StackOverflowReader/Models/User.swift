@@ -8,7 +8,8 @@
 
 import Foundation
 
-class User : Codable {
+class User : Codable
+{
     var reputation : Int?
     var userId : Int?
     var userType : String
@@ -16,7 +17,8 @@ class User : Codable {
     var displayName : String?
     var link : String?
     
-    enum CodingKeys : String, CodingKey {
+    enum CodingKeys : String, CodingKey
+    {
         case userId = "user_id"
         case userType = "user_type"
         case profileImage = "profile_image"

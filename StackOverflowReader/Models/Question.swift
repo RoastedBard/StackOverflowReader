@@ -8,7 +8,8 @@
 
 import Foundation
 
-class Question : Codable {
+class Question : Codable
+{
     var tags : [String]
     var comments : [Comment]? = nil
     var answers : [Answer]? = nil
@@ -24,7 +25,8 @@ class Question : Codable {
     var closedReason : String?
     var link : String
     
-    enum CodingKeys: String, CodingKey {
+    enum CodingKeys: String, CodingKey
+    {
         case isAnswered = "is_answered"
         case creationDate = "creation_date"
         case questionId = "question_id"

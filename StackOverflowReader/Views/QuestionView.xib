@@ -29,7 +29,7 @@
                             <rect key="frame" x="301.5" y="9" width="65.5" height="16"/>
                             <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                         </label>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XMN-J8-JB1" userLabel="profilePicture">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XMN-J8-JB1" userLabel="profilePicture">
                             <rect key="frame" x="8" y="0.0" width="25" height="25"/>
                             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
@@ -37,21 +37,24 @@
                                 <constraint firstAttribute="height" constant="25" id="tq4-hV-OL7"/>
                             </constraints>
                         </imageView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bartłomiej Semańczyk" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z3u-dz-9Tx" userLabel="nameLabel">
-                            <rect key="frame" x="41" y="0.0" width="135" height="16"/>
-                            <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
-                            <color key="textColor" red="0.016804177310000001" green="0.19835099580000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LD2-sI-5hf">
+                            <rect key="frame" x="41" y="0.0" width="75" height="25"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                            <state key="normal" title="Author Name"/>
+                            <connections>
+                                <action selector="authorNamePressed:" destination="iN0-l3-epB" eventType="touchUpInside" id="2wR-lD-8ew"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
-                        <constraint firstItem="Z3u-dz-9Tx" firstAttribute="leading" secondItem="XMN-J8-JB1" secondAttribute="trailing" constant="8" id="2cD-hE-T9L"/>
-                        <constraint firstAttribute="bottom" secondItem="Z3u-dz-9Tx" secondAttribute="bottom" constant="9" id="EpQ-XE-Mhg"/>
+                        <constraint firstItem="LD2-sI-5hf" firstAttribute="top" secondItem="eL0-Xw-cnO" secondAttribute="top" id="Nug-ye-UBU"/>
                         <constraint firstItem="XMN-J8-JB1" firstAttribute="leading" secondItem="eL0-Xw-cnO" secondAttribute="leading" constant="8" id="Pko-S1-wmy"/>
                         <constraint firstItem="RJC-w2-8PH" firstAttribute="top" secondItem="eL0-Xw-cnO" secondAttribute="top" constant="9" id="QsS-Nk-NIK"/>
                         <constraint firstAttribute="bottom" secondItem="XMN-J8-JB1" secondAttribute="bottom" id="bA5-YD-h0e"/>
                         <constraint firstAttribute="trailingMargin" secondItem="RJC-w2-8PH" secondAttribute="trailing" id="bUz-jU-Qdl"/>
+                        <constraint firstItem="LD2-sI-5hf" firstAttribute="leading" secondItem="XMN-J8-JB1" secondAttribute="trailing" constant="8" id="ccD-oH-MVe"/>
+                        <constraint firstAttribute="bottom" secondItem="LD2-sI-5hf" secondAttribute="bottom" id="oRC-Ti-0NA"/>
                         <constraint firstItem="XMN-J8-JB1" firstAttribute="top" secondItem="eL0-Xw-cnO" secondAttribute="top" id="y3C-ZT-82Q"/>
                     </constraints>
                 </view>
@@ -93,12 +96,14 @@
             </constraints>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
-                <outlet property="questionAuthorNameLabel" destination="Z3u-dz-9Tx" id="7fW-Oc-Bxn"/>
+                <outlet property="questionAuthorNameButton" destination="LD2-sI-5hf" id="c1o-ke-zwc"/>
+                <outlet property="questionAuthorProfileImage" destination="XMN-J8-JB1" id="lEE-G4-IfT"/>
                 <outlet property="questionBodyTextView" destination="NnK-MA-0RR" id="I9k-Bm-7g1"/>
                 <outlet property="questionDateLabel" destination="RJC-w2-8PH" id="vfy-t5-l7N"/>
                 <outlet property="questionScoreLabel" destination="an8-Lr-41J" id="fgF-PC-7Y8"/>
                 <outlet property="questionTitleLabel" destination="clH-oQ-yfO" id="hF2-cA-yIl"/>
             </connections>
+            <point key="canvasLocation" x="32.5" y="59.5"/>
         </view>
     </objects>
 </document>
