@@ -16,6 +16,7 @@ class User : Codable
     var profileImage : String?
     var displayName : String?
     var link : String?
+    //var badgeCounts : BadgeCount
     
     enum CodingKeys : String, CodingKey
     {
@@ -23,6 +24,7 @@ class User : Codable
         case userType = "user_type"
         case profileImage = "profile_image"
         case displayName = "display_name"
+        //case badgeCounts = "badge_counts"
         case link
         case reputation
     }

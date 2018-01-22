@@ -11,6 +11,7 @@
 		BF0A04362007A163007701EB /* AnswerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF0A04352007A163007701EB /* AnswerView.xib */; };
 		BF0A04382007A4B4007701EB /* QuestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0A04372007A4B4007701EB /* QuestionView.swift */; };
 		BF0A043A2007A593007701EB /* AnswerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0A04392007A593007701EB /* AnswerView.swift */; };
+		BF12F268201634DC0056919E /* BadgeCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF12F267201634DC0056919E /* BadgeCount.swift */; };
 		BF35C80A1FFE2AD100AF9FA7 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF35C8061FFE2AD100AF9FA7 /* Comment.swift */; };
 		BF35C80B1FFE2AD100AF9FA7 /* Answer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF35C8071FFE2AD100AF9FA7 /* Answer.swift */; };
 		BF35C80C1FFE2AD100AF9FA7 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF35C8081FFE2AD100AF9FA7 /* User.swift */; };
@@ -38,6 +39,7 @@
 		BF0A04352007A163007701EB /* AnswerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AnswerView.xib; sourceTree = "<group>"; };
 		BF0A04372007A4B4007701EB /* QuestionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionView.swift; sourceTree = "<group>"; };
 		BF0A04392007A593007701EB /* AnswerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerView.swift; sourceTree = "<group>"; };
+		BF12F267201634DC0056919E /* BadgeCount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeCount.swift; sourceTree = "<group>"; };
 		BF35C8061FFE2AD100AF9FA7 /* Comment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		BF35C8071FFE2AD100AF9FA7 /* Answer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Answer.swift; sourceTree = "<group>"; };
 		BF35C8081FFE2AD100AF9FA7 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -103,7 +105,6 @@
 			isa = PBXGroup;
 			children = (
 				BF6E445D1FED42A4004BEF13 /* Helpers */,
-				BF6E445C1FED428C004BEF13 /* Stores */,
 				BF6E445B1FED427F004BEF13 /* Controllers */,
 				BF6E445A1FED4279004BEF13 /* Views */,
 				BF6E44591FED423F004BEF13 /* Models */,
@@ -122,6 +123,7 @@
 				BF35C8061FFE2AD100AF9FA7 /* Comment.swift */,
 				BF35C8091FFE2AD100AF9FA7 /* Question.swift */,
 				BF35C8081FFE2AD100AF9FA7 /* User.swift */,
+				BF12F267201634DC0056919E /* BadgeCount.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -150,13 +152,6 @@
 				BFEE6B112008BD3600BD67FB /* UserViewController.swift */,
 			);
 			path = Controllers;
-			sourceTree = "<group>";
-		};
-		BF6E445C1FED428C004BEF13 /* Stores */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Stores;
 			sourceTree = "<group>";
 		};
 		BF6E445D1FED42A4004BEF13 /* Helpers */ = {
@@ -314,6 +309,7 @@
 				BF35C80F1FFE33CD00AF9FA7 /* SOPostCell.swift in Sources */,
 				BFB4AD6E1FF3A2AA00097C05 /* SavedPostsViewController.swift in Sources */,
 				BF621C361FE8000600DFDAA4 /* SearchViewController.swift in Sources */,
+				BF12F268201634DC0056919E /* BadgeCount.swift in Sources */,
 				BFEE6B162009114600BD67FB /* LinkToImageViewHelper.swift in Sources */,
 				BF621C3C1FE8000600DFDAA4 /* StackOverflowReader.xcdatamodeld in Sources */,
 				BF0A043A2007A593007701EB /* AnswerView.swift in Sources */,

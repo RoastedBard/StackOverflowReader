@@ -22,6 +22,16 @@ class LinkToImageViewHelper
     static func downloadImage(from url: URL, to imageView : UIImageView)
     {
         getDataFromUrl(url: url) { data, response, error in
+            
+            let httpResponse = response as! HTTPURLResponse
+            
+            if httpResponse.statusCode > 400 {
+                print(">Profile image failed to load with status code: \(httpResponse.statusCode)")
+                return
+            }
+            
+            print("httpResponse.statusCode: \(httpResponse.statusCode)")
+            
             guard let data = data, error == nil else{
                 return
             }
