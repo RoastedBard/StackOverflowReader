@@ -26,6 +26,7 @@
 		BF864CD62007D1D2000BD5E6 /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF864CD52007D1D2000BD5E6 /* CommentTableViewCell.swift */; };
 		BFB4AD6E1FF3A2AA00097C05 /* SavedPostsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB4AD6D1FF3A2AA00097C05 /* SavedPostsViewController.swift */; };
 		BFCC8CE31FFD0D870081575B /* QuestionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFCC8CE21FFD0D870081575B /* QuestionTableViewController.swift */; };
+		BFEE044A20188E900095105B /* ShallowUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFEE044920188E900095105B /* ShallowUser.swift */; };
 		BFEE6B122008BD3600BD67FB /* UserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFEE6B112008BD3600BD67FB /* UserViewController.swift */; };
 		BFEE6B142008D5EB00BD67FB /* AuthorNamePressedProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFEE6B132008D5EB00BD67FB /* AuthorNamePressedProtocol.swift */; };
 		BFEE6B162009114600BD67FB /* LinkToImageViewHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFEE6B152009114600BD67FB /* LinkToImageViewHelper.swift */; };
@@ -56,6 +57,7 @@
 		BF864CD52007D1D2000BD5E6 /* CommentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
 		BFB4AD6D1FF3A2AA00097C05 /* SavedPostsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedPostsViewController.swift; sourceTree = "<group>"; };
 		BFCC8CE21FFD0D870081575B /* QuestionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionTableViewController.swift; sourceTree = "<group>"; };
+		BFEE044920188E900095105B /* ShallowUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShallowUser.swift; sourceTree = "<group>"; };
 		BFEE6B112008BD3600BD67FB /* UserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewController.swift; sourceTree = "<group>"; };
 		BFEE6B132008D5EB00BD67FB /* AuthorNamePressedProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorNamePressedProtocol.swift; sourceTree = "<group>"; };
 		BFEE6B152009114600BD67FB /* LinkToImageViewHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkToImageViewHelper.swift; sourceTree = "<group>"; };
@@ -124,6 +126,7 @@
 				BF35C8091FFE2AD100AF9FA7 /* Question.swift */,
 				BF35C8081FFE2AD100AF9FA7 /* User.swift */,
 				BF12F267201634DC0056919E /* BadgeCount.swift */,
+				BFEE044920188E900095105B /* ShallowUser.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -321,6 +324,7 @@
 				BF621C341FE8000600DFDAA4 /* AppDelegate.swift in Sources */,
 				BFEE6B142008D5EB00BD67FB /* AuthorNamePressedProtocol.swift in Sources */,
 				BF35C80A1FFE2AD100AF9FA7 /* Comment.swift in Sources */,
+				BFEE044A20188E900095105B /* ShallowUser.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

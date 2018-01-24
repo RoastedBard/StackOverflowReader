@@ -10,7 +10,7 @@ import Foundation
 
 class Answer : Codable
 {
-    var owner : User?
+    var owner : ShallowUser?
     var isAccepted : Bool
     var score : Int
     var creationDate : Int // unix epoch time

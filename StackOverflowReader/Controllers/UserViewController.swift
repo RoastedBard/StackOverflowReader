@@ -16,7 +16,7 @@ class UserViewController: UIViewController
     @IBOutlet weak var userAboutTextView: UITextView!
     @IBOutlet weak var userProfileImage: UIImageView!
     
-    var user : User?
+    var user : ShallowUser?
     
     override func viewDidLoad()
     {
@@ -30,11 +30,11 @@ class UserViewController: UIViewController
             }
         }
         
-        if user?.reputation != nil{
-            userReputationLabel.text = "\(user!.reputation!)"
-        }else{
+//        if user?.reputation != nil{
+//            userReputationLabel.text = "\(user!.reputation!)"
+//        }else{
             userReputationLabel.text = "unknown"
-        }
+//        }
         
         userAgeLabel.text = "NOT_SUPPORTED"
         userAboutTextView.text = "NOT_SUPPORTED"

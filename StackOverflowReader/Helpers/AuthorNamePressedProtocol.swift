@@ -10,5 +10,5 @@ import Foundation
 
 protocol AuthorNamePressedProtocol
 {
-    func authorNamePressed(_ owner : User?)
+    func authorNamePressed(_ owner : ShallowUser?)
 }

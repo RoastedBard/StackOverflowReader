@@ -10,7 +10,7 @@ import Foundation
 
 class Comment : Codable
 {
-    var owner : User?
+    var owner : ShallowUser?
     var score : Int
     var creationDate : Int // unix epoch time
     var postId : Int

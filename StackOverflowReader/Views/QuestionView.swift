@@ -20,7 +20,7 @@ class QuestionView: UIView
     
     var delegate : AuthorNamePressedProtocol?
     
-    var owner : User?
+    var owner : ShallowUser?
     
     override init(frame: CGRect)
     {

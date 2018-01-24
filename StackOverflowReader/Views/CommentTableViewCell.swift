@@ -16,7 +16,7 @@ class CommentTableViewCell: UITableViewCell
     
     var delegate : AuthorNamePressedProtocol?
     
-    var owner : User?
+    var owner : ShallowUser?
     
     override func awakeFromNib()
     {

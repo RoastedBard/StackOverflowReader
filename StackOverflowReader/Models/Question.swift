@@ -13,7 +13,7 @@ class Question : Codable
     var tags : [String]
     var comments : [Comment]? = nil
     var answers : [Answer]? = nil
-    var owner : User?
+    var owner : ShallowUser?
     var isAnswered : Bool
     var score : Int
     var creationDate : Int // unix epoch time
