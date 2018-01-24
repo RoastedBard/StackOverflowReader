@@ -638,11 +638,21 @@
                         <viewLayoutGuide key="safeArea" id="zrq-I8-otQ"/>
                     </view>
                     <connections>
+                        <outlet property="bronzeBadgeCountLabel" destination="7Sn-02-cax" id="tGo-AP-Kp5"/>
+                        <outlet property="goldenBadgeCountLabel" destination="Dyf-aP-0gR" id="yvi-GQ-gKo"/>
+                        <outlet property="silverBadgeCountLabel" destination="l66-b4-0tA" id="VS9-VM-6GR"/>
                         <outlet property="userAboutTextView" destination="RL3-g8-0Xb" id="I67-Ab-hcr"/>
                         <outlet property="userAgeLabel" destination="FnO-dr-R73" id="mhK-cH-TYV"/>
+                        <outlet property="userAnswersCountLabel" destination="LGW-ir-t4s" id="qPo-OG-cwz"/>
+                        <outlet property="userLastSeenLabel" destination="ONJ-Vm-2mM" id="dOo-tX-rT8"/>
+                        <outlet property="userLocationLabel" destination="4cN-rc-EG6" id="kb1-Ip-qdX"/>
+                        <outlet property="userMemberSinceLabel" destination="fCn-tJ-hdo" id="ajX-Ht-Jsz"/>
                         <outlet property="userNameLabel" destination="h43-1y-R7M" id="Fmn-3Y-JpW"/>
                         <outlet property="userProfileImage" destination="p3i-Z0-rj2" id="Lxf-vT-4pd"/>
+                        <outlet property="userProfileViewsLabel" destination="8Gb-Hs-UMS" id="gIx-jC-76x"/>
+                        <outlet property="userQuestionsCountLabel" destination="Z9O-4V-eTB" id="ObT-vo-aAT"/>
                         <outlet property="userReputationLabel" destination="98U-ZO-bRa" id="cOk-O7-hT4"/>
+                        <outlet property="userWebsiteLinkLabel" destination="bDk-q1-5gw" id="6Ne-hy-nnQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WHM-2c-fw5" userLabel="First Responder" sceneMemberID="firstResponder"/>

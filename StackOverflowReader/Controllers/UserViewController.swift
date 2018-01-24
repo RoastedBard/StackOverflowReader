@@ -7,7 +7,14 @@
 //
 
 import UIKit
-
+struct UserWrapper : Codable {
+    var user : [User]?
+    
+    enum CodingKeys: String, CodingKey
+    {
+        case user = "items"
+    }
+}
 class UserViewController: UIViewController
 {
     @IBOutlet weak var userNameLabel: UILabel!
@@ -15,34 +22,115 @@ class UserViewController: UIViewController
     @IBOutlet weak var userAgeLabel: UILabel!
     @IBOutlet weak var userAboutTextView: UITextView!
     @IBOutlet weak var userProfileImage: UIImageView!
+    @IBOutlet weak var userLocationLabel: UILabel!
+    @IBOutlet weak var userAnswersCountLabel: UILabel!
+    @IBOutlet weak var userQuestionsCountLabel: UILabel!
+    @IBOutlet weak var userLastSeenLabel: UILabel!
+    @IBOutlet weak var userProfileViewsLabel: UILabel!
+    @IBOutlet weak var userMemberSinceLabel: UILabel!
+    @IBOutlet weak var userWebsiteLinkLabel: UILabel!
+    @IBOutlet weak var goldenBadgeCountLabel: UILabel!
+    @IBOutlet weak var silverBadgeCountLabel: UILabel!
+    @IBOutlet weak var bronzeBadgeCountLabel: UILabel!
     
-    var user : ShallowUser?
+    var shallowUser : ShallowUser?
+    var user : User?
     
     override func viewDidLoad()
     {
         super.viewDidLoad()
         
-        userNameLabel.text = user?.displayName
+        let url = URL(string: "https://api.stackexchange.com/2.2/users/\(shallowUser!.userId!)?order=desc&sort=reputation&site=stackoverflow&filter=!)68_FgmiaW_vPRP3ip2yGAy1Sesu")!
         
-        if let userImageLink = user?.profileImage {
-            if let url = URL(string: userImageLink) {
-                LinkToImageViewHelper.downloadImage(from: url, to: userProfileImage)
+        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+            if let data = data {
+                let decoder = JSONDecoder()
+                
+                self.user = try! decoder.decode(UserWrapper.self, from: data).user![0]
+                
+                DispatchQueue.main.async {
+                    self.fillViewWithUserData()
+                }
             }
         }
         
-//        if user?.reputation != nil{
-//            userReputationLabel.text = "\(user!.reputation!)"
-//        }else{
-            userReputationLabel.text = "unknown"
-//        }
-        
-        userAgeLabel.text = "NOT_SUPPORTED"
-        userAboutTextView.text = "NOT_SUPPORTED"
+        task.resume()
     }
 
     override func didReceiveMemoryWarning()
     {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    private func fillViewWithUserData()
+    {
+        userNameLabel.text = shallowUser?.displayName
+        
+        goldenBadgeCountLabel.text = "\(user!.badgeCounts.gold)"
+        silverBadgeCountLabel.text = "\(user!.badgeCounts.silver)"
+        bronzeBadgeCountLabel.text = "\(user!.badgeCounts.bronze)"
+        
+        if let userImageLink = shallowUser?.profileImage {
+            if let url = URL(string: userImageLink) {
+                LinkToImageViewHelper.downloadImage(from: url, to: userProfileImage)
+            }
+        }
+        
+        if user?.reputation != nil{
+            userReputationLabel.text = "\(user!.reputation!)"
+        }else{
+            userReputationLabel.text = "unknown"
+        }
+        
+        if user?.age != nil{
+            userAgeLabel.text = "\(user!.age!)"
+        }else{
+            userAgeLabel.text = "unknown"
+        }
+        
+        if user?.location != nil{
+            userLocationLabel.text = "\(user!.location!)"
+        }else{
+            userLocationLabel.text = "unknown"
+        }
+        
+        if user?.answerCount != nil{
+            userAnswersCountLabel.text = "\(user!.answerCount!)"
+        }else{
+            userAnswersCountLabel.text = "unknown"
+        }
+        
+        if user?.questionCount != nil{
+            userQuestionsCountLabel.text = "\(user!.questionCount!)"
+        }else{
+            userQuestionsCountLabel.text = "unknown"
+        }
+        
+        if user?.lastAccessDate != nil{
+            userLastSeenLabel.text = "\(user!.lastAccessDate!)"
+        }else{
+            userLastSeenLabel.text = "unknown"
+        }
+        
+        if user?.viewCount != nil{
+            userProfileViewsLabel.text = "\(user!.viewCount!)"
+        }else{
+            userProfileViewsLabel.text = "unknown"
+        }
+        
+        userMemberSinceLabel.text = "\(user!.creationDate)"
+        
+        if user?.websiteUrl != nil{
+            userWebsiteLinkLabel.text = "\(user!.websiteUrl!)"
+        }else{
+            userWebsiteLinkLabel.text = "unknown"
+        }
+        
+        if user?.aboutMe != nil{
+            userAboutTextView.text = "\(user!.aboutMe!)"
+        }else{
+            userAboutTextView.text = "unknown"
+        }
     }
 }

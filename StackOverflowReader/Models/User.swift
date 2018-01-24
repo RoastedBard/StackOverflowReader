@@ -10,16 +10,16 @@ import Foundation
 
 class User : Codable
 {
-    var reputation : Int
+    var reputation : Int?
     var aboutMe : String?
     var age : Int?
-    var answerCount : Int
+    var answerCount : Int?
     var badgeCounts : BadgeCount
     var creationDate : Int // unix epoch time
-    var lastAccessDate : Int // unix epoch time
+    var lastAccessDate : Int? // unix epoch time
     var location : String?
-    var questionCount : Int
-    var viewCount : Int
+    var questionCount : Int?
+    var viewCount : Int?
     var websiteUrl : String?
     
     enum CodingKeys : String, CodingKey

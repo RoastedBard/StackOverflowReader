@@ -118,7 +118,7 @@ extension QuestionTableViewController : AuthorNamePressedProtocol
         let owner = sender as? ShallowUser
         
         if let uvc = segue.destination as? UserViewController {
-            uvc.user = owner
+            uvc.shallowUser = owner
         }
     }
 }
