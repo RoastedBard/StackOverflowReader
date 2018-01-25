@@ -107,19 +107,36 @@ class UserViewController: UIViewController
             userQuestionsCountLabel.text = "unknown"
         }
         
-        if user?.lastAccessDate != nil{
-            userLastSeenLabel.text = "\(user!.lastAccessDate!)"
-        }else{
-            userLastSeenLabel.text = "unknown"
-        }
-        
         if user?.viewCount != nil{
             userProfileViewsLabel.text = "\(user!.viewCount!)"
         }else{
             userProfileViewsLabel.text = "unknown"
         }
         
-        userMemberSinceLabel.text = "\(user!.creationDate)"
+        let dateComponentsFormatter = DateComponentsFormatter()
+        dateComponentsFormatter.unitsStyle = .full
+       
+        // Last seen
+        if user?.lastAccessDate != nil{
+            dateComponentsFormatter.maximumUnitCount = 4
+            dateComponentsFormatter.allowedUnits = [.month, .year, .hour, .minute]
+            
+            let lastSeenDate = Date(timeIntervalSince1970: TimeInterval(user!.lastAccessDate!))
+            let lastSeenString = dateComponentsFormatter.string(from: lastSeenDate, to: Date())
+            
+            userLastSeenLabel.text = "\(lastSeenString!) ago"
+        }else{
+            userLastSeenLabel.text = "unknown"
+        }
+        
+        // Member since
+        dateComponentsFormatter.maximumUnitCount = 2
+        dateComponentsFormatter.allowedUnits = [.month, .year]
+        
+        let joinDate = Date(timeIntervalSince1970: TimeInterval(user!.creationDate))
+        let memberForString = dateComponentsFormatter.string(from: joinDate, to: Date())
+        
+        userMemberSinceLabel.text = "\(memberForString!)"
         
         if user?.websiteUrl != nil{
             userWebsiteLinkLabel.text = "\(user!.websiteUrl!)"

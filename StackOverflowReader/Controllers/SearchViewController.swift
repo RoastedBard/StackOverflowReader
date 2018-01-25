@@ -111,9 +111,9 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
     {
         if segue.destination is QuestionTableViewController
         {
-            let qvc = segue.destination as? QuestionTableViewController
+            let questionController = segue.destination as? QuestionTableViewController
             let i = (sender as? SOPostCell)!.questionIndex
-            qvc?.question = questionList!.items[i]
+            questionController?.question = questionList!.items[i]
         }
     }
 }
