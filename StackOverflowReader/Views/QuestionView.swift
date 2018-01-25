@@ -17,6 +17,7 @@ class QuestionView: UIView
     @IBOutlet weak var questionDateLabel: UILabel!
     @IBOutlet weak var questionAuthorNameButton: UIButton!
     @IBOutlet weak var questionAuthorProfileImage: UIImageView!
+    @IBOutlet weak var questionClosedReasonLabel: UILabel!
     
     var delegate : AuthorNamePressedProtocol?
     
@@ -34,6 +35,10 @@ class QuestionView: UIView
     
     func initializeQuestionView(_ question : Question)
     {
+        if question.closedReason != nil {
+            questionClosedReasonLabel.text = "CLOSED AS: \(question.closedReason!)"
+        }
+        
         questionTitleLabel.text = question.title
         questionScoreLabel.text = "\(question.score)"
         questionBodyTextView.text = question.body

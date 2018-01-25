@@ -66,7 +66,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="clH-oQ-yfO" userLabel="questionTitleLAbel">
-                    <rect key="frame" x="8" y="20" width="359" height="562"/>
+                    <rect key="frame" x="8" y="28" width="359" height="554"/>
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -78,20 +78,30 @@
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                 </textView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="999" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZAV-yM-a74">
+                    <rect key="frame" x="8" y="20" width="359" height="0.0"/>
+                    <color key="backgroundColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                    <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstItem="ZAV-yM-a74" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="19j-O6-P6K"/>
                 <constraint firstItem="eL0-Xw-cnO" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="3ec-9x-MZI"/>
                 <constraint firstItem="an8-Lr-41J" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="8WC-PX-I8e"/>
                 <constraint firstAttribute="trailing" secondItem="eL0-Xw-cnO" secondAttribute="trailing" id="EHq-WK-BeY"/>
                 <constraint firstItem="an8-Lr-41J" firstAttribute="top" secondItem="clH-oQ-yfO" secondAttribute="bottom" constant="8" symbolic="YES" id="KTG-ok-nYO"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="ZAV-yM-a74" secondAttribute="trailing" constant="8" id="MJj-3A-UQ7"/>
                 <constraint firstItem="NnK-MA-0RR" firstAttribute="top" secondItem="an8-Lr-41J" secondAttribute="bottom" constant="8" symbolic="YES" id="N2O-1k-rr5"/>
+                <constraint firstItem="ZAV-yM-a74" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="8" id="Pah-YU-a6g"/>
                 <constraint firstItem="clH-oQ-yfO" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="SAn-0M-8lz"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="NnK-MA-0RR" secondAttribute="trailing" constant="8" id="U3E-fn-2Ji"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="eL0-Xw-cnO" secondAttribute="bottom" id="ZMo-Xh-985"/>
-                <constraint firstItem="clH-oQ-yfO" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="cvb-Ei-dqr"/>
                 <constraint firstItem="NnK-MA-0RR" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="lXm-fF-wbN"/>
                 <constraint firstItem="eL0-Xw-cnO" firstAttribute="top" secondItem="NnK-MA-0RR" secondAttribute="bottom" constant="7.5" id="lfX-bW-2n2"/>
+                <constraint firstItem="clH-oQ-yfO" firstAttribute="top" secondItem="ZAV-yM-a74" secondAttribute="bottom" constant="8" symbolic="YES" id="pSq-13-1R3"/>
                 <constraint firstAttribute="trailing" secondItem="clH-oQ-yfO" secondAttribute="trailing" constant="8" id="zNh-9V-A38"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
@@ -99,6 +109,7 @@
                 <outlet property="questionAuthorNameButton" destination="LD2-sI-5hf" id="c1o-ke-zwc"/>
                 <outlet property="questionAuthorProfileImage" destination="XMN-J8-JB1" id="lEE-G4-IfT"/>
                 <outlet property="questionBodyTextView" destination="NnK-MA-0RR" id="I9k-Bm-7g1"/>
+                <outlet property="questionClosedReasonLabel" destination="ZAV-yM-a74" id="mEM-vJ-VQ2"/>
                 <outlet property="questionDateLabel" destination="RJC-w2-8PH" id="vfy-t5-l7N"/>
                 <outlet property="questionScoreLabel" destination="an8-Lr-41J" id="fgF-PC-7Y8"/>
                 <outlet property="questionTitleLabel" destination="clH-oQ-yfO" id="hF2-cA-yIl"/>
