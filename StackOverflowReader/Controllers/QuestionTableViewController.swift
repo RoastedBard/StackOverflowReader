@@ -15,12 +15,12 @@ class QuestionTableViewController: UITableViewController
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        tableView.estimatedSectionHeaderHeight = 44.0
     }
     
     override func viewDidLayoutSubviews()
     {
         super.viewDidLayoutSubviews()
-        tableView.estimatedSectionHeaderHeight = UITableViewAutomaticDimension
     }
     
     override func didReceiveMemoryWarning()
@@ -31,11 +31,7 @@ class QuestionTableViewController: UITableViewController
     
     override func numberOfSections(in tableView: UITableView) -> Int
     {
-        if question?.answers != nil {
-            return question!.answers!.count
-        } else {
-            return 1
-        }
+        return question?.answers?.count ?? 1
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
