@@ -7,19 +7,9 @@
 //
 
 import UIKit
-import Alamofire
-import CodableAlamofire
-
-struct QuestionList : Codable
-{
-    var items : [Question]
-}
 
 class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource
 {
-    var questionList : QuestionList?
-    var questions : [Question]?
-    
     @IBOutlet var searchSortButtons: [UIButton]!
     @IBOutlet weak var sortByButton: UIButton!
     @IBOutlet weak var searchBar: UISearchBar!
@@ -27,7 +17,6 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
     
     weak var currentSortOptionButton: UIButton!
     
-    var currentPage : Int = 1
     var searchQuery : String = ""
     
     override func viewDidLoad()
@@ -70,34 +59,20 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         
         searchQuery = searchBar.text!.replacingOccurrences(of: " ", with: "%20")
         
-        if self.questionList != nil {
-            self.questionList!.items.removeAll()
-        }
+        QuestionsContainer.questions?.removeAll()
         
-        let url = URL(string: "https://api.stackexchange.com/2.2/search/advanced?page=\(currentPage)&order=desc&pagesize=30&sort=votes&q=\(searchQuery)&site=stackoverflow&filter=!FH4kGNU5*mKF.Xy99s-h6.(B15HzE8P6_uK6oJxTFlxuApd(gSND2.n3pMWnC4BiNn5g-dR1")!
+        APICallHelper.currentPage = 1
         
-        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
-            if let data = data {
-                let decoder = JSONDecoder()
-                
-                self.questionList = try! decoder.decode(QuestionList.self, from: data)
-                self.questions = self.questionList?.items
-                
-                self.questionList?.items.removeAll()
-                
-                DispatchQueue.main.async {
-                    self.searchResultsTableView.reloadData()
-                }
-            }
-        }
-        
-        task.resume()
+        APICallHelper.searchAPICall(searchQuery, updateUIClosure: {
+            // TODO: Scroll to the top
+            self.searchResultsTableView.reloadData()
+        })
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        if questions != nil {
-            return questions!.count
+        if QuestionsContainer.questions != nil {
+            return QuestionsContainer.questions!.count
         } else {
             return 0
         }
@@ -107,7 +82,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
     {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SOPostCell", for: indexPath) as! SOPostCell
         
-        if let questions = questions {
+        if let questions = QuestionsContainer.questions {
             cell.initCell(question: questions[indexPath.item], index: indexPath.item)
         }
         
@@ -115,33 +90,14 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        let lastElement = questions!.count - 1
+        let lastElement = QuestionsContainer.questions!.count - 1
         
         if indexPath.row == lastElement {
-            currentPage += 1
+            APICallHelper.currentPage += 1
             
-            let url = URL(string: "https://api.stackexchange.com/2.2/search/advanced?page=\(currentPage)&order=desc&pagesize=30&sort=votes&q=\(searchQuery)&site=stackoverflow&filter=!FH4kGNU5*mKF.Xy99s-h6.(B15HzE8P6_uK6oJxTFlxuApd(gSND2.n3pMWnC4BiNn5g-dR1")!
-            
-            let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
-                if let data = data {
-                    let decoder = JSONDecoder()
-                    
-                    self.questionList = try! decoder.decode(QuestionList.self, from: data)
-                    if self.questions == nil {
-                        self.questions = self.questionList!.items
-                    } else {
-                        self.questions! += self.questionList!.items
-                    }
-                    
-                    self.questionList?.items.removeAll()
-                    
-                    DispatchQueue.main.async {
-                        self.searchResultsTableView.reloadData()
-                    }
-                }
-            }
-            
-            task.resume()
+            APICallHelper.searchAPICall(searchQuery, updateUIClosure: {
+                self.searchResultsTableView.reloadData()
+            })
         }
     }
     
@@ -153,7 +109,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         {
             let questionController = segue.destination as? QuestionTableViewController
             let i = (sender as? SOPostCell)!.questionIndex
-            questionController?.question = questions![i]
+            questionController?.question = QuestionsContainer.questions![i]
         }
     }
 }
