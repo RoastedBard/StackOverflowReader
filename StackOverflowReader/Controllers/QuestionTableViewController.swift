@@ -37,17 +37,9 @@ class QuestionTableViewController: UITableViewController
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
         if section == 0 {
-            if question?.comments != nil {
-                return question!.comments!.count
-            } else {
-                return 0
-            }
+            return question?.comments?.count ?? 0
         } else {
-            if question?.answers?[section - 1].comments != nil{
-                return question!.answers![section - 1].comments!.count
-            } else {
-                return 0
-            }
+            return question?.answers?[section - 1].comments?.count ?? 0
         }
     }
 

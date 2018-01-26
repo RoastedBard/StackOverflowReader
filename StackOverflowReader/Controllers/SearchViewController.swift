@@ -36,8 +36,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         // Dispose of any resources that can be recreated.
     }
 
-    @IBAction func expandSortDropDown(_ sender: UIButton)
-    {
+    fileprivate func animateSortOptionsDropdown() {
         for button in searchSortButtons {
             UIView.animate(withDuration: 0.3, animations: {
                 button.isHidden = !button.isHidden
@@ -45,10 +44,59 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
             })
         }
     }
+    
+    @IBAction func expandSortDropDown(_ sender: UIButton)
+    {
+        animateSortOptionsDropdown()
+    }
 
     @IBAction func sortOptionSelected(_ sender: UIButton)
     {
         sortByButton.setTitle("Sort by \(sender.titleLabel!.text!)", for: .normal)
+        sortSearchResults()
+    }
+    
+    func sortSearchResults()
+    {
+        animateSortOptionsDropdown()
+        
+        if searchQuery == ""{
+            return
+        }
+        
+        reloadSearchResults()
+    }
+    
+    @IBAction func sortByActivityButtonPressed(_ sender: UIButton)
+    {
+        APICallHelper.sort = .activity
+    }
+    
+    @IBAction func sortByVotesButtonPressed(_ sender: UIButton)
+    {
+        APICallHelper.sort = .votes
+    }
+    
+    @IBAction func sortByCreationButtonPressed(_ sender: UIButton)
+    {
+        APICallHelper.sort = .creation
+    }
+    
+    @IBAction func sortByRelevanceButtonPressed(_ sender: UIButton)
+    {
+        APICallHelper.sort = .relevance
+    }
+    
+    func reloadSearchResults()
+    {
+        QuestionsContainer.questions?.removeAll()
+        
+        APICallHelper.currentPage = 1
+        
+        APICallHelper.searchAPICall(searchQuery, updateUIClosure: {
+            // TODO: Scroll to the top
+            self.searchResultsTableView.reloadData()
+        })
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar)
@@ -59,14 +107,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         
         searchQuery = searchBar.text!.replacingOccurrences(of: " ", with: "%20")
         
-        QuestionsContainer.questions?.removeAll()
-        
-        APICallHelper.currentPage = 1
-        
-        APICallHelper.searchAPICall(searchQuery, updateUIClosure: {
-            // TODO: Scroll to the top
-            self.searchResultsTableView.reloadData()
-        })
+        reloadSearchResults()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
@@ -100,8 +141,6 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
             })
         }
     }
-    
-    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {

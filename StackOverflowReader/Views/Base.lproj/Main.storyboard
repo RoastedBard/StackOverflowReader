@@ -181,6 +181,7 @@
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
+                                            <action selector="sortByActivityButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="hub-gx-KC1"/>
                                             <action selector="sortOptionSelected:" destination="BYZ-38-t0r" eventType="touchUpInside" id="HLf-2A-h9q"/>
                                         </connections>
                                     </button>
@@ -191,6 +192,7 @@
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
+                                            <action selector="sortByVotesButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="gTr-1h-98O"/>
                                             <action selector="sortOptionSelected:" destination="BYZ-38-t0r" eventType="touchUpInside" id="rEg-Yc-yhf"/>
                                         </connections>
                                     </button>
@@ -201,6 +203,7 @@
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
+                                            <action selector="sortByCreationButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="CaT-T8-qno"/>
                                             <action selector="sortOptionSelected:" destination="BYZ-38-t0r" eventType="touchUpInside" id="4Tx-wj-HrC"/>
                                         </connections>
                                     </button>
@@ -211,6 +214,7 @@
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
+                                            <action selector="sortByRelevanceButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="muH-wt-9IH"/>
                                             <action selector="sortOptionSelected:" destination="BYZ-38-t0r" eventType="touchUpInside" id="XMa-Yv-PTb"/>
                                         </connections>
                                     </button>
