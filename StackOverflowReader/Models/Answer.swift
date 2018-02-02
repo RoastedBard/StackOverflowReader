@@ -10,6 +10,7 @@ import Foundation
 
 class Answer : Codable
 {
+    // MARK: - Raw Data
     var owner : ShallowUser?
     var isAccepted : Bool
     var score : Int

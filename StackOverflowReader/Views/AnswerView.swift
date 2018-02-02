@@ -8,7 +8,18 @@
 
 import UIKit
 
-class AnswerView: UIView
+@IBDesignable class UITextViewFixed: UITextView {
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        setup()
+    }
+    func setup() {
+        textContainerInset = UIEdgeInsets.zero
+        textContainer.lineFragmentPadding = 0
+    }
+}
+
+class AnswerView: UITableViewHeaderFooterView
 {
     @IBOutlet weak var answerScoreLabel: UILabel!
     @IBOutlet weak var answerAcceptedPicture: UIImageView!
@@ -22,21 +33,21 @@ class AnswerView: UIView
     
     var owner : ShallowUser?
     
-    override init(frame: CGRect)
-    {
-        super.init(frame:frame)
+    var attributedAnswerBodyString : NSAttributedString?
+    var attributedAnswerAuthorString : NSAttributedString?
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
     }
     
-    required init?(coder aDecoder: NSCoder)
-    {
-        super.init(coder: aDecoder)
-    }
-    
-    func initializeAnswerView(_ answer : Answer)
+    func initializeAnswerView(_ answer : Answer, screenWidth width : CGFloat, _ attributedData : CommonAttributedData)
     {
         answerScoreLabel.text = "\(answer.score)"
-        answerBodyTextView.text = answer.body
         
+        answerBodyTextView.attributedText = attributedData.attributedBodyString
+        
+        answerAuthorNameButton.setTitle(attributedData.attributedAuthorNameString?.string ?? "NOT_SPECIFIED", for: .normal)
+
         if answer.isAccepted == true {
             answerAcceptedPicture.isHidden = false
         } else {
@@ -44,8 +55,6 @@ class AnswerView: UIView
         }
         
         if let owner = answer.owner {
-            answerAuthorNameButton.setTitle(owner.displayName, for: .normal)
-            
             if let userImageLink = owner.profileImage {
                 if let url = URL(string: userImageLink) {
                     LinkToImageViewHelper.downloadImage(from: url, to: answerAuthorProfileImage)
@@ -61,10 +70,33 @@ class AnswerView: UIView
         
         answerDateLabel.text = "\(dateFormatter.string(from: date))"
     }
-    
+
     @IBAction func authorNamePressed(_ sender: UIButton)
     {
         delegate?.authorNamePressed(owner)
     }
     
+    func adjustImagesInAttributedString(_ attributedString : NSAttributedString, _ width : CGFloat)
+    {
+        let range = NSMakeRange(0, attributedString.length)
+        
+        attributedString.enumerateAttributes(in: range, options: NSAttributedString.EnumerationOptions(rawValue: 0)) { (object, range, stop) in
+            if object.keys.contains(NSAttributedStringKey.attachment) {
+                if let attachment = object[NSAttributedStringKey.attachment] as? NSTextAttachment {
+                    if attachment.image != nil {
+                        let aspectRatio : CGFloat = attachment.bounds.size.width / attachment.bounds.size.height
+                        let newHeight : CGFloat = width / aspectRatio
+                        
+                        attachment.bounds = CGRect(origin: CGPoint(x: 0, y: 0 ), size: CGSize(width: width, height: newHeight))
+                    } else if attachment.image(forBounds: attachment.bounds, textContainer: nil, characterIndex: range.location) != nil {
+                        
+                        let aspectRatio : CGFloat = attachment.bounds.size.width / attachment.bounds.size.height
+                        let newHeight : CGFloat = width / aspectRatio
+                        
+                        attachment.bounds = CGRect(origin: CGPoint(x: 0, y: 0 ), size: CGSize(width: width, height: newHeight))
+                    }
+                }
+            }
+        }
+    }
 }

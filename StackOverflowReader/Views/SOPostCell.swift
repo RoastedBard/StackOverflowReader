@@ -16,8 +16,6 @@ class SOPostCell: UITableViewCell
     
     var questionIndex = 0
     
-    var isInitialized : Bool = false
-    
     override func awakeFromNib()
     {
         super.awakeFromNib()
@@ -33,7 +31,8 @@ class SOPostCell: UITableViewCell
     
     func initCell(question : Question, index : Int)
     {
-        titleLabel.text = question.title
+        titleLabel.text = question.title.htmlAttributedString?.string
+        
         scoreLabel.text = "\(question.score)"
         
         let dateFormatter = DateFormatter()
@@ -46,7 +45,5 @@ class SOPostCell: UITableViewCell
         dateLabel.text = "\(dateFormatter.string(from: date))"
         
         questionIndex = index
-        
-        isInitialized = true
     }
 }

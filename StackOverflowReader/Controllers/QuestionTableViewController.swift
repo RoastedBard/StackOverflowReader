@@ -10,12 +10,31 @@ import UIKit
 
 class QuestionTableViewController: UITableViewController
 {
+    // MARK: - Constants
+    private let cellIdentifier = "CommentCell"
+    private let questionHeaderIdentifier = "QuestionHeaderIdentifier"
+    private let answerHeaderIdentifier = "AnswerHeaderIdentifier"
+    
     var question : Question?
+    var questionAttributedData : QuestionAttributedData?
+    
+    var questionAndAnswerContentWidth : CGFloat = 0 // Used for correct resizing and positioning images in question and answer UITextViews
+    
+    var attributedQuestionData : QuestionAttributedData?
+    var attributedAnswers : [CommonAttributedData?] = [CommonAttributedData?]()
+    var attributedComments : [Int : [CommonAttributedData?]] = [Int : [CommonAttributedData?]]()
+    
+    // MARK: - Configuration
     
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        tableView.estimatedSectionHeaderHeight = 44.0
+        
+        configureTableView()
+        
+        questionAndAnswerContentWidth = self.view.frame.size.width - 16 // 16 = 8 units margin on the left + 8 units margin on the right of the UItextView containing answer or question body
+        
+        initializeAttributedData()
     }
     
     override func viewDidLayoutSubviews()
@@ -28,6 +47,43 @@ class QuestionTableViewController: UITableViewController
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    private func configureTableView()
+    {
+        tableView.estimatedSectionHeaderHeight = 44.0
+        
+        let questionNib = UINib.init(nibName: String(describing: QuestionView.self), bundle: nil)
+        let answerNib = UINib.init(nibName: String(describing: AnswerView.self), bundle: nil)
+        
+        tableView.register(questionNib, forHeaderFooterViewReuseIdentifier: questionHeaderIdentifier)
+        tableView.register(answerNib, forHeaderFooterViewReuseIdentifier: answerHeaderIdentifier)
+    }
+    
+    fileprivate func initializeAttributedData()
+    {
+        questionAttributedData = QuestionAttributedData(title: question!.title, body: question!.body, authorName: question?.owner?.displayName ?? "NAME_NOT_SPECIFIED", contentWidth: questionAndAnswerContentWidth)
+        
+        if let questionComments = question?.comments {
+            
+            attributedComments[0] = [CommonAttributedData]()
+            
+            for comment in questionComments {
+                attributedComments[0]!.append(CommonAttributedData(body: comment.body, authorName: comment.owner?.displayName ?? "NAME_NOT_SPECIFIED", contentWidth: questionAndAnswerContentWidth))
+            }
+        }
+        
+        if let answers = question?.answers {
+            attributedAnswers = Array(repeating: nil, count: answers.count)
+
+            for (index, answer) in answers.enumerated() {
+                if let comments = answer.comments{
+                    attributedComments[index + 1] = Array(repeating: nil, count: comments.count) // "index + 1" because index=0 reserved for question comments
+                }
+            }
+        }
+    }
+    
+    // MARK: - UITableViewDelegate & UITableViewDataSource
     
     override func numberOfSections(in tableView: UITableView) -> Int
     {
@@ -42,29 +98,35 @@ class QuestionTableViewController: UITableViewController
             return question?.answers?[section - 1].comments?.count ?? 0
         }
     }
-
+    
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?
     {
         if section == 0 {
-            let questionView = Bundle.main.loadNibNamed("QuestionView", owner: self, options: nil)?.first as! QuestionView
-            
+            guard let questionView = tableView.dequeueReusableHeaderFooterView(withIdentifier: questionHeaderIdentifier) as? QuestionView else { return nil }
+
             questionView.owner = question?.owner
-            
             questionView.delegate = self
-            
-            questionView.initializeQuestionView(question!)
+
+            questionView.initializeQuestionView(question!, screenWidth: questionAndAnswerContentWidth, questionAttributedData!)
             
             return questionView
         } else {
-            let answerView = Bundle.main.loadNibNamed("AnswerView", owner: self, options: nil)?.first as! AnswerView
-            
+            guard let answerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: answerHeaderIdentifier) as? AnswerView else { return nil }
+
             let answer = question!.answers![section - 1]
-            
-            answerView.owner = question!.answers![section - 1].owner
-            
+
+            answerView.owner = answer.owner
             answerView.delegate = self
-            
-            answerView.initializeAnswerView(answer)
+
+            if attributedAnswers.count > 0 {
+                if let answerAttrData = attributedAnswers[section - 1] {
+                    answerView.initializeAnswerView(answer, screenWidth: questionAndAnswerContentWidth, answerAttrData)
+                } else {
+                    attributedAnswers[section - 1] = CommonAttributedData(body: answer.body, authorName: answer.owner?.displayName ?? "NAME_NOT_SPECIFIED", contentWidth: questionAndAnswerContentWidth)
+
+                    answerView.initializeAnswerView(answer, screenWidth: questionAndAnswerContentWidth, attributedAnswers[section - 1]!)
+                }
+            }
             
             return answerView
         }
@@ -77,19 +139,33 @@ class QuestionTableViewController: UITableViewController
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CommentCell", for: indexPath) as! CommentTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! CommentTableViewCell
         
         cell.delegate = self
         
         if indexPath.section == 0 {
-            if let comments = question?.comments {
-                cell.initializeCommentCell(comments[indexPath.item])
+            
+            if let comments = attributedComments[0] {
+                if let comment = comments[indexPath.row] {
+                    cell.initializeCommentCell(question!.comments![indexPath.row], comment)
+                }
             }
+            
         } else {
-            if let comments = question?.answers?[indexPath.section - 1].comments {
-                cell.initializeCommentCell(comments[indexPath.item])
+            
+            if let comments = attributedComments[indexPath.section] {
+                let commentModel = question!.answers![indexPath.section - 1].comments![indexPath.row]
+                
+                if let comment = comments[indexPath.row] {
+                    cell.initializeCommentCell(commentModel, comment)
+                }
+                else {
+                    attributedComments[indexPath.section]![indexPath.row] = CommonAttributedData(body: commentModel.body, authorName: commentModel.owner?.displayName ?? "NAME_NOT_SPECIFIED", contentWidth: questionAndAnswerContentWidth)
+                }
             }
+            
         }
+        
         return cell
     }
 }

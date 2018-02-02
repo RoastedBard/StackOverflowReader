@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
+    <device id="retina3_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -18,7 +18,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="AnswerView" customModule="StackOverflowReader" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="750" horizontalCompressionResistancePriority="752" insetsLayoutMarginsFromSafeArea="NO" text="35" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pN9-4e-80w" userLabel="scoreLabel">
@@ -28,17 +28,11 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalHuggingPriority="252" verticalCompressionResistancePriority="1000" scrollEnabled="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="y2M-8q-BHe" userLabel="answerBody">
-                    <rect key="frame" x="8" y="56" width="359" height="578"/>
-                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                </textView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J3T-80-NeA" userLabel="nameDateView">
-                    <rect key="frame" x="8" y="642" width="359" height="25"/>
+                    <rect key="frame" x="8" y="455" width="304" height="25"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="14.02.2017" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="axJ-4V-03I" userLabel="dateLabel">
-                            <rect key="frame" x="293" y="9" width="66" height="16"/>
+                            <rect key="frame" x="238" y="9" width="66" height="16"/>
                             <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                         </label>
                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="CZy-hz-uRc" userLabel="profilePic">
@@ -81,20 +75,32 @@
                         <constraint firstAttribute="width" constant="28" id="ibu-UR-uWy"/>
                     </constraints>
                 </imageView>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" contentInsetAdjustmentBehavior="never" editable="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XcO-T2-Cfp" customClass="UITextViewFixed" customModule="StackOverflowReader" customModuleProvider="target">
+                    <rect key="frame" x="8" y="56" width="304" height="391"/>
+                    <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <attributedString key="attributedText">
+                        <fragment content="DFffvdfvfvf Vfffvfvf dddfg 5">
+                            <attributes>
+                                <font key="NSFont" size="14" name="Helvetica"/>
+                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                            </attributes>
+                        </fragment>
+                    </attributedString>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                </textView>
             </subviews>
-            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" red="1" green="0.5472570774727733" blue="0.55976862064554744" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="J3T-80-NeA" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="8" id="0oP-0T-Zo2"/>
                 <constraint firstItem="J3T-80-NeA" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="2Hb-x2-u0g"/>
                 <constraint firstItem="duM-pu-TgN" firstAttribute="leading" secondItem="pN9-4e-80w" secondAttribute="trailing" constant="8" id="FLC-I1-jBE"/>
                 <constraint firstAttribute="trailing" secondItem="J3T-80-NeA" secondAttribute="trailing" constant="8" id="UZf-12-Ek2"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="y2M-8q-BHe" secondAttribute="trailing" constant="8" id="XDv-9J-tOA"/>
-                <constraint firstItem="y2M-8q-BHe" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="8" id="Zbe-NY-Pef"/>
+                <constraint firstItem="XcO-T2-Cfp" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="8" id="WRb-EX-sDs"/>
                 <constraint firstItem="pN9-4e-80w" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="hVT-Ao-1tB"/>
-                <constraint firstItem="J3T-80-NeA" firstAttribute="top" secondItem="y2M-8q-BHe" secondAttribute="bottom" constant="8" id="oE0-5R-Z2z"/>
-                <constraint firstItem="y2M-8q-BHe" firstAttribute="top" secondItem="duM-pu-TgN" secondAttribute="bottom" constant="8" id="sAy-rR-KeT"/>
+                <constraint firstItem="XcO-T2-Cfp" firstAttribute="top" secondItem="pN9-4e-80w" secondAttribute="bottom" constant="8" id="os2-hb-i4e"/>
                 <constraint firstItem="pN9-4e-80w" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="8" id="vGO-pH-Yfa"/>
-                <constraint firstItem="y2M-8q-BHe" firstAttribute="top" secondItem="pN9-4e-80w" secondAttribute="bottom" constant="8" id="wE8-j9-4fa"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="XcO-T2-Cfp" secondAttribute="trailing" constant="8" id="vj4-KK-Z1l"/>
+                <constraint firstItem="J3T-80-NeA" firstAttribute="top" secondItem="XcO-T2-Cfp" secondAttribute="bottom" constant="8" id="w4q-ec-fjt"/>
                 <constraint firstItem="duM-pu-TgN" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="wZQ-7X-OIO"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
@@ -102,10 +108,11 @@
                 <outlet property="answerAcceptedPicture" destination="duM-pu-TgN" id="SHM-R4-Y4H"/>
                 <outlet property="answerAuthorNameButton" destination="avc-Ca-VSS" id="IBR-Fz-97c"/>
                 <outlet property="answerAuthorProfileImage" destination="CZy-hz-uRc" id="F5D-cv-AiZ"/>
-                <outlet property="answerBodyTextView" destination="y2M-8q-BHe" id="Cv3-Oo-J18"/>
+                <outlet property="answerBodyTextView" destination="XcO-T2-Cfp" id="xLZ-mT-naR"/>
                 <outlet property="answerDateLabel" destination="axJ-4V-03I" id="bqb-sl-duB"/>
                 <outlet property="answerScoreLabel" destination="pN9-4e-80w" id="JpW-Ew-P3I"/>
             </connections>
+            <point key="canvasLocation" x="24.5" y="51.5"/>
         </view>
     </objects>
     <resources>

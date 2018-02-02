@@ -6,6 +6,4 @@ target 'StackOverflowReader' do
   use_frameworks!
 
   # Pods for StackOverflowReader
-  pod 'Alamofire', '~> 4.5'
-  pod 'CodableAlamofire'
 end
