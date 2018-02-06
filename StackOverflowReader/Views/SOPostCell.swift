@@ -14,6 +14,10 @@ class SOPostCell: UITableViewCell
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
     
+    @IBOutlet weak var authorNameButton: UIButton!
+    
+    var delegate : AuthorNamePressedProtocol?
+    
     var questionIndex = 0
     
     override func awakeFromNib()
@@ -29,9 +33,10 @@ class SOPostCell: UITableViewCell
         // Configure the view for the selected state
     }
     
-    func initCell(question : Question, index : Int)
+    func initCell(question : Question, index : Int, attributedData : CommonAttributedData)
     {
-        titleLabel.text = question.title.htmlAttributedString?.string
+        titleLabel.text = attributedData.attributedBodyString?.string
+        authorNameButton.setTitle(attributedData.attributedAuthorNameString?.string, for: .normal)
         
         scoreLabel.text = "\(question.score)"
         
@@ -45,5 +50,10 @@ class SOPostCell: UITableViewCell
         dateLabel.text = "\(dateFormatter.string(from: date))"
         
         questionIndex = index
+    }
+    
+    @IBAction func authorNameButtonPressed(_ sender: UIButton) {
+        var userId = QuestionsContainer.questions![questionIndex].owner!.userId ?? -1
+        delegate?.authorNamePressed(userId: userId)
     }
 }

@@ -74,7 +74,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="K0H-hH-LP6" kind="show" id="rUx-tx-5eK"/>
+                                            <segue destination="K0H-hH-LP6" kind="show" identifier="ShowQuestionSeque" id="rUx-tx-5eK"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -122,41 +122,55 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="123" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hgT-if-gwz">
-                                                    <rect key="frame" x="15" y="58" width="40.5" height="28"/>
+                                                    <rect key="frame" x="15" y="56" width="40.5" height="30"/>
                                                     <color key="backgroundColor" red="0.0" green="0.99143940210000003" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="24"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="dfvfvdf" lineBreakMode="wordWrap" numberOfLines="999" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ag5-QC-KMt">
-                                                    <rect key="frame" x="15" y="11" width="290" height="39"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Question Title" lineBreakMode="wordWrap" numberOfLines="999" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ag5-QC-KMt">
+                                                    <rect key="frame" x="15" y="11" width="290" height="37"/>
                                                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                                     <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12.02.2017" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s0r-Qg-vs9">
-                                                    <rect key="frame" x="239" y="58" width="65.5" height="28"/>
-                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                                    <rect key="frame" x="244.5" y="56" width="60.5" height="14"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
                                                 </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0qD-Gn-cB5">
+                                                    <rect key="frame" x="230" y="70" width="75" height="16"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="16" id="GxH-vW-m5L"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <state key="normal" title="Author Name"/>
+                                                    <connections>
+                                                        <action selector="authorNameButtonPressed:" destination="hSO-qf-P6a" eventType="touchUpInside" id="vfh-ha-5IK"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="0qD-Gn-cB5" firstAttribute="bottom" secondItem="7HS-i9-v5Z" secondAttribute="bottomMargin" id="1U0-Ik-1Vd"/>
                                                 <constraint firstItem="s0r-Qg-vs9" firstAttribute="top" secondItem="ag5-QC-KMt" secondAttribute="bottom" constant="8" id="2nX-wv-v97"/>
+                                                <constraint firstItem="0qD-Gn-cB5" firstAttribute="top" secondItem="s0r-Qg-vs9" secondAttribute="bottom" id="8Rh-7j-YNY"/>
                                                 <constraint firstItem="hgT-if-gwz" firstAttribute="leading" secondItem="7HS-i9-v5Z" secondAttribute="leadingMargin" id="EAn-JE-PwX"/>
                                                 <constraint firstItem="ag5-QC-KMt" firstAttribute="top" secondItem="7HS-i9-v5Z" secondAttribute="topMargin" id="IhE-SE-NlU"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="ag5-QC-KMt" secondAttribute="trailing" id="K1j-bZ-clY"/>
+                                                <constraint firstItem="0qD-Gn-cB5" firstAttribute="trailing" secondItem="7HS-i9-v5Z" secondAttribute="trailingMargin" id="SMg-gN-SCz"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="hgT-if-gwz" secondAttribute="bottom" id="SRv-JP-luT"/>
                                                 <constraint firstItem="hgT-if-gwz" firstAttribute="top" secondItem="ag5-QC-KMt" secondAttribute="bottom" constant="8" id="Vrv-xP-FQC"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="s0r-Qg-vs9" secondAttribute="trailing" id="Yhq-fg-jhG"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="s0r-Qg-vs9" secondAttribute="bottom" id="peb-eQ-AyP"/>
                                                 <constraint firstItem="ag5-QC-KMt" firstAttribute="leading" secondItem="7HS-i9-v5Z" secondAttribute="leadingMargin" id="v0B-tN-TXU"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="authorNameButton" destination="0qD-Gn-cB5" id="vvC-42-hb6"/>
                                             <outlet property="dateLabel" destination="s0r-Qg-vs9" id="8xw-Om-TDw"/>
                                             <outlet property="scoreLabel" destination="hgT-if-gwz" id="ddr-oM-Fb9"/>
                                             <outlet property="titleLabel" destination="ag5-QC-KMt" id="kAs-O9-SEt"/>
-                                            <segue destination="K0H-hH-LP6" kind="show" id="JIv-W0-1We"/>
+                                            <segue destination="K0H-hH-LP6" kind="show" identifier="ShowQuestionSeque" id="JIv-W0-1We"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -258,11 +272,12 @@
                         <outletCollection property="searchSortButtons" destination="KCR-tO-bWa" collectionClass="NSMutableArray" id="mBJ-dH-5b1"/>
                         <outletCollection property="searchSortButtons" destination="7XK-Z1-klc" collectionClass="NSMutableArray" id="U2v-hI-qHn"/>
                         <outletCollection property="searchSortButtons" destination="diA-gL-8l1" collectionClass="NSMutableArray" id="zYp-MX-o9G"/>
+                        <segue destination="CVt-II-ojG" kind="show" identifier="ShowUserInfo" id="MBH-ek-zhI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3215" y="-1113"/>
+            <point key="canvasLocation" x="3213.75" y="-1113.75"/>
         </scene>
         <!--Question Table View Controller-->
         <scene sceneID="uST-1y-5EJ">
@@ -337,7 +352,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Iv2-bq-pnr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4232" y="-753"/>
+            <point key="canvasLocation" x="4241" y="-714"/>
         </scene>
         <!--User View Controller-->
         <scene sceneID="MUg-20-h8x">
@@ -655,7 +670,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WHM-2c-fw5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5113" y="-753"/>
+            <point key="canvasLocation" x="5177" y="-1114"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="QRc-CG-tsP">
@@ -673,7 +688,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lnK-x3-6uv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1302" y="-765"/>
+            <point key="canvasLocation" x="1271" y="-714"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="PIy-ZD-RZC">
@@ -693,10 +708,11 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="S7y-ST-tf5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2183" y="-765"/>
+            <point key="canvasLocation" x="2154" y="-713"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="MBH-ek-zhI"/>
         <segue reference="JIv-W0-1We"/>
     </inferredMetricsTieBreakers>
 </document>

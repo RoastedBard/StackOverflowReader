@@ -14,6 +14,10 @@ class CommonAttributedData
     var attributedBodyString : NSAttributedString?
     var attributedAuthorNameString : NSAttributedString?
     
+    init() {
+        
+    }
+    
     init(body : String, authorName : String, contentWidth : CGFloat) {
         attributedBodyString = body.htmlAttributedString
         adjustImagesInAttributedString(attributedBodyString!, contentWidth)

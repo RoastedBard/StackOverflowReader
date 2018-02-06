@@ -13,6 +13,7 @@ import UIKit
         super.layoutSubviews()
         setup()
     }
+    
     func setup() {
         textContainerInset = UIEdgeInsets.zero
         textContainer.lineFragmentPadding = 0
@@ -28,6 +29,8 @@ class AnswerView: UITableViewHeaderFooterView
     @IBOutlet weak var answerAuthorNameButton: UIButton!
     @IBOutlet weak var answerDateLabel: UILabel!
     @IBOutlet weak var answerAuthorProfileImage: UIImageView!
+    
+    var profileImage : UIImage?
     
     var delegate : AuthorNamePressedProtocol?
     
@@ -73,7 +76,7 @@ class AnswerView: UITableViewHeaderFooterView
 
     @IBAction func authorNamePressed(_ sender: UIButton)
     {
-        delegate?.authorNamePressed(owner)
+        delegate?.authorNamePressed(userId: owner?.userId ?? -1)
     }
     
     func adjustImagesInAttributedString(_ attributedString : NSAttributedString, _ width : CGFloat)

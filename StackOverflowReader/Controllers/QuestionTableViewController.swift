@@ -172,17 +172,17 @@ class QuestionTableViewController: UITableViewController
 
 extension QuestionTableViewController : AuthorNamePressedProtocol
 {
-    func authorNamePressed(_ owner : ShallowUser?)
+    func authorNamePressed(userId id : Int)
     {
-        performSegue(withIdentifier: "ShowUserInfo", sender: owner)
+        performSegue(withIdentifier: "ShowUserInfo", sender: id)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
-        let owner = sender as? ShallowUser
+        let userId = sender as? Int
         
         if let uvc = segue.destination as? UserViewController {
-            uvc.shallowUser = owner
+            uvc.userId = userId ?? -1
         }
     }
 }

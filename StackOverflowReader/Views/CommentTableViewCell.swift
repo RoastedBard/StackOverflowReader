@@ -66,6 +66,6 @@ class CommentTableViewCell: UITableViewCell
     
     @IBAction func authorNamePressed(_ sender: UIButton)
     {
-        delegate?.authorNamePressed(owner)
+        delegate?.authorNamePressed(userId: owner?.userId ?? -1)
     }
 }

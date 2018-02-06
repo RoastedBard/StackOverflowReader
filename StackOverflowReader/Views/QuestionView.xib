@@ -23,10 +23,10 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eL0-Xw-cnO" userLabel="authorAndDateView">
-                    <rect key="frame" x="0.0" y="642" width="375" height="25"/>
+                    <rect key="frame" x="0.0" y="634" width="375" height="25"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12.02.2017" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RJC-w2-8PH" userLabel="dateLabel">
-                            <rect key="frame" x="301.5" y="9" width="65.5" height="16"/>
+                            <rect key="frame" x="301.5" y="0.0" width="65.5" height="25"/>
                             <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                         </label>
                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XMN-J8-JB1" userLabel="profilePicture">
@@ -50,30 +50,31 @@
                     <constraints>
                         <constraint firstItem="LD2-sI-5hf" firstAttribute="top" secondItem="eL0-Xw-cnO" secondAttribute="top" id="Nug-ye-UBU"/>
                         <constraint firstItem="XMN-J8-JB1" firstAttribute="leading" secondItem="eL0-Xw-cnO" secondAttribute="leading" constant="8" id="Pko-S1-wmy"/>
-                        <constraint firstItem="RJC-w2-8PH" firstAttribute="top" secondItem="eL0-Xw-cnO" secondAttribute="top" constant="9" id="QsS-Nk-NIK"/>
+                        <constraint firstItem="RJC-w2-8PH" firstAttribute="top" secondItem="eL0-Xw-cnO" secondAttribute="top" id="QsS-Nk-NIK"/>
                         <constraint firstAttribute="bottom" secondItem="XMN-J8-JB1" secondAttribute="bottom" id="bA5-YD-h0e"/>
                         <constraint firstAttribute="trailingMargin" secondItem="RJC-w2-8PH" secondAttribute="trailing" id="bUz-jU-Qdl"/>
                         <constraint firstItem="LD2-sI-5hf" firstAttribute="leading" secondItem="XMN-J8-JB1" secondAttribute="trailing" constant="8" id="ccD-oH-MVe"/>
                         <constraint firstAttribute="bottom" secondItem="LD2-sI-5hf" secondAttribute="bottom" id="oRC-Ti-0NA"/>
+                        <constraint firstAttribute="bottom" secondItem="RJC-w2-8PH" secondAttribute="bottom" id="r3Y-Sa-umx"/>
                         <constraint firstItem="XMN-J8-JB1" firstAttribute="top" secondItem="eL0-Xw-cnO" secondAttribute="top" id="y3C-ZT-82Q"/>
                     </constraints>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" horizontalCompressionResistancePriority="751" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="an8-Lr-41J" userLabel="questionScoreLabel">
-                    <rect key="frame" x="8" y="610" width="0.0" height="0.0"/>
+                    <rect key="frame" x="8" y="602" width="0.0" height="0.0"/>
                     <color key="backgroundColor" red="0.0" green="0.99143940210000003" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="48"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="rtgrtg" lineBreakMode="wordWrap" numberOfLines="999" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="clH-oQ-yfO" userLabel="questionTitleLAbel">
-                    <rect key="frame" x="8" y="28" width="359" height="574"/>
+                    <rect key="frame" x="8" y="28" width="359" height="566"/>
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                     <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalHuggingPriority="252" verticalCompressionResistancePriority="752" scrollEnabled="NO" editable="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NnK-MA-0RR" userLabel="questionBodyTextView" customClass="UITextViewFixed" customModule="StackOverflowReader" customModuleProvider="target">
-                    <rect key="frame" x="8" y="618" width="359" height="16.5"/>
+                    <rect key="frame" x="8" y="610" width="359" height="16.5"/>
                     <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                     <attributedString key="attributedText">
                         <fragment content="fgbfgbfgbfgb">
@@ -105,7 +106,7 @@
                 <constraint firstItem="ZAV-yM-a74" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="8" id="Pah-YU-a6g"/>
                 <constraint firstItem="clH-oQ-yfO" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="SAn-0M-8lz"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="NnK-MA-0RR" secondAttribute="trailing" constant="8" id="U3E-fn-2Ji"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="eL0-Xw-cnO" secondAttribute="bottom" id="ZMo-Xh-985"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="eL0-Xw-cnO" secondAttribute="bottom" constant="8" id="ZMo-Xh-985"/>
                 <constraint firstItem="NnK-MA-0RR" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="lXm-fF-wbN"/>
                 <constraint firstItem="eL0-Xw-cnO" firstAttribute="top" secondItem="NnK-MA-0RR" secondAttribute="bottom" constant="7.5" id="lfX-bW-2n2"/>
                 <constraint firstItem="clH-oQ-yfO" firstAttribute="top" secondItem="ZAV-yM-a74" secondAttribute="bottom" constant="8" symbolic="YES" id="pSq-13-1R3"/>

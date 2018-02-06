@@ -7,6 +7,7 @@
 //
 
 import UIKit
+
 struct UserWrapper : Codable {
     var user : [User]?
     
@@ -15,6 +16,7 @@ struct UserWrapper : Codable {
         case user = "items"
     }
 }
+
 class UserViewController: UIViewController
 {
     @IBOutlet weak var userNameLabel: UILabel!
@@ -33,20 +35,29 @@ class UserViewController: UIViewController
     @IBOutlet weak var silverBadgeCountLabel: UILabel!
     @IBOutlet weak var bronzeBadgeCountLabel: UILabel!
     
-    var shallowUser : ShallowUser?
+    var userId : Int = 0
     var user : User?
     
     override func viewDidLoad()
     {
         super.viewDidLoad()
         
-        let url = URL(string: "https://api.stackexchange.com/2.2/users/\(shallowUser!.userId!)?order=desc&sort=reputation&site=stackoverflow&filter=!)68_FgmiaW_vPRP3ip2yGAy1Sesu")!
+        if userId == -1 {
+            print(">USER_INVALID_ID_ERROR: userId = -1")
+            return
+        }
+        
+        let url = URL(string: "https://api.stackexchange.com/2.2/users/\(userId)?order=desc&sort=reputation&site=stackoverflow&filter=!)68Yd_uOIq-c4mbge*PtmUY-nQ*H")!
         
         let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
             if let data = data {
                 let decoder = JSONDecoder()
                 
-                self.user = try! decoder.decode(UserWrapper.self, from: data).user![0]
+                do{
+                    self.user = try decoder.decode(UserWrapper.self, from: data).user![0]
+                } catch {
+                    print(">USER_DECODING_ERROR: \(error)")
+                }
                 
                 DispatchQueue.main.async {
                     self.fillViewWithUserData()
@@ -65,13 +76,13 @@ class UserViewController: UIViewController
     
     private func fillViewWithUserData()
     {
-        userNameLabel.text = shallowUser?.displayName
+        userNameLabel.text = user?.displayName
         
         goldenBadgeCountLabel.text = "\(user!.badgeCounts.gold)"
         silverBadgeCountLabel.text = "\(user!.badgeCounts.silver)"
         bronzeBadgeCountLabel.text = "\(user!.badgeCounts.bronze)"
         
-        if let userImageLink = shallowUser?.profileImage {
+        if let userImageLink = user?.profileImage {
             if let url = URL(string: userImageLink) {
                 LinkToImageViewHelper.downloadImage(from: url, to: userProfileImage)
             }

@@ -23,56 +23,6 @@ class QuestionView: UITableViewHeaderFooterView
     
     var owner : ShallowUser?
     
-//    var attributedQuestionBodyString : NSAttributedString?
-//    var attributedQuestionAuthorString : NSAttributedString?
-//    var attributedQuestionTitleString : NSAttributedString?
-    
-//    func initializeQuestionView(_ question : Question, screenWidth width : CGFloat)
-//    {
-//        if question.closedReason != nil {
-//            questionClosedReasonLabel.text = "CLOSED AS: \(question.closedReason!)"
-//        }
-//
-//        attributedQuestionTitleString = question.title.htmlAttributedString
-//        questionTitleLabel.text = attributedQuestionTitleString?.string
-//
-//        if let attributedString = question.body.htmlAttributedString {
-//            attributedQuestionBodyString = attributedString
-//
-//            adjustImagesInAttributedString(attributedQuestionBodyString!, width)
-//            questionBodyTextView.attributedText = attributedQuestionBodyString
-//        } else {
-//            attributedQuestionBodyString = nil
-//            questionBodyTextView.text = ""
-//        }
-//
-//        if let owner = question.owner {
-//            attributedQuestionAuthorString = owner.displayName!.htmlAttributedString
-//            questionAuthorNameButton.setTitle(attributedQuestionAuthorString!.string, for: .normal)
-//        } else {
-//            attributedQuestionAuthorString = nil
-//            questionAuthorNameButton.setTitle("NOT_SPECIFIED", for: .normal)
-//        }
-//
-//        questionScoreLabel.text = "\(question.score)"
-//
-//        if let owner = question.owner {
-//            if let userImageLink = owner.profileImage {
-//                if let url = URL(string: userImageLink) {
-//                    LinkToImageViewHelper.downloadImage(from: url, to: questionAuthorProfileImage)
-//                }
-//            }
-//        }
-//
-//        let date = Date(timeIntervalSince1970: TimeInterval(question.creationDate))
-//
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.dateStyle = .medium
-//        dateFormatter.locale = Locale(identifier: "en_US")
-//
-//        questionDateLabel.text = "\(dateFormatter.string(from: date))"
-//    }
-    
     func initializeQuestionView(_ question : Question, screenWidth width : CGFloat, _ attributedData : QuestionAttributedData)
     {
         if question.closedReason != nil {
@@ -91,6 +41,7 @@ class QuestionView: UITableViewHeaderFooterView
             if let userImageLink = owner.profileImage {
                 if let url = URL(string: userImageLink) {
                     LinkToImageViewHelper.downloadImage(from: url, to: questionAuthorProfileImage)
+                    
                 }
             }
         }
@@ -106,7 +57,7 @@ class QuestionView: UITableViewHeaderFooterView
     
     @IBAction func authorNamePressed(_ sender: UIButton)
     {
-        delegate?.authorNamePressed(owner)
+        delegate?.authorNamePressed(userId: owner?.userId ?? -1)
     }
     
     func adjustImagesInAttributedString(_ attributedString : NSAttributedString, _ width : CGFloat)

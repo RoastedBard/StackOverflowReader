@@ -8,7 +8,7 @@
 
 import Foundation
 
-class User : Codable
+class User : ShallowUser
 {
     var reputation : Int?
     var aboutMe : String?
@@ -22,7 +22,7 @@ class User : Codable
     var viewCount : Int?
     var websiteUrl : String?
     
-    enum CodingKeys : String, CodingKey
+    private enum CodingKeys : String, CodingKey
     {
         case aboutMe = "about_me"
         case answerCount = "answer_count"
@@ -35,5 +35,23 @@ class User : Codable
         case age
         case reputation
         case location
+    }
+    
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        self.reputation = try? container.decode(Int.self, forKey: .reputation)
+        self.aboutMe = try? container.decode(String.self, forKey: .aboutMe)
+        self.age = try? container.decode(Int.self, forKey: .age)
+        self.answerCount = try? container.decode(Int.self, forKey: .answerCount)
+        self.badgeCounts = try container.decode(BadgeCount.self, forKey: .badgeCounts)
+        self.creationDate = try container.decode(Int.self, forKey: .creationDate)
+        self.lastAccessDate = try? container.decode(Int.self, forKey: .lastAccessDate)
+        self.location = try? container.decode(String.self, forKey: .location)
+        self.questionCount = try? container.decode(Int.self, forKey: .questionCount)
+        self.viewCount = try? container.decode(Int.self, forKey: .viewCount)
+        self.websiteUrl = try? container.decode(String.self, forKey: .websiteUrl)
+        
+        try super.init(from: decoder)
     }
 }
