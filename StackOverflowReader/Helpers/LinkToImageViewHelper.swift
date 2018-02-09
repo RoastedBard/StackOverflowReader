@@ -19,10 +19,10 @@ class LinkToImageViewHelper
             }.resume()
     }
     
-    static func downloadImage(from url: URL, to imageView : UIImageView)
+    static func downloadImage(from url: URL, completion: ((UIImage?)->Void)?)
     {
         getDataFromUrl(url: url) { data, response, error in
-            
+            //var result = UIImage()
             let httpResponse = response as! HTTPURLResponse
             
             if httpResponse.statusCode > 400 {
@@ -32,15 +32,15 @@ class LinkToImageViewHelper
             
             print("httpResponse.statusCode: \(httpResponse.statusCode)")
             
-            guard let data = data, error == nil else{
+            guard let data = data, error == nil else {
                 return
             }
             
             print(response?.suggestedFilename ?? url.lastPathComponent)
             
-            DispatchQueue.main.async() {
-                imageView.image = UIImage(data: data)
-            }
+            completion?(UIImage(data: data))
         }
     }
 }
+
+

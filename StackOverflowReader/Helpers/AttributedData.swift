@@ -14,13 +14,16 @@ class CommonAttributedData
     var attributedBodyString : NSAttributedString?
     var attributedAuthorNameString : NSAttributedString?
     
-    init() {
-        
-    }
+    init() {}
     
-    init(body : String, authorName : String, contentWidth : CGFloat) {
+    init(body : String, authorName : String, contentWidth : CGFloat, isImageProcessingNeeded : Bool) {
         attributedBodyString = body.htmlAttributedString
-        adjustImagesInAttributedString(attributedBodyString!, contentWidth)
+        
+        if isImageProcessingNeeded == true {
+            if let attrBody = attributedBodyString {
+                adjustImagesInAttributedString(attrBody, contentWidth)
+            }
+        }
         
         attributedAuthorNameString = authorName.htmlAttributedString
     }
@@ -55,7 +58,7 @@ class QuestionAttributedData : CommonAttributedData
     var attributedQuestionTitle : NSAttributedString?
     
     init(title : String, body : String, authorName : String, contentWidth : CGFloat) {
-        super.init(body: body, authorName: authorName, contentWidth: contentWidth)
+        super.init(body: body, authorName: authorName, contentWidth: contentWidth, isImageProcessingNeeded: true)
         
         attributedQuestionTitle = title.htmlAttributedString
     }

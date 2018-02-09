@@ -29,10 +29,10 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J3T-80-NeA" userLabel="nameDateView">
-                    <rect key="frame" x="0.0" y="60.5" width="320" height="411.5"/>
+                    <rect key="frame" x="0.0" y="60.5" width="320" height="373.5"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="14.02.2017" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="axJ-4V-03I" userLabel="dateLabel">
-                            <rect key="frame" x="246" y="0.0" width="66" height="411.5"/>
+                            <rect key="frame" x="246" y="0.0" width="66" height="373.5"/>
                             <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                         </label>
                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="CZy-hz-uRc" userLabel="profilePic">
@@ -46,7 +46,7 @@
                             </constraints>
                         </imageView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="avc-Ca-VSS">
-                            <rect key="frame" x="41" y="0.0" width="75" height="411.5"/>
+                            <rect key="frame" x="41" y="0.0" width="75" height="373.5"/>
                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                             <state key="normal" title="Author Name"/>
                             <connections>
@@ -87,17 +87,30 @@
                     </attributedString>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                 </textView>
+                <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OWP-nl-liF">
+                    <rect key="frame" x="0.0" y="442" width="320" height="30"/>
+                    <color key="backgroundColor" red="1" green="0.2527923882" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <state key="normal" title="Show Comments">
+                        <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="showCommentsButtonPressed:" destination="-1" eventType="touchUpInside" id="hrR-WV-eqj"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
+                <constraint firstItem="OWP-nl-liF" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="0au-p2-Onk"/>
                 <constraint firstItem="J3T-80-NeA" firstAttribute="top" secondItem="XcO-T2-Cfp" secondAttribute="bottom" constant="8" id="CWQ-ys-BuJ"/>
-                <constraint firstAttribute="bottom" secondItem="J3T-80-NeA" secondAttribute="bottom" constant="8" id="GXX-3o-3Na"/>
                 <constraint firstItem="duM-pu-TgN" firstAttribute="leading" secondItem="pN9-4e-80w" secondAttribute="trailing" constant="8" id="TNj-ex-2Al"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="OWP-nl-liF" secondAttribute="bottom" constant="8" id="TPR-qL-Hnn"/>
+                <constraint firstItem="OWP-nl-liF" firstAttribute="top" secondItem="J3T-80-NeA" secondAttribute="bottom" constant="8" id="UVw-Kl-Rka"/>
                 <constraint firstItem="XcO-T2-Cfp" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="emf-Jg-XZr"/>
                 <constraint firstAttribute="trailing" secondItem="J3T-80-NeA" secondAttribute="trailing" id="j7y-4H-kW9"/>
                 <constraint firstItem="pN9-4e-80w" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="jn8-54-jGB"/>
                 <constraint firstItem="duM-pu-TgN" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="m8v-tk-IKp"/>
                 <constraint firstAttribute="trailing" secondItem="XcO-T2-Cfp" secondAttribute="trailing" constant="8" id="mxe-Ch-DnN"/>
+                <constraint firstAttribute="trailing" secondItem="OWP-nl-liF" secondAttribute="trailing" id="ohZ-cm-d4a"/>
                 <constraint firstItem="J3T-80-NeA" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="vc7-VI-7FI"/>
                 <constraint firstItem="XcO-T2-Cfp" firstAttribute="top" secondItem="pN9-4e-80w" secondAttribute="bottom" constant="8" id="vjw-39-4CO"/>
                 <constraint firstItem="pN9-4e-80w" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="x1t-6t-t2Z"/>
@@ -110,6 +123,7 @@
                 <outlet property="answerBodyTextView" destination="XcO-T2-Cfp" id="xLZ-mT-naR"/>
                 <outlet property="answerDateLabel" destination="axJ-4V-03I" id="bqb-sl-duB"/>
                 <outlet property="answerScoreLabel" destination="pN9-4e-80w" id="JpW-Ew-P3I"/>
+                <outlet property="showCommentsButton" destination="OWP-nl-liF" id="7B6-Gv-pkW"/>
             </connections>
             <point key="canvasLocation" x="24" y="51"/>
         </view>

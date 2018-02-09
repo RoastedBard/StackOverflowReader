@@ -21,9 +21,17 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
     
     var cellAttributedData : [CommonAttributedData?] = [CommonAttributedData?]()
     
+    var apiCallWrapper : APIResponseWrapper<BriefQuestion>?
+    
+    var activityIndicatorView: UIActivityIndicatorView!
+    let dispatchQueue = DispatchQueue(label: "LoadingQuestionData", attributes: [], target: nil)
+    
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        
+        activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+        searchResultsTableView.backgroundView = activityIndicatorView
         
         currentSortOptionButton = searchSortButtons[0]
         
@@ -91,17 +99,39 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
     
     func reloadSearchResults()
     {
-        QuestionsContainer.questions?.removeAll()
+        if apiCallWrapper?.items != nil {
+            apiCallWrapper!.items!.removeAll()
+        }
         
         cellAttributedData.removeAll()
         
+        self.searchResultsTableView.reloadData()
+        
         APICallHelper.currentPage = 1
         
-        APICallHelper.searchAPICall(searchQuery, updateUIClosure: {
-            // TODO: Scroll to the top
-            self.cellAttributedData = Array(repeating: nil, count: APICallHelper.pageSize)
-            self.searchResultsTableView.reloadData()
-        })
+        activityIndicatorView.startAnimating()
+        
+        dispatchQueue.async {
+            OperationQueue.main.addOperation() {
+                APICallHelper.APICall(request: APIRequestType.BriefQuestionsRequest, apiCallParameter: self.searchQuery){ (apiWrapperResult : APIResponseWrapper<BriefQuestion>?) in
+                    self.apiCallWrapper = apiWrapperResult
+                    
+                    for question in self.apiCallWrapper!.items! {
+                        let attrData : CommonAttributedData = CommonAttributedData()
+                        
+                        attrData.attributedBodyString = question.title.htmlAttributedString
+                        attrData.attributedAuthorNameString = question.owner?.displayName?.htmlAttributedString
+                        
+                        self.cellAttributedData.append(attrData)
+                    }
+                    
+                    self.activityIndicatorView.stopAnimating()
+                    
+                    self.searchResultsTableView.reloadData()
+                    self.searchResultsTableView.setContentOffset(CGPoint.zero, animated: true)
+                }
+            }
+        }
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar)
@@ -110,38 +140,26 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
             return
         }
         
-        searchQuery = searchBar.text!.replacingOccurrences(of: " ", with: "%20")
+        searchQuery = searchBar.text?.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) ?? ""
+        
+        searchBar.endEditing(true)
         
         reloadSearchResults()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        if QuestionsContainer.questions != nil {
-            return QuestionsContainer.questions!.count
-        } else {
-            return 0
-        }
+        return apiCallWrapper?.items?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SOPostCell", for: indexPath) as! SOPostCell
         
-        cell.delegate = self
+        cell.authorNamePressedDelegate = self
         
-        if let questions = QuestionsContainer.questions {
-            if let attrData = cellAttributedData[indexPath.row] {
-                cell.initCell(question: questions[indexPath.row], index: indexPath.row, attributedData: attrData)
-            } else {
-                let cellAttrData = CommonAttributedData()
-                
-                cellAttrData.attributedBodyString = questions[indexPath.row].title.htmlAttributedString
-                cellAttrData.attributedAuthorNameString = questions[indexPath.row].owner?.displayName?.htmlAttributedString
-                cellAttributedData[indexPath.row] = cellAttrData
-                
-                cell.initCell(question: questions[indexPath.row], index: indexPath.row, attributedData: cellAttrData)
-            }
+        if let questions = apiCallWrapper?.items {
+            cell.initCell(question: questions[indexPath.row], attributedData: cellAttributedData[indexPath.row]!)
         }
         
         return cell
@@ -149,26 +167,36 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath)
     {
-        let lastElement = QuestionsContainer.questions!.count - 1
+        let lastElement = apiCallWrapper!.items!.count - 1
         
         if indexPath.row == lastElement {
             APICallHelper.currentPage += 1
             
-            APICallHelper.searchAPICall(searchQuery, updateUIClosure: {
-                self.cellAttributedData.append(contentsOf: Array(repeating: nil, count: APICallHelper.pageSize))
+            APICallHelper.APICall(request: APIRequestType.BriefQuestionsRequest, apiCallParameter: self.searchQuery){ (apiWrapperResult : APIResponseWrapper<BriefQuestion>?) in
+                if let newQuestions = apiWrapperResult?.items {
+                    self.apiCallWrapper?.items?.append(contentsOf: newQuestions)
+                    
+                    for question in newQuestions {
+                        let attrData : CommonAttributedData = CommonAttributedData()
+                        
+                        attrData.attributedBodyString = question.title.htmlAttributedString
+                        attrData.attributedAuthorNameString = question.owner?.displayName?.htmlAttributedString
+                        
+                        self.cellAttributedData.append(attrData)
+                    }
+                }
+                
                 self.searchResultsTableView.reloadData()
-            })
+            }
         }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
-        print(segue.identifier)
-        
         if segue.identifier == "ShowQuestionSeque"{
             if let qtvc = segue.destination as? QuestionTableViewController {
-                let i = (sender as? SOPostCell)!.questionIndex
-                qtvc.question = QuestionsContainer.questions![i]
+                let questionId = (sender as? SOPostCell)!.questionId
+                qtvc.questionId = questionId
             }
         }
         

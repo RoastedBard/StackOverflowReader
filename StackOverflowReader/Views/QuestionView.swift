@@ -11,39 +11,36 @@ import UIKit
 class QuestionView: UITableViewHeaderFooterView
 {
     @IBOutlet weak var questionTitleLabel: UILabel!
-    @IBOutlet weak var questionScoreLabel: UILabel!
-    @IBOutlet weak var questionBodyTextView: UITextView!
+    @IBOutlet weak var questionScoreLabel: UILabel!  // Common
+    @IBOutlet weak var questionBodyTextView: UITextView!  // Common
     
     @IBOutlet weak var questionDateLabel: UILabel!
-    @IBOutlet weak var questionAuthorNameButton: UIButton!
+    @IBOutlet weak var questionAuthorNameButton: UIButton!  // Common
     @IBOutlet weak var questionAuthorProfileImage: UIImageView!
     @IBOutlet weak var questionClosedReasonLabel: UILabel!
     
-    var delegate : AuthorNamePressedProtocol?
+    @IBOutlet weak var showCommentsButton: UIButton!
+    
+    var authorNamePressedDelegate : AuthorNamePressedProtocol? // Common
     
     var owner : ShallowUser?
     
-    func initializeQuestionView(_ question : Question, screenWidth width : CGFloat, _ attributedData : QuestionAttributedData)
-    {
-        if question.closedReason != nil {
-            questionClosedReasonLabel.text = "CLOSED AS: \(question.closedReason!)"
+    func initializeQuestionView(_ question : Question, screenWidth width : CGFloat, attributedData : QuestionAttributedData, _ profilePicture : UIImage?){
+
+        if let reason = question.closedReason {
+            questionClosedReasonLabel.text = "CLOSED AS: \(reason)"
         }
         
         questionTitleLabel.text = attributedData.attributedQuestionTitle?.string ?? "NOT_SPECIFIED"
         
         questionBodyTextView.attributedText = attributedData.attributedBodyString
         
-        questionAuthorNameButton.setTitle(attributedData.attributedAuthorNameString?.string ?? "NOT_SPECIFIED", for: .normal)
+        questionAuthorNameButton.setTitle(attributedData.attributedAuthorNameString?.string, for: .normal)
         
         questionScoreLabel.text = "\(question.score)"
         
-        if let owner = question.owner {
-            if let userImageLink = owner.profileImage {
-                if let url = URL(string: userImageLink) {
-                    LinkToImageViewHelper.downloadImage(from: url, to: questionAuthorProfileImage)
-                    
-                }
-            }
+        if let picture = profilePicture {
+            questionAuthorProfileImage.image = picture
         }
         
         let date = Date(timeIntervalSince1970: TimeInterval(question.creationDate))
@@ -53,34 +50,20 @@ class QuestionView: UITableViewHeaderFooterView
         dateFormatter.locale = Locale(identifier: "en_US")
         
         questionDateLabel.text = "\(dateFormatter.string(from: date))"
+        
+        if let comments = question.comments {
+            if question.isCommentsCollapsed == true {
+                showCommentsButton.setTitle("Show comments (\(comments.count))", for: .normal)
+            } else {
+                showCommentsButton.setTitle("Hide comments (not supported yet)", for: .normal)
+            }
+        }
+        
+        showCommentsButton.isHidden = (question.comments != nil) ? false : true
     }
     
     @IBAction func authorNamePressed(_ sender: UIButton)
     {
-        delegate?.authorNamePressed(userId: owner?.userId ?? -1)
-    }
-    
-    func adjustImagesInAttributedString(_ attributedString : NSAttributedString, _ width : CGFloat)
-    {
-        let range = NSMakeRange(0, attributedString.length)
-        
-        attributedString.enumerateAttributes(in: range, options: NSAttributedString.EnumerationOptions(rawValue: 0)) { (object, range, stop) in
-            if object.keys.contains(NSAttributedStringKey.attachment) {
-                if let attachment = object[NSAttributedStringKey.attachment] as? NSTextAttachment {
-                    if attachment.image != nil {
-                        let aspectRatio : CGFloat = attachment.bounds.size.width / attachment.bounds.size.height
-                        let newHeight : CGFloat = width / aspectRatio
-                        
-                        attachment.bounds = CGRect(origin: CGPoint(x: 0, y: 0 ), size: CGSize(width: width, height: newHeight))
-                    } else if attachment.image(forBounds: attachment.bounds, textContainer: nil, characterIndex: range.location) != nil {
-                        
-                        let aspectRatio : CGFloat = attachment.bounds.size.width / attachment.bounds.size.height
-                        let newHeight : CGFloat = width / aspectRatio
-                        
-                        attachment.bounds = CGRect(origin: CGPoint(x: 0, y: 0 ), size: CGSize(width: width, height: newHeight))
-                    }
-                }
-            }
-        }
+        authorNamePressedDelegate?.authorNamePressed(userId: owner?.userId ?? -1)
     }
 }

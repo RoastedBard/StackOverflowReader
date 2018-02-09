@@ -8,15 +8,6 @@
 
 import UIKit
 
-struct UserWrapper : Codable {
-    var user : [User]?
-    
-    enum CodingKeys: String, CodingKey
-    {
-        case user = "items"
-    }
-}
-
 class UserViewController: UIViewController
 {
     @IBOutlet weak var userNameLabel: UILabel!
@@ -35,8 +26,12 @@ class UserViewController: UIViewController
     @IBOutlet weak var silverBadgeCountLabel: UILabel!
     @IBOutlet weak var bronzeBadgeCountLabel: UILabel!
     
+    var profilePicture : UIImage?
+    
     var userId : Int = 0
     var user : User?
+    
+    let dispatchQueue = DispatchQueue(label: "LoadingQuestionData", attributes: [], target: nil)
     
     override func viewDidLoad()
     {
@@ -47,25 +42,15 @@ class UserViewController: UIViewController
             return
         }
         
-        let url = URL(string: "https://api.stackexchange.com/2.2/users/\(userId)?order=desc&sort=reputation&site=stackoverflow&filter=!)68Yd_uOIq-c4mbge*PtmUY-nQ*H")!
-        
-        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
-            if let data = data {
-                let decoder = JSONDecoder()
-                
-                do{
-                    self.user = try decoder.decode(UserWrapper.self, from: data).user![0]
-                } catch {
-                    print(">USER_DECODING_ERROR: \(error)")
-                }
-                
-                DispatchQueue.main.async {
+        dispatchQueue.async {
+            OperationQueue.main.addOperation() {
+                APICallHelper.APICall(request: APIRequestType.UserRequest, apiCallParameter: self.userId){ (apiWrapperResult : APIResponseWrapper<User>?) in
+                    self.user = apiWrapperResult?.items![0]
+                    
                     self.fillViewWithUserData()
                 }
             }
         }
-        
-        task.resume()
     }
 
     override func didReceiveMemoryWarning()
@@ -76,89 +61,115 @@ class UserViewController: UIViewController
     
     private func fillViewWithUserData()
     {
-        userNameLabel.text = user?.displayName
-        
-        goldenBadgeCountLabel.text = "\(user!.badgeCounts.gold)"
-        silverBadgeCountLabel.text = "\(user!.badgeCounts.silver)"
-        bronzeBadgeCountLabel.text = "\(user!.badgeCounts.bronze)"
-        
-        if let userImageLink = user?.profileImage {
-            if let url = URL(string: userImageLink) {
-                LinkToImageViewHelper.downloadImage(from: url, to: userProfileImage)
+        if let user = user {
+            // User name
+            userNameLabel.text = user.displayName?.htmlAttributedString?.string
+            
+            // Badges count
+            goldenBadgeCountLabel.text = "\(user.badgeCounts.gold)"
+            silverBadgeCountLabel.text = "\(user.badgeCounts.silver)"
+            bronzeBadgeCountLabel.text = "\(user.badgeCounts.bronze)"
+            
+            // Profile image
+            if let picture = profilePicture {
+                userProfileImage.image = picture
+            } else {
+                if let profileImageLink = user.profileImage {
+                    if let url = URL(string: profileImageLink) {
+                        LinkToImageViewHelper.downloadImage(from: url) { [weak self] image in
+                            guard let sSelf = self else { return }
+                            DispatchQueue.main.async {
+                                sSelf.userProfileImage.image = image
+                                print("user image loaded")
+                            }
+                        }
+                    }
+                }
             }
-        }
-        
-        if user?.reputation != nil{
-            userReputationLabel.text = "\(user!.reputation!)"
-        }else{
-            userReputationLabel.text = "unknown"
-        }
-        
-        if user?.age != nil{
-            userAgeLabel.text = "\(user!.age!)"
-        }else{
-            userAgeLabel.text = "unknown"
-        }
-        
-        if user?.location != nil{
-            userLocationLabel.text = "\(user!.location!)"
-        }else{
-            userLocationLabel.text = "unknown"
-        }
-        
-        if user?.answerCount != nil{
-            userAnswersCountLabel.text = "\(user!.answerCount!)"
-        }else{
-            userAnswersCountLabel.text = "unknown"
-        }
-        
-        if user?.questionCount != nil{
-            userQuestionsCountLabel.text = "\(user!.questionCount!)"
-        }else{
-            userQuestionsCountLabel.text = "unknown"
-        }
-        
-        if user?.viewCount != nil{
-            userProfileViewsLabel.text = "\(user!.viewCount!)"
-        }else{
-            userProfileViewsLabel.text = "unknown"
-        }
-        
-        let dateComponentsFormatter = DateComponentsFormatter()
-        dateComponentsFormatter.unitsStyle = .full
-       
-        // Last seen
-        if user?.lastAccessDate != nil{
-            dateComponentsFormatter.maximumUnitCount = 4
-            dateComponentsFormatter.allowedUnits = [.month, .year, .hour, .minute]
             
-            let lastSeenDate = Date(timeIntervalSince1970: TimeInterval(user!.lastAccessDate!))
-            let lastSeenString = dateComponentsFormatter.string(from: lastSeenDate, to: Date())
+            // Reputation
+            if let reputation = user.reputation{
+                userReputationLabel.text = "\(reputation)"
+            }else{
+                userReputationLabel.text = "unknown"
+            }
             
-            userLastSeenLabel.text = "\(lastSeenString!) ago"
-        }else{
-            userLastSeenLabel.text = "unknown"
-        }
-        
-        // Member since
-        dateComponentsFormatter.maximumUnitCount = 2
-        dateComponentsFormatter.allowedUnits = [.month, .year]
-        
-        let joinDate = Date(timeIntervalSince1970: TimeInterval(user!.creationDate))
-        let memberForString = dateComponentsFormatter.string(from: joinDate, to: Date())
-        
-        userMemberSinceLabel.text = "\(memberForString!)"
-        
-        if user?.websiteUrl != nil{
-            userWebsiteLinkLabel.text = "\(user!.websiteUrl!)"
-        }else{
-            userWebsiteLinkLabel.text = "unknown"
-        }
-        
-        if user?.aboutMe != nil{
-            userAboutTextView.text = "\(user!.aboutMe!)"
-        }else{
-            userAboutTextView.text = "unknown"
+            // Age
+            if let age = user.age {
+                userAgeLabel.text = "\(age)"
+            }else{
+                userAgeLabel.text = "unknown"
+            }
+            
+            // Location
+            if let location = user.location{
+                userLocationLabel.text = location.htmlAttributedString?.string
+            }else{
+                userLocationLabel.text = "unknown"
+            }
+            
+            // Answer Count
+            if let answerCount = user.answerCount {
+                userAnswersCountLabel.text = "\(answerCount)"
+            }else{
+                userAnswersCountLabel.text = "unknown"
+            }
+            
+            // Question Count
+            if let questionCount = user.questionCount {
+                userQuestionsCountLabel.text = "\(questionCount)"
+            }else{
+                userQuestionsCountLabel.text = "unknown"
+            }
+            
+            // View Count
+            if let viewCount = user.viewCount{
+                userProfileViewsLabel.text = "\(viewCount)"
+            }else{
+                userProfileViewsLabel.text = "unknown"
+            }
+            
+            /* Dates */
+            let dateComponentsFormatter = DateComponentsFormatter()
+            dateComponentsFormatter.unitsStyle = .full
+            
+            // Last seen
+            if let lastAccessDate = user.lastAccessDate {
+                dateComponentsFormatter.maximumUnitCount = 4
+                dateComponentsFormatter.allowedUnits = [.month, .year, .hour, .minute]
+                
+                let lastSeenDate = Date(timeIntervalSince1970: TimeInterval(lastAccessDate))
+                if let lastSeenString = dateComponentsFormatter.string(from: lastSeenDate, to: Date()) {
+                    userLastSeenLabel.text = "\(lastSeenString) ago"
+                } else {
+                    userLastSeenLabel.text = "Error in formatting date"
+                }
+            }else{
+                userLastSeenLabel.text = "unknown"
+            }
+            
+            // Member since
+            dateComponentsFormatter.maximumUnitCount = 2
+            dateComponentsFormatter.allowedUnits = [.month, .year]
+            
+            let joinDate = Date(timeIntervalSince1970: TimeInterval(user.creationDate))
+            let memberForString = dateComponentsFormatter.string(from: joinDate, to: Date())
+            
+            userMemberSinceLabel.text = "\(memberForString!)"
+            
+            // User website
+            if let websiteUrl = user.websiteUrl {
+                userWebsiteLinkLabel.text = websiteUrl.htmlAttributedString?.string
+            }else{
+                userWebsiteLinkLabel.text = "unknown"
+            }
+            
+            // About me
+            if let aboutMe = user.aboutMe {
+                userAboutTextView.text = aboutMe.htmlAttributedString?.string
+            }else{
+                userAboutTextView.text = "unknown"
+            }
         }
     }
 }

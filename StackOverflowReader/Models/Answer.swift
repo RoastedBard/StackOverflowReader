@@ -8,27 +8,45 @@
 
 import Foundation
 
-class Answer : Codable
+class Answer : Codable //CommonModelData
 {
-    // MARK: - Raw Data
-    var owner : ShallowUser?
+    // MARK: - Properties returned from API call
+    
+    var owner : ShallowUser? // COMMON Закомментировать, если наследоваться CommonModelData
     var isAccepted : Bool
-    var score : Int
-    var creationDate : Int // unix epoch time
+    var score : Int // COMMON Закомментировать, если наследоваться CommonModelData
+    var creationDate : Int // COMMON Закомментировать, если наследоваться CommonModelData // unix epoch time
     var answerId : Int
-    var questionId : Int
-    var body : String
+    var body : String // COMMON Закомментировать, если наследоваться CommonModelData
     var comments : [Comment]?
     
-    enum CodingKeys: String, CodingKey
+    private enum CodingKeys: String, CodingKey
     {
-        case owner
+        case owner // COMMON Закомментировать, если наследоваться CommonModelData
         case isAccepted = "is_accepted"
-        case score
-        case creationDate = "creation_date"
-        case questionId = "question_id"
+        case score // COMMON Закомментировать, если наследоваться CommonModelData
+        case creationDate = "creation_date" // COMMON Закомментировать, если наследоваться CommonModelData
         case answerId = "answer_id"
-        case body
+        case body // COMMON Закомментировать, если наследоваться CommonModelData
         case comments
     }
+    
+    // MARK: - Helper properties
+    
+    var isCommentsCollapsed = false
+    
+    // MARK: - init
+
+// Раскомментировать, если наследоваться от CommonModelData
+    
+//    required init(from decoder: Decoder) throws
+//    {
+//        let container = try decoder.container(keyedBy: CodingKeys.self)
+//
+//        self.isAccepted = try container.decode(Bool.self, forKey: .isAccepted)
+//        self.answerId = try container.decode(Int.self, forKey: .answerId)
+//        self.comments = try? container.decode([Comment].self, forKey: .comments)
+//
+//        try super.init(from: decoder)
+//    }
 }

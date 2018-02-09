@@ -109,6 +109,10 @@
                             <searchBar contentMode="redraw" placeholder="Can you use swift for Android?" translatesAutoresizingMaskIntoConstraints="NO" id="85d-Mq-Ow7">
                                 <rect key="frame" x="0.0" y="64" width="320" height="56"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <scopeButtonTitles>
+                                    <string>Title</string>
+                                    <string>Title</string>
+                                </scopeButtonTitles>
                             </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="OWm-Aa-8fG">
                                 <rect key="frame" x="0.0" y="150" width="320" height="281"/>
@@ -320,7 +324,7 @@
                                             </connections>
                                         </button>
                                     </subviews>
-                                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                    <color key="backgroundColor" red="1" green="0.77118431528333331" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <constraints>
                                         <constraint firstAttribute="bottom" secondItem="aQQ-MN-SKv" secondAttribute="bottom" id="1kc-U3-9mU"/>
                                         <constraint firstItem="aQQ-MN-SKv" firstAttribute="leading" secondItem="5hG-3s-FeI" secondAttribute="leading" constant="8" id="9U3-3f-wOB"/>
@@ -334,6 +338,7 @@
                                         <constraint firstItem="rVg-2J-60Y" firstAttribute="leading" secondItem="5hG-3s-FeI" secondAttribute="leading" constant="8" id="wN6-Cd-yCV"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <outlet property="commentAuthorNameButton" destination="85o-di-FaT" id="AOt-Xy-EIC"/>
                                     <outlet property="commentBodyTextView" destination="rVg-2J-60Y" id="Uz2-lC-584"/>

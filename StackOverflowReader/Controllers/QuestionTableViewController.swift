@@ -15,26 +15,56 @@ class QuestionTableViewController: UITableViewController
     private let questionHeaderIdentifier = "QuestionHeaderIdentifier"
     private let answerHeaderIdentifier = "AnswerHeaderIdentifier"
     
+    var questionId : Int = -1
+    
     var question : Question?
-    var questionAttributedData : QuestionAttributedData?
     
     var questionAndAnswerContentWidth : CGFloat = 0 // Used for correct resizing and positioning images in question and answer UITextViews
     
+    var activityIndicatorView: UIActivityIndicatorView!
+    let dispatchQueue = DispatchQueue(label: "LoadingQuestionData", attributes: [], target: nil)
+    
+    // MARK: - Cached data
     var attributedQuestionData : QuestionAttributedData?
     var attributedAnswers : [CommonAttributedData?] = [CommonAttributedData?]()
     var attributedComments : [Int : [CommonAttributedData?]] = [Int : [CommonAttributedData?]]()
     
-    // MARK: - Configuration
+    var profileImages : [Int : UIImage] = [Int : UIImage]()
     
+    // MARK: - Configuration
     override func viewDidLoad()
     {
         super.viewDidLoad()
         
+        activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+        
+        tableView.backgroundView = activityIndicatorView
+        
         configureTableView()
         
         questionAndAnswerContentWidth = self.view.frame.size.width - 16 // 16 = 8 units margin on the left + 8 units margin on the right of the UItextView containing answer or question body
+    }
+    
+    override func viewWillAppear(_ animated: Bool)
+    {
+        super.viewWillAppear(animated)
         
-        initializeAttributedData()
+        if question == nil {
+            activityIndicatorView.startAnimating()
+            
+            dispatchQueue.async {
+                OperationQueue.main.addOperation() {
+                    APICallHelper.APICall(request: APIRequestType.FullQuestionRequest, apiCallParameter: self.questionId){ (apiWrapperResult : APIResponseWrapper<Question>?) in
+                        self.question = apiWrapperResult?.items![0]
+                        
+                        self.initializeData()
+                        
+                        self.activityIndicatorView.stopAnimating()
+                        self.tableView.reloadData()
+                    }
+                }
+            }
+        }
     }
     
     override func viewDidLayoutSubviews()
@@ -59,25 +89,64 @@ class QuestionTableViewController: UITableViewController
         tableView.register(answerNib, forHeaderFooterViewReuseIdentifier: answerHeaderIdentifier)
     }
     
-    fileprivate func initializeAttributedData()
+    fileprivate func initializeData()
     {
-        questionAttributedData = QuestionAttributedData(title: question!.title, body: question!.body, authorName: question?.owner?.displayName ?? "NAME_NOT_SPECIFIED", contentWidth: questionAndAnswerContentWidth)
+        // Sorting answers in DESC order by score value
+        question?.answers?.sort {$0.score > $1.score}
         
+        // Converting and caching question data (title, body, author name)
+        attributedQuestionData = QuestionAttributedData(title: question!.title, body: question!.body, authorName: question?.owner?.displayName ?? "NAME_NOT_SPECIFIED", contentWidth: questionAndAnswerContentWidth)
+        
+        // Converting and caching question comments
+        // In attributedComments dictionary, 0 index is reserved for question comments attributed data array
         if let questionComments = question?.comments {
-            
+
             attributedComments[0] = [CommonAttributedData]()
-            
+
             for comment in questionComments {
-                attributedComments[0]!.append(CommonAttributedData(body: comment.body, authorName: comment.owner?.displayName ?? "NAME_NOT_SPECIFIED", contentWidth: questionAndAnswerContentWidth))
+                attributedComments[0]!.append(CommonAttributedData(body: comment.body, authorName: comment.owner?.displayName ?? "NAME_NOT_SPECIFIED", contentWidth: questionAndAnswerContentWidth, isImageProcessingNeeded: false))
             }
         }
         
+        // Downloading and saving question author profile picture
+        if let userImageLink = question?.owner?.profileImage, let userId = question?.owner?.userId {
+            if let url = URL(string: userImageLink) {
+                //downloadImage(from: url, to: userId)
+                LinkToImageViewHelper.downloadImage(from: url) { [weak self] image in
+                    guard let sSelf = self else { return }
+                    sSelf.profileImages[userId] = image
+                }
+            }
+        }
+        
+        // Converting and caching answer data
         if let answers = question?.answers {
-            attributedAnswers = Array(repeating: nil, count: answers.count)
-
-            for (index, answer) in answers.enumerated() {
-                if let comments = answer.comments{
-                    attributedComments[index + 1] = Array(repeating: nil, count: comments.count) // "index + 1" because index=0 reserved for question comments
+            
+            for (i, answer) in answers.enumerated() {
+                // Converting and caching answer body and author name
+                attributedAnswers.append(CommonAttributedData(body: answer.body, authorName: answer.owner?.displayName ?? "NAME_NOT_SPECIFIED", contentWidth: questionAndAnswerContentWidth, isImageProcessingNeeded: true))
+                
+                let answerIndex = i + 1 // "i + 1" because "i = 0" is reserved for question comments
+                
+                // Downloading and saving answer author profile picture
+                if let userImageLink = answer.owner?.profileImage, let userId = answer.owner?.userId {
+                    if let url = URL(string: userImageLink) {
+                        //downloadImage(from: url, to: userId)
+                        LinkToImageViewHelper.downloadImage(from: url) { [weak self] image in
+                            guard let sSelf = self else { return }
+                            sSelf.profileImages[userId] = image
+                        }
+                    }
+                }
+                
+                // Converting and caching answer comments
+                if let comments = answer.comments {
+                    
+                    attributedComments[answerIndex] = [CommonAttributedData]()
+                    
+                    for comment in comments {
+                        attributedComments[answerIndex]?.append(CommonAttributedData(body: comment.body, authorName: comment.owner?.displayName ?? "NAME_NOT_SPECIFIED", contentWidth: questionAndAnswerContentWidth, isImageProcessingNeeded: false))
+                    }
                 }
             }
         }
@@ -87,7 +156,15 @@ class QuestionTableViewController: UITableViewController
     
     override func numberOfSections(in tableView: UITableView) -> Int
     {
-        return question?.answers?.count ?? 1
+        if question == nil{
+            return 0
+        }
+        
+        if let answerCount = question?.answers?.count {
+            return answerCount + 1 // answers + 1 question
+        } else {
+            return 1
+        }
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
@@ -105,29 +182,25 @@ class QuestionTableViewController: UITableViewController
             guard let questionView = tableView.dequeueReusableHeaderFooterView(withIdentifier: questionHeaderIdentifier) as? QuestionView else { return nil }
 
             questionView.owner = question?.owner
-            questionView.delegate = self
-
-            questionView.initializeQuestionView(question!, screenWidth: questionAndAnswerContentWidth, questionAttributedData!)
+            questionView.authorNamePressedDelegate = self
+            
+            if let attrData = attributedQuestionData, let question = question {
+                questionView.initializeQuestionView(question, screenWidth: questionAndAnswerContentWidth, attributedData: attrData, profileImages[question.owner?.userId ?? -1])
+            }
             
             return questionView
         } else {
             guard let answerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: answerHeaderIdentifier) as? AnswerView else { return nil }
 
-            let answer = question!.answers![section - 1]
-
-            answerView.owner = answer.owner
-            answerView.delegate = self
-
-            if attributedAnswers.count > 0 {
-                if let answerAttrData = attributedAnswers[section - 1] {
-                    answerView.initializeAnswerView(answer, screenWidth: questionAndAnswerContentWidth, answerAttrData)
-                } else {
-                    attributedAnswers[section - 1] = CommonAttributedData(body: answer.body, authorName: answer.owner?.displayName ?? "NAME_NOT_SPECIFIED", contentWidth: questionAndAnswerContentWidth)
-
-                    answerView.initializeAnswerView(answer, screenWidth: questionAndAnswerContentWidth, attributedAnswers[section - 1]!)
+            if let answer = question?.answers?[section - 1] {
+                answerView.owner = answer.owner
+                answerView.authorNamePressedDelegate = self
+                
+                if let attrData = attributedAnswers[section - 1] {
+                    answerView.initializeAnswerView(answer, screenWidth: questionAndAnswerContentWidth, attributedData: attrData, profileImages[answer.owner?.userId ?? -1])
                 }
             }
-            
+
             return answerView
         }
     }
@@ -141,29 +214,22 @@ class QuestionTableViewController: UITableViewController
     {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! CommentTableViewCell
         
-        cell.delegate = self
+        cell.authorNamePressedDelegate = self
         
         if indexPath.section == 0 {
-            
             if let comments = attributedComments[0] {
                 if let comment = comments[indexPath.row] {
                     cell.initializeCommentCell(question!.comments![indexPath.row], comment)
                 }
             }
-            
         } else {
-            
             if let comments = attributedComments[indexPath.section] {
                 let commentModel = question!.answers![indexPath.section - 1].comments![indexPath.row]
-                
-                if let comment = comments[indexPath.row] {
-                    cell.initializeCommentCell(commentModel, comment)
-                }
-                else {
-                    attributedComments[indexPath.section]![indexPath.row] = CommonAttributedData(body: commentModel.body, authorName: commentModel.owner?.displayName ?? "NAME_NOT_SPECIFIED", contentWidth: questionAndAnswerContentWidth)
+
+                if let attrComment = comments[indexPath.row] {
+                    cell.initializeCommentCell(commentModel, attrComment)
                 }
             }
-            
         }
         
         return cell
@@ -183,6 +249,7 @@ extension QuestionTableViewController : AuthorNamePressedProtocol
         
         if let uvc = segue.destination as? UserViewController {
             uvc.userId = userId ?? -1
+            uvc.profilePicture = profileImages[userId ?? -1]
         }
     }
 }

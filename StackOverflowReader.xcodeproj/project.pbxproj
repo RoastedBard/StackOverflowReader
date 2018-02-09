@@ -7,18 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BF09525A202AF2F0009B9527 /* BriefQuestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF095259202AF2F0009B9527 /* BriefQuestion.swift */; };
 		BF0A04342007A150007701EB /* QuestionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF0A04332007A150007701EB /* QuestionView.xib */; };
 		BF0A04362007A163007701EB /* AnswerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF0A04352007A163007701EB /* AnswerView.xib */; };
 		BF0A04382007A4B4007701EB /* QuestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0A04372007A4B4007701EB /* QuestionView.swift */; };
 		BF0A043A2007A593007701EB /* AnswerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0A04392007A593007701EB /* AnswerView.swift */; };
+		BF118A78202CC1C6003591CD /* CommonModelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF118A77202CC1C6003591CD /* CommonModelData.swift */; };
 		BF12F268201634DC0056919E /* BadgeCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF12F267201634DC0056919E /* BadgeCount.swift */; };
+		BF23CD4E2029A168003C17ED /* CollapseCommentsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF23CD4D2029A168003C17ED /* CollapseCommentsProtocol.swift */; };
+		BF251927202DFFF4008CC8D0 /* LinkToImageViewHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF251926202DFFF4008CC8D0 /* LinkToImageViewHelper.swift */; };
 		BF35C80A1FFE2AD100AF9FA7 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF35C8061FFE2AD100AF9FA7 /* Comment.swift */; };
 		BF35C80B1FFE2AD100AF9FA7 /* Answer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF35C8071FFE2AD100AF9FA7 /* Answer.swift */; };
 		BF35C80C1FFE2AD100AF9FA7 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF35C8081FFE2AD100AF9FA7 /* User.swift */; };
 		BF35C80D1FFE2AD100AF9FA7 /* Question.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF35C8091FFE2AD100AF9FA7 /* Question.swift */; };
 		BF35C80F1FFE33CD00AF9FA7 /* SOPostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF35C80E1FFE33CD00AF9FA7 /* SOPostCell.swift */; };
-		BF361D64201B45C300CEE6FA /* APIResponseWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF361D63201B45C300CEE6FA /* APIResponseWrapper.swift */; };
-		BF361D66201B461900CEE6FA /* QuestionsContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF361D65201B461900CEE6FA /* QuestionsContainer.swift */; };
 		BF361D68201B4EE400CEE6FA /* APICallHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF361D67201B4EE400CEE6FA /* APICallHelper.swift */; };
 		BF534FD82022293B00012007 /* AttributedData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF534FD72022293B00012007 /* AttributedData.swift */; };
 		BF621C341FE8000600DFDAA4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF621C331FE8000600DFDAA4 /* AppDelegate.swift */; };
@@ -33,7 +35,6 @@
 		BFEE044A20188E900095105B /* ShallowUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFEE044920188E900095105B /* ShallowUser.swift */; };
 		BFEE6B122008BD3600BD67FB /* UserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFEE6B112008BD3600BD67FB /* UserViewController.swift */; };
 		BFEE6B142008D5EB00BD67FB /* AuthorNamePressedProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFEE6B132008D5EB00BD67FB /* AuthorNamePressedProtocol.swift */; };
-		BFEE6B162009114600BD67FB /* LinkToImageViewHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFEE6B152009114600BD67FB /* LinkToImageViewHelper.swift */; };
 		BFFE383B2020A78300EFC233 /* HTMLStringToAttributedTextHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFFE383A2020A78300EFC233 /* HTMLStringToAttributedTextHelper.swift */; };
 		FD9388C70645CFC0CD4F31A8 /* Pods_StackOverflowReader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 120BAEF672886FDF3982DD99 /* Pods_StackOverflowReader.framework */; };
 /* End PBXBuildFile section */
@@ -41,18 +42,20 @@
 /* Begin PBXFileReference section */
 		120BAEF672886FDF3982DD99 /* Pods_StackOverflowReader.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StackOverflowReader.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		78048D32AA22662E474B0049 /* Pods-StackOverflowReader.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StackOverflowReader.debug.xcconfig"; path = "Pods/Target Support Files/Pods-StackOverflowReader/Pods-StackOverflowReader.debug.xcconfig"; sourceTree = "<group>"; };
+		BF095259202AF2F0009B9527 /* BriefQuestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BriefQuestion.swift; sourceTree = "<group>"; };
 		BF0A04332007A150007701EB /* QuestionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QuestionView.xib; sourceTree = "<group>"; };
 		BF0A04352007A163007701EB /* AnswerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AnswerView.xib; sourceTree = "<group>"; };
 		BF0A04372007A4B4007701EB /* QuestionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionView.swift; sourceTree = "<group>"; };
 		BF0A04392007A593007701EB /* AnswerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerView.swift; sourceTree = "<group>"; };
+		BF118A77202CC1C6003591CD /* CommonModelData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonModelData.swift; sourceTree = "<group>"; };
 		BF12F267201634DC0056919E /* BadgeCount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeCount.swift; sourceTree = "<group>"; };
+		BF23CD4D2029A168003C17ED /* CollapseCommentsProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollapseCommentsProtocol.swift; sourceTree = "<group>"; };
+		BF251926202DFFF4008CC8D0 /* LinkToImageViewHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinkToImageViewHelper.swift; sourceTree = "<group>"; };
 		BF35C8061FFE2AD100AF9FA7 /* Comment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		BF35C8071FFE2AD100AF9FA7 /* Answer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Answer.swift; sourceTree = "<group>"; };
 		BF35C8081FFE2AD100AF9FA7 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		BF35C8091FFE2AD100AF9FA7 /* Question.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Question.swift; sourceTree = "<group>"; };
 		BF35C80E1FFE33CD00AF9FA7 /* SOPostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SOPostCell.swift; sourceTree = "<group>"; };
-		BF361D63201B45C300CEE6FA /* APIResponseWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIResponseWrapper.swift; sourceTree = "<group>"; };
-		BF361D65201B461900CEE6FA /* QuestionsContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionsContainer.swift; sourceTree = "<group>"; };
 		BF361D67201B4EE400CEE6FA /* APICallHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APICallHelper.swift; sourceTree = "<group>"; };
 		BF534FD72022293B00012007 /* AttributedData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedData.swift; sourceTree = "<group>"; };
 		BF621C301FE8000500DFDAA4 /* StackOverflowReader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StackOverflowReader.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -69,7 +72,6 @@
 		BFEE044920188E900095105B /* ShallowUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShallowUser.swift; sourceTree = "<group>"; };
 		BFEE6B112008BD3600BD67FB /* UserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewController.swift; sourceTree = "<group>"; };
 		BFEE6B132008D5EB00BD67FB /* AuthorNamePressedProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorNamePressedProtocol.swift; sourceTree = "<group>"; };
-		BFEE6B152009114600BD67FB /* LinkToImageViewHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkToImageViewHelper.swift; sourceTree = "<group>"; };
 		BFFE383A2020A78300EFC233 /* HTMLStringToAttributedTextHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLStringToAttributedTextHelper.swift; sourceTree = "<group>"; };
 		F93117EE3B476877F4741F94 /* Pods-StackOverflowReader.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StackOverflowReader.release.xcconfig"; path = "Pods/Target Support Files/Pods-StackOverflowReader/Pods-StackOverflowReader.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -137,6 +139,8 @@
 				BF35C8081FFE2AD100AF9FA7 /* User.swift */,
 				BF12F267201634DC0056919E /* BadgeCount.swift */,
 				BFEE044920188E900095105B /* ShallowUser.swift */,
+				BF095259202AF2F0009B9527 /* BriefQuestion.swift */,
+				BF118A77202CC1C6003591CD /* CommonModelData.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -170,13 +174,12 @@
 		BF6E445D1FED42A4004BEF13 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				BF251926202DFFF4008CC8D0 /* LinkToImageViewHelper.swift */,
 				BFEE6B132008D5EB00BD67FB /* AuthorNamePressedProtocol.swift */,
-				BFEE6B152009114600BD67FB /* LinkToImageViewHelper.swift */,
-				BF361D63201B45C300CEE6FA /* APIResponseWrapper.swift */,
-				BF361D65201B461900CEE6FA /* QuestionsContainer.swift */,
 				BF361D67201B4EE400CEE6FA /* APICallHelper.swift */,
 				BFFE383A2020A78300EFC233 /* HTMLStringToAttributedTextHelper.swift */,
 				BF534FD72022293B00012007 /* AttributedData.swift */,
+				BF23CD4D2029A168003C17ED /* CollapseCommentsProtocol.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -323,17 +326,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				BFFE383B2020A78300EFC233 /* HTMLStringToAttributedTextHelper.swift in Sources */,
+				BF09525A202AF2F0009B9527 /* BriefQuestion.swift in Sources */,
 				BF0A04382007A4B4007701EB /* QuestionView.swift in Sources */,
 				BF35C80C1FFE2AD100AF9FA7 /* User.swift in Sources */,
 				BF35C80F1FFE33CD00AF9FA7 /* SOPostCell.swift in Sources */,
+				BF23CD4E2029A168003C17ED /* CollapseCommentsProtocol.swift in Sources */,
 				BFB4AD6E1FF3A2AA00097C05 /* SavedPostsViewController.swift in Sources */,
 				BF621C361FE8000600DFDAA4 /* SearchViewController.swift in Sources */,
 				BF534FD82022293B00012007 /* AttributedData.swift in Sources */,
 				BF12F268201634DC0056919E /* BadgeCount.swift in Sources */,
-				BFEE6B162009114600BD67FB /* LinkToImageViewHelper.swift in Sources */,
 				BF621C3C1FE8000600DFDAA4 /* StackOverflowReader.xcdatamodeld in Sources */,
-				BF361D64201B45C300CEE6FA /* APIResponseWrapper.swift in Sources */,
+				BF118A78202CC1C6003591CD /* CommonModelData.swift in Sources */,
 				BF0A043A2007A593007701EB /* AnswerView.swift in Sources */,
+				BF251927202DFFF4008CC8D0 /* LinkToImageViewHelper.swift in Sources */,
 				BFEE6B122008BD3600BD67FB /* UserViewController.swift in Sources */,
 				BF361D68201B4EE400CEE6FA /* APICallHelper.swift in Sources */,
 				BF864CD62007D1D2000BD5E6 /* CommentTableViewCell.swift in Sources */,
@@ -342,7 +347,6 @@
 				BFCC8CE31FFD0D870081575B /* QuestionTableViewController.swift in Sources */,
 				BF621C341FE8000600DFDAA4 /* AppDelegate.swift in Sources */,
 				BFEE6B142008D5EB00BD67FB /* AuthorNamePressedProtocol.swift in Sources */,
-				BF361D66201B461900CEE6FA /* QuestionsContainer.swift in Sources */,
 				BF35C80A1FFE2AD100AF9FA7 /* Comment.swift in Sources */,
 				BFEE044A20188E900095105B /* ShallowUser.swift in Sources */,
 			);
