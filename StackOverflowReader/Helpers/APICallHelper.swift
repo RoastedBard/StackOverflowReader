@@ -30,20 +30,21 @@ struct APIResponseWrapper<T : Codable> : Codable
 
 class APICallHelper
 {
-    fileprivate static var url : URL?
-    
     // MARK: - API call parts
     static var currentPage : Int = 1
     static var sort : SearchSortingType = .votes
     
-    fileprivate static var apiRoot : String = "https://api.stackexchange.com/"
-    fileprivate static var apiVersion : String = "2.2"
+    fileprivate static let applicationKey : String = "Q)4aM*Ox5tlnokGsMxWYlw(("
+    fileprivate static let apiRoot : String = "https://api.stackexchange.com/"
+    fileprivate static let apiVersion : String = "2.2"
     fileprivate static let pageSize : Int = 30
     
     // MARK: - Filters
     fileprivate static let briefQuestionsFilter : String = "!*7PYFiX04qGV37sZYPl69Az8N(YS"
     fileprivate static let fullQuestionsFilter : String = "!.PJ-a73kkFkITr*RVS3lHcM4DBcYDBT5jvbRgxMMnqV*adxO3ZQlb67KV)RMxT"
     fileprivate static let userFilter : String = "!0YzIPZzz24xx9(INJ.yi*SI8a"
+    
+    fileprivate static var url : URL?
     
     // MARK: - Methods
     static func APICall<T>(request : APIRequestType, apiCallParameter : Any?, updateUIClosure: @escaping (_ apiCallWrapper : APIResponseWrapper<T>?) -> Void)
@@ -58,15 +59,15 @@ class APICallHelper
         {
         case .BriefQuestionsRequest:
             let searchQuery = apiCallParameter as! String
-            url = URL(string: "\(apiRoot)\(apiVersion)/search/advanced?page=\(currentPage)&order=desc&pagesize=\(pageSize)&sort=\(sort.rawValue)&q=\(searchQuery)&site=stackoverflow&filter=\(briefQuestionsFilter)")!
+            url = URL(string: "\(apiRoot)\(apiVersion)/search/advanced?site=stackoverflow&key=\(applicationKey)&page=\(currentPage)&pagesize=\(pageSize)&sort=\(sort.rawValue)&q=\(searchQuery)&filter=\(briefQuestionsFilter)")!
             
         case .FullQuestionRequest:
             let questionId = apiCallParameter as! Int
-            url = URL(string: "\(apiRoot)\(apiVersion)/questions/\(questionId)?order=desc&sort=activity&site=stackoverflow&filter=\(fullQuestionsFilter)")!
+            url = URL(string: "\(apiRoot)\(apiVersion)/questions/\(questionId)?site=stackoverflow&key=\(applicationKey)&filter=\(fullQuestionsFilter)")!
             
         case .UserRequest:
             let userId = apiCallParameter as! Int
-            url = URL(string: "\(apiRoot)\(apiVersion)/users/\(userId)?order=desc&sort=reputation&site=stackoverflow&filter=\(userFilter)")!
+            url = URL(string: "\(apiRoot)\(apiVersion)/users/\(userId)?site=stackoverflow&key=\(applicationKey)&filter=\(userFilter)")!
         }
     }
     
@@ -74,6 +75,7 @@ class APICallHelper
         let task = URLSession.shared.dataTask(with: url!) { (data, response, error) in
             if let data = data {
                 let decoder = JSONDecoder()
+                
                 var apiResponse : APIResponseWrapper<T>?
                 
                 do{

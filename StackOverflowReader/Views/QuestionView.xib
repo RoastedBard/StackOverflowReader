@@ -29,7 +29,7 @@
                             <rect key="frame" x="301.5" y="0.0" width="65.5" height="25"/>
                             <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                         </label>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XMN-J8-JB1" userLabel="profilePicture">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="default_user" translatesAutoresizingMaskIntoConstraints="NO" id="XMN-J8-JB1" userLabel="profilePicture">
                             <rect key="frame" x="8" y="0.0" width="25" height="25"/>
                             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
@@ -60,14 +60,14 @@
                     </constraints>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" horizontalCompressionResistancePriority="751" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="an8-Lr-41J" userLabel="questionScoreLabel">
-                    <rect key="frame" x="8" y="564" width="0.0" height="0.0"/>
+                    <rect key="frame" x="8" y="518" width="0.0" height="46"/>
                     <color key="backgroundColor" red="0.0" green="0.99143940210000003" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="48"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="rtgrtg" lineBreakMode="wordWrap" numberOfLines="999" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="clH-oQ-yfO" userLabel="questionTitleLAbel">
-                    <rect key="frame" x="8" y="28" width="359" height="528"/>
+                    <rect key="frame" x="8" y="28" width="359" height="482"/>
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                     <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -103,13 +103,25 @@
                         <action selector="showCommentsButtonPressed:" destination="-1" eventType="touchUpInside" id="vBE-gJ-l2w"/>
                     </connections>
                 </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yiT-uQ-eAd">
+                    <rect key="frame" x="303" y="526" width="64" height="30"/>
+                    <color key="backgroundColor" red="0.0" green="0.99143940210000003" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="64" id="vOZ-T0-36m"/>
+                    </constraints>
+                    <state key="normal" title="Save">
+                        <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="1X8-gB-CZY" secondAttribute="bottom" constant="8" id="0qr-zR-TzI"/>
                 <constraint firstItem="ZAV-yM-a74" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="19j-O6-P6K"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="yiT-uQ-eAd" secondAttribute="trailing" constant="8" id="3Ar-jx-pH7"/>
                 <constraint firstItem="eL0-Xw-cnO" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="3ec-9x-MZI"/>
                 <constraint firstItem="an8-Lr-41J" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="8WC-PX-I8e"/>
+                <constraint firstItem="NnK-MA-0RR" firstAttribute="top" secondItem="yiT-uQ-eAd" secondAttribute="bottom" constant="16" id="AUf-R1-ndy"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="1X8-gB-CZY" secondAttribute="trailing" id="CV4-YR-BEz"/>
                 <constraint firstAttribute="trailing" secondItem="eL0-Xw-cnO" secondAttribute="trailing" id="EHq-WK-BeY"/>
                 <constraint firstItem="an8-Lr-41J" firstAttribute="top" secondItem="clH-oQ-yfO" secondAttribute="bottom" constant="8" symbolic="YES" id="KTG-ok-nYO"/>
@@ -121,6 +133,7 @@
                 <constraint firstItem="1X8-gB-CZY" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="bN1-hd-OTV"/>
                 <constraint firstItem="NnK-MA-0RR" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="lXm-fF-wbN"/>
                 <constraint firstItem="eL0-Xw-cnO" firstAttribute="top" secondItem="NnK-MA-0RR" secondAttribute="bottom" constant="7.5" id="lfX-bW-2n2"/>
+                <constraint firstItem="yiT-uQ-eAd" firstAttribute="top" secondItem="clH-oQ-yfO" secondAttribute="bottom" constant="16" id="ltd-V2-udy"/>
                 <constraint firstItem="clH-oQ-yfO" firstAttribute="top" secondItem="ZAV-yM-a74" secondAttribute="bottom" constant="8" symbolic="YES" id="pSq-13-1R3"/>
                 <constraint firstAttribute="trailing" secondItem="clH-oQ-yfO" secondAttribute="trailing" constant="8" id="zNh-9V-A38"/>
                 <constraint firstItem="1X8-gB-CZY" firstAttribute="top" secondItem="eL0-Xw-cnO" secondAttribute="bottom" constant="8" id="zmy-hi-U6u"/>
@@ -139,4 +152,7 @@
             <point key="canvasLocation" x="32.5" y="59.5"/>
         </view>
     </objects>
+    <resources>
+        <image name="default_user" width="300" height="300"/>
+    </resources>
 </document>

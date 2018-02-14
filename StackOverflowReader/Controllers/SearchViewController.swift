@@ -26,8 +26,12 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
     var activityIndicatorView: UIActivityIndicatorView!
     let dispatchQueue = DispatchQueue(label: "LoadingQuestionData", attributes: [], target: nil)
     
+    var isNothingFound = false
+    
     override func viewDidLoad()
     {
+        //self.navigationController?.setNavigationBarHidden(true, animated: true)
+        
         super.viewDidLoad()
         
         activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
@@ -39,7 +43,13 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         searchResultsTableView.delegate = self
         searchResultsTableView.dataSource = self
     }
-
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
+        super.viewWillAppear(animated)
+        
+    }
+    
     override func didReceiveMemoryWarning()
     {
         super.didReceiveMemoryWarning()
@@ -99,7 +109,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
     
     func reloadSearchResults()
     {
-        if apiCallWrapper?.items != nil {
+        if apiCallWrapper?.items != nil, apiCallWrapper?.items?.count != 0 {
             apiCallWrapper!.items!.removeAll()
         }
         
@@ -114,6 +124,13 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         dispatchQueue.async {
             OperationQueue.main.addOperation() {
                 APICallHelper.APICall(request: APIRequestType.BriefQuestionsRequest, apiCallParameter: self.searchQuery){ (apiWrapperResult : APIResponseWrapper<BriefQuestion>?) in
+                    
+                    if apiWrapperResult?.items?.count == 0 {
+                        self.isNothingFound = true
+                    } else {
+                        self.isNothingFound = false
+                    }
+                    
                     self.apiCallWrapper = apiWrapperResult
                     
                     for question in self.apiCallWrapper!.items! {
@@ -149,25 +166,39 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
+        if isNothingFound == true {
+            return 1
+        }
+        
         return apiCallWrapper?.items?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "SOPostCell", for: indexPath) as! SOPostCell
-        
-        cell.authorNamePressedDelegate = self
-        
-        if let questions = apiCallWrapper?.items {
-            cell.initCell(question: questions[indexPath.row], attributedData: cellAttributedData[indexPath.row]!)
+        if isNothingFound == true {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "NothingFoundCell", for: indexPath)
+            
+            return cell
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "SOPostCell", for: indexPath) as! SOPostCell
+            
+            cell.authorNamePressedDelegate = self
+            
+            if let questions = apiCallWrapper?.items {
+                cell.initCell(question: questions[indexPath.row], attributedData: cellAttributedData[indexPath.row]!)
+            }
+            
+            return cell
         }
-        
-        return cell
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath)
     {
-        let lastElement = apiCallWrapper!.items!.count - 1
+        var lastElement = -1
+        
+        if let elementCount = apiCallWrapper?.items?.count {
+            lastElement = elementCount - 1
+        }
         
         if indexPath.row == lastElement {
             APICallHelper.currentPage += 1

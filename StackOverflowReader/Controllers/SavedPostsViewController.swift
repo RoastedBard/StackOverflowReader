@@ -15,6 +15,7 @@ class SavedPostsViewController: UIViewController
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        self.navigationItem.setHidesBackButton(true, animated: false)
     }
 
     override func didReceiveMemoryWarning()
@@ -23,6 +24,11 @@ class SavedPostsViewController: UIViewController
         // Dispose of any resources that can be recreated.
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
+        super.viewWillAppear(animated)
+        
+    }
 
     /*
     // MARK: - Navigation

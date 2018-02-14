@@ -14,6 +14,8 @@
 		BF0A043A2007A593007701EB /* AnswerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0A04392007A593007701EB /* AnswerView.swift */; };
 		BF118A78202CC1C6003591CD /* CommonModelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF118A77202CC1C6003591CD /* CommonModelData.swift */; };
 		BF12F268201634DC0056919E /* BadgeCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF12F267201634DC0056919E /* BadgeCount.swift */; };
+		BF1F2D762031C592003858E2 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF1F2D752031C591003858E2 /* LoginViewController.swift */; };
+		BF1F2D782031E166003858E2 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF1F2D772031E166003858E2 /* SettingsViewController.swift */; };
 		BF23CD4E2029A168003C17ED /* CollapseCommentsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF23CD4D2029A168003C17ED /* CollapseCommentsProtocol.swift */; };
 		BF251927202DFFF4008CC8D0 /* LinkToImageViewHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF251926202DFFF4008CC8D0 /* LinkToImageViewHelper.swift */; };
 		BF35C80A1FFE2AD100AF9FA7 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF35C8061FFE2AD100AF9FA7 /* Comment.swift */; };
@@ -49,6 +51,8 @@
 		BF0A04392007A593007701EB /* AnswerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerView.swift; sourceTree = "<group>"; };
 		BF118A77202CC1C6003591CD /* CommonModelData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonModelData.swift; sourceTree = "<group>"; };
 		BF12F267201634DC0056919E /* BadgeCount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeCount.swift; sourceTree = "<group>"; };
+		BF1F2D752031C591003858E2 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		BF1F2D772031E166003858E2 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		BF23CD4D2029A168003C17ED /* CollapseCommentsProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollapseCommentsProtocol.swift; sourceTree = "<group>"; };
 		BF251926202DFFF4008CC8D0 /* LinkToImageViewHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinkToImageViewHelper.swift; sourceTree = "<group>"; };
 		BF35C8061FFE2AD100AF9FA7 /* Comment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
@@ -167,6 +171,8 @@
 				BF621C351FE8000600DFDAA4 /* SearchViewController.swift */,
 				BFCC8CE21FFD0D870081575B /* QuestionTableViewController.swift */,
 				BFEE6B112008BD3600BD67FB /* UserViewController.swift */,
+				BF1F2D752031C591003858E2 /* LoginViewController.swift */,
+				BF1F2D772031E166003858E2 /* SettingsViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -305,13 +311,23 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-StackOverflowReader/Pods-StackOverflowReader-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
-				"${BUILT_PRODUCTS_DIR}/CodableAlamofire/CodableAlamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKShareKit/FBSDKShareKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FacebookCore/FacebookCore.framework",
+				"${BUILT_PRODUCTS_DIR}/FacebookLogin/FacebookLogin.framework",
+				"${BUILT_PRODUCTS_DIR}/FacebookShare/FacebookShare.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CodableAlamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKShareKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookCore.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookLogin.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookShare.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -338,6 +354,7 @@
 				BF621C3C1FE8000600DFDAA4 /* StackOverflowReader.xcdatamodeld in Sources */,
 				BF118A78202CC1C6003591CD /* CommonModelData.swift in Sources */,
 				BF0A043A2007A593007701EB /* AnswerView.swift in Sources */,
+				BF1F2D762031C592003858E2 /* LoginViewController.swift in Sources */,
 				BF251927202DFFF4008CC8D0 /* LinkToImageViewHelper.swift in Sources */,
 				BFEE6B122008BD3600BD67FB /* UserViewController.swift in Sources */,
 				BF361D68201B4EE400CEE6FA /* APICallHelper.swift in Sources */,
@@ -347,6 +364,7 @@
 				BFCC8CE31FFD0D870081575B /* QuestionTableViewController.swift in Sources */,
 				BF621C341FE8000600DFDAA4 /* AppDelegate.swift in Sources */,
 				BFEE6B142008D5EB00BD67FB /* AuthorNamePressedProtocol.swift in Sources */,
+				BF1F2D782031E166003858E2 /* SettingsViewController.swift in Sources */,
 				BF35C80A1FFE2AD100AF9FA7 /* Comment.swift in Sources */,
 				BFEE044A20188E900095105B /* ShallowUser.swift in Sources */,
 			);

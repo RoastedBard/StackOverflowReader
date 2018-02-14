@@ -6,4 +6,7 @@ target 'StackOverflowReader' do
   use_frameworks!
 
   # Pods for StackOverflowReader
+  pod 'FacebookCore'
+  pod 'FacebookLogin'
+  pod 'FacebookShare'
 end
