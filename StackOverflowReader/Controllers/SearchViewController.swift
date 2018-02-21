@@ -19,22 +19,22 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
     
     var searchQuery : String = ""
     
-    var cellAttributedData : [CommonAttributedData?] = [CommonAttributedData?]()
+    var briefQuestions : [IntermediateBriefQuestion] = [IntermediateBriefQuestion]()
     
     var apiCallWrapper : APIResponseWrapper<BriefQuestion>?
     
     var activityIndicatorView: UIActivityIndicatorView!
+    
     let dispatchQueue = DispatchQueue(label: "LoadingQuestionData", attributes: [], target: nil)
     
     var isNothingFound = false
     
     override func viewDidLoad()
     {
-        //self.navigationController?.setNavigationBarHidden(true, animated: true)
-        
         super.viewDidLoad()
         
         activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+        
         searchResultsTableView.backgroundView = activityIndicatorView
         
         currentSortOptionButton = searchSortButtons[0]
@@ -113,13 +113,14 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
             apiCallWrapper!.items!.removeAll()
         }
         
-        cellAttributedData.removeAll()
+        briefQuestions.removeAll()
         
         self.searchResultsTableView.reloadData()
         
         APICallHelper.currentPage = 1
         
         activityIndicatorView.startAnimating()
+        sortByButton.isEnabled = false
         
         dispatchQueue.async {
             OperationQueue.main.addOperation() {
@@ -133,19 +134,20 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
                     
                     self.apiCallWrapper = apiWrapperResult
                     
-                    for question in self.apiCallWrapper!.items! {
-                        let attrData : CommonAttributedData = CommonAttributedData()
-                        
-                        attrData.attributedBodyString = question.title.htmlAttributedString
-                        attrData.attributedAuthorNameString = question.owner?.displayName?.htmlAttributedString
-                        
-                        self.cellAttributedData.append(attrData)
+                    guard let questions = self.apiCallWrapper?.items else {
+                        return
+                    }
+                    
+                    for question in questions {
+                        self.briefQuestions.append(IntermediateBriefQuestion(question))
                     }
                     
                     self.activityIndicatorView.stopAnimating()
                     
                     self.searchResultsTableView.reloadData()
                     self.searchResultsTableView.setContentOffset(CGPoint.zero, animated: true)
+                    
+                    self.sortByButton.isEnabled = true
                 }
             }
         }
@@ -170,55 +172,40 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
             return 1
         }
         
-        return apiCallWrapper?.items?.count ?? 0
+        if briefQuestions.count != 0 {
+            return briefQuestions.count + 1 // + 1 cell with "Load More" button
+        }
+        
+        return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
+        if indexPath.row == briefQuestions.count, briefQuestions.count != 0 {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "LoadMoreCell", for: indexPath) as? LoadMoreTableViewCell else {
+                print("Failed to deque load more cell in SearchViewController")
+                exit(0)
+            }
+            
+            cell.loadMoreDelegate = self
+            return cell
+        }
+        
         if isNothingFound == true {
             let cell = tableView.dequeueReusableCell(withIdentifier: "NothingFoundCell", for: indexPath)
             
             return cell
         } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "SOPostCell", for: indexPath) as! SOPostCell
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "SOPostCell", for: indexPath) as? SOPostCell else {
+                print("Failed to deque cell in SearchViewController")
+                exit(0)
+            }
             
             cell.authorNamePressedDelegate = self
             
-            if let questions = apiCallWrapper?.items {
-                cell.initCell(question: questions[indexPath.row], attributedData: cellAttributedData[indexPath.row]!)
-            }
+            cell.initCell(question: briefQuestions[indexPath.row])
             
             return cell
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath)
-    {
-        var lastElement = -1
-        
-        if let elementCount = apiCallWrapper?.items?.count {
-            lastElement = elementCount - 1
-        }
-        
-        if indexPath.row == lastElement {
-            APICallHelper.currentPage += 1
-            
-            APICallHelper.APICall(request: APIRequestType.BriefQuestionsRequest, apiCallParameter: self.searchQuery){ (apiWrapperResult : APIResponseWrapper<BriefQuestion>?) in
-                if let newQuestions = apiWrapperResult?.items {
-                    self.apiCallWrapper?.items?.append(contentsOf: newQuestions)
-                    
-                    for question in newQuestions {
-                        let attrData : CommonAttributedData = CommonAttributedData()
-                        
-                        attrData.attributedBodyString = question.title.htmlAttributedString
-                        attrData.attributedAuthorNameString = question.owner?.displayName?.htmlAttributedString
-                        
-                        self.cellAttributedData.append(attrData)
-                    }
-                }
-                
-                self.searchResultsTableView.reloadData()
-            }
         }
     }
     
@@ -226,8 +213,13 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
     {
         if segue.identifier == "ShowQuestionSeque"{
             if let qtvc = segue.destination as? QuestionTableViewController {
-                let questionId = (sender as? SOPostCell)!.questionId
-                qtvc.questionId = questionId
+                
+                guard let pressedCell = sender as? SOPostCell else {
+                    return
+                }
+                
+                qtvc.questionId = pressedCell.questionId
+                qtvc.isDataFromStorage = false
             }
         }
         
@@ -240,8 +232,38 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
     }
 }
 
-extension SearchViewController : AuthorNamePressedProtocol
+extension SearchViewController : AuthorNamePressedProtocol, LoadMoreQuestionsProtocol
 {
+    func loadMoreQuestions(sender : UIButton, activityIndicatorView : UIActivityIndicatorView)
+    {
+        sender.isHidden = true
+        activityIndicatorView.startAnimating()
+        
+        sortByButton.isEnabled = false
+        
+        dispatchQueue.async {
+            OperationQueue.main.addOperation() {
+                APICallHelper.currentPage += 1
+                
+                APICallHelper.APICall(request: APIRequestType.BriefQuestionsRequest, apiCallParameter: self.searchQuery){ (apiWrapperResult : APIResponseWrapper<BriefQuestion>?) in
+                    if let newQuestions = apiWrapperResult?.items {
+                        self.apiCallWrapper?.items?.append(contentsOf: newQuestions)
+                        
+                        for question in newQuestions {
+                            self.briefQuestions.append(IntermediateBriefQuestion(question))
+                        }
+                    }
+                    
+                    activityIndicatorView.stopAnimating()
+                    sender.isHidden = false
+                    self.searchResultsTableView.reloadData()
+                    
+                    self.sortByButton.isEnabled = true
+                }
+            }
+        }
+    }
+    
     func authorNamePressed(userId id : Int)
     {
         performSegue(withIdentifier: "ShowUserInfo", sender: id)

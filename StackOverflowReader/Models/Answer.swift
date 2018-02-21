@@ -8,45 +8,29 @@
 
 import Foundation
 
-class Answer : Codable //CommonModelData
+class Answer : Codable
 {
     // MARK: - Properties returned from API call
-    
-    var owner : ShallowUser? // COMMON Закомментировать, если наследоваться CommonModelData
+    var owner : ShallowUser?
     var isAccepted : Bool
-    var score : Int // COMMON Закомментировать, если наследоваться CommonModelData
-    var creationDate : Int // COMMON Закомментировать, если наследоваться CommonModelData // unix epoch time
+    var score : Int = 0
+    var creationDate : Int = 0 // unix epoch time
     var answerId : Int
-    var body : String // COMMON Закомментировать, если наследоваться CommonModelData
+    var body : String = ""
     var comments : [Comment]?
     
     private enum CodingKeys: String, CodingKey
     {
-        case owner // COMMON Закомментировать, если наследоваться CommonModelData
+        case owner
         case isAccepted = "is_accepted"
-        case score // COMMON Закомментировать, если наследоваться CommonModelData
-        case creationDate = "creation_date" // COMMON Закомментировать, если наследоваться CommonModelData
+        case score
+        case creationDate = "creation_date"
         case answerId = "answer_id"
-        case body // COMMON Закомментировать, если наследоваться CommonModelData
+        case body
         case comments
     }
     
     // MARK: - Helper properties
     
     var isCommentsCollapsed = false
-    
-    // MARK: - init
-
-// Раскомментировать, если наследоваться от CommonModelData
-    
-//    required init(from decoder: Decoder) throws
-//    {
-//        let container = try decoder.container(keyedBy: CodingKeys.self)
-//
-//        self.isAccepted = try container.decode(Bool.self, forKey: .isAccepted)
-//        self.answerId = try container.decode(Int.self, forKey: .answerId)
-//        self.comments = try? container.decode([Comment].self, forKey: .comments)
-//
-//        try super.init(from: decoder)
-//    }
 }

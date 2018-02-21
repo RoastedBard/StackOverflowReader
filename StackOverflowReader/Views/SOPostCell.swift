@@ -18,7 +18,7 @@ class SOPostCell: UITableViewCell
     
     var authorNamePressedDelegate : AuthorNamePressedProtocol? // Common
     
-    var userId = 0
+    var ownerUserId = -1
     var questionId = 0
     
     override func awakeFromNib()
@@ -34,27 +34,37 @@ class SOPostCell: UITableViewCell
         // Configure the view for the selected state
     }
     
-    func initCell(question : BriefQuestion, attributedData : CommonAttributedData)
+    func initCell(question : IntermediateBriefQuestion)
     {
-        titleLabel.text = attributedData.attributedBodyString?.string
-        authorNameButton.setTitle(attributedData.attributedAuthorNameString?.string, for: .normal)
+        titleLabel.text = question.title?.string
+        authorNameButton.setTitle(question.owner?.displayName?.string, for: .normal)
         
         scoreLabel.text = "\(question.score)"
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .medium
         
-        let date = Date(timeIntervalSince1970: TimeInterval(question.creationDate))
-        
         dateFormatter.locale = Locale(identifier: "en_US")
         
-        dateLabel.text = "\(dateFormatter.string(from: date))"
+        dateLabel.text = "\(dateFormatter.string(from: question.creationDate))"
+        
+        
+        
+        if question.acceptedAnswerId != nil {
+            self.backgroundColor = #colorLiteral(red: 0.7333333333, green: 0.9960784314, blue: 0.7764705882, alpha: 1)
+        } else if question.isClosed == true {
+            self.backgroundColor = #colorLiteral(red: 0.8707411024, green: 0.5153266059, blue: 0.6025402082, alpha: 1)
+        } else {
+            self.backgroundColor = .white
+        }
+        
+        
         
         self.questionId = question.questionId
-        self.userId = question.owner?.userId ?? -1
+        self.ownerUserId = question.owner?.userId ?? -1
     }
     
     @IBAction func authorNameButtonPressed(_ sender: UIButton) {
-        authorNamePressedDelegate?.authorNamePressed(userId: userId)
+        authorNamePressedDelegate?.authorNamePressed(userId: ownerUserId)
     }
 }

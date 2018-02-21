@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BF070E96203C42D1007D936A /* IntermediateCommon.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF070E95203C42D1007D936A /* IntermediateCommon.swift */; };
+		BF070E98203C4354007D936A /* IntermediateShallowUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF070E97203C4354007D936A /* IntermediateShallowUser.swift */; };
+		BF070E9A203C4435007D936A /* IntermediateUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF070E99203C4435007D936A /* IntermediateUser.swift */; };
+		BF070E9C203C4549007D936A /* IntermediateBadgeCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF070E9B203C4549007D936A /* IntermediateBadgeCount.swift */; };
+		BF070E9E203C481E007D936A /* IntermediateAnswer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF070E9D203C481E007D936A /* IntermediateAnswer.swift */; };
+		BF070EA0203C486B007D936A /* IntermediateComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF070E9F203C486B007D936A /* IntermediateComment.swift */; };
+		BF070EA2203C4CF0007D936A /* IntermediateQuestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF070EA1203C4CEF007D936A /* IntermediateQuestion.swift */; };
+		BF070EA4203C8922007D936A /* IntermediateBriefQuestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF070EA3203C8922007D936A /* IntermediateBriefQuestion.swift */; };
 		BF09525A202AF2F0009B9527 /* BriefQuestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF095259202AF2F0009B9527 /* BriefQuestion.swift */; };
 		BF0A04342007A150007701EB /* QuestionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF0A04332007A150007701EB /* QuestionView.xib */; };
 		BF0A04362007A163007701EB /* AnswerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF0A04352007A163007701EB /* AnswerView.xib */; };
@@ -24,7 +32,6 @@
 		BF35C80D1FFE2AD100AF9FA7 /* Question.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF35C8091FFE2AD100AF9FA7 /* Question.swift */; };
 		BF35C80F1FFE33CD00AF9FA7 /* SOPostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF35C80E1FFE33CD00AF9FA7 /* SOPostCell.swift */; };
 		BF361D68201B4EE400CEE6FA /* APICallHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF361D67201B4EE400CEE6FA /* APICallHelper.swift */; };
-		BF534FD82022293B00012007 /* AttributedData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF534FD72022293B00012007 /* AttributedData.swift */; };
 		BF621C341FE8000600DFDAA4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF621C331FE8000600DFDAA4 /* AppDelegate.swift */; };
 		BF621C361FE8000600DFDAA4 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF621C351FE8000600DFDAA4 /* SearchViewController.swift */; };
 		BF621C391FE8000600DFDAA4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF621C371FE8000600DFDAA4 /* Main.storyboard */; };
@@ -32,11 +39,13 @@
 		BF621C3E1FE8000600DFDAA4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF621C3D1FE8000600DFDAA4 /* Assets.xcassets */; };
 		BF621C411FE8000600DFDAA4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF621C3F1FE8000600DFDAA4 /* LaunchScreen.storyboard */; };
 		BF864CD62007D1D2000BD5E6 /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF864CD52007D1D2000BD5E6 /* CommentTableViewCell.swift */; };
+		BF901C01203B16310089BD7E /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF901C00203B16310089BD7E /* DataController.swift */; };
 		BFB4AD6E1FF3A2AA00097C05 /* SavedPostsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB4AD6D1FF3A2AA00097C05 /* SavedPostsViewController.swift */; };
 		BFCC8CE31FFD0D870081575B /* QuestionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFCC8CE21FFD0D870081575B /* QuestionTableViewController.swift */; };
 		BFEE044A20188E900095105B /* ShallowUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFEE044920188E900095105B /* ShallowUser.swift */; };
 		BFEE6B122008BD3600BD67FB /* UserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFEE6B112008BD3600BD67FB /* UserViewController.swift */; };
 		BFEE6B142008D5EB00BD67FB /* AuthorNamePressedProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFEE6B132008D5EB00BD67FB /* AuthorNamePressedProtocol.swift */; };
+		BFF1BC19203D7C8C008185C0 /* LoadMoreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFF1BC18203D7C8C008185C0 /* LoadMoreTableViewCell.swift */; };
 		BFFE383B2020A78300EFC233 /* HTMLStringToAttributedTextHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFFE383A2020A78300EFC233 /* HTMLStringToAttributedTextHelper.swift */; };
 		FD9388C70645CFC0CD4F31A8 /* Pods_StackOverflowReader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 120BAEF672886FDF3982DD99 /* Pods_StackOverflowReader.framework */; };
 /* End PBXBuildFile section */
@@ -44,6 +53,14 @@
 /* Begin PBXFileReference section */
 		120BAEF672886FDF3982DD99 /* Pods_StackOverflowReader.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StackOverflowReader.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		78048D32AA22662E474B0049 /* Pods-StackOverflowReader.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StackOverflowReader.debug.xcconfig"; path = "Pods/Target Support Files/Pods-StackOverflowReader/Pods-StackOverflowReader.debug.xcconfig"; sourceTree = "<group>"; };
+		BF070E95203C42D1007D936A /* IntermediateCommon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntermediateCommon.swift; sourceTree = "<group>"; };
+		BF070E97203C4354007D936A /* IntermediateShallowUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntermediateShallowUser.swift; sourceTree = "<group>"; };
+		BF070E99203C4435007D936A /* IntermediateUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntermediateUser.swift; sourceTree = "<group>"; };
+		BF070E9B203C4549007D936A /* IntermediateBadgeCount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntermediateBadgeCount.swift; sourceTree = "<group>"; };
+		BF070E9D203C481E007D936A /* IntermediateAnswer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntermediateAnswer.swift; sourceTree = "<group>"; };
+		BF070E9F203C486B007D936A /* IntermediateComment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntermediateComment.swift; sourceTree = "<group>"; };
+		BF070EA1203C4CEF007D936A /* IntermediateQuestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntermediateQuestion.swift; sourceTree = "<group>"; };
+		BF070EA3203C8922007D936A /* IntermediateBriefQuestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntermediateBriefQuestion.swift; sourceTree = "<group>"; };
 		BF095259202AF2F0009B9527 /* BriefQuestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BriefQuestion.swift; sourceTree = "<group>"; };
 		BF0A04332007A150007701EB /* QuestionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QuestionView.xib; sourceTree = "<group>"; };
 		BF0A04352007A163007701EB /* AnswerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AnswerView.xib; sourceTree = "<group>"; };
@@ -61,7 +78,6 @@
 		BF35C8091FFE2AD100AF9FA7 /* Question.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Question.swift; sourceTree = "<group>"; };
 		BF35C80E1FFE33CD00AF9FA7 /* SOPostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SOPostCell.swift; sourceTree = "<group>"; };
 		BF361D67201B4EE400CEE6FA /* APICallHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APICallHelper.swift; sourceTree = "<group>"; };
-		BF534FD72022293B00012007 /* AttributedData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedData.swift; sourceTree = "<group>"; };
 		BF621C301FE8000500DFDAA4 /* StackOverflowReader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StackOverflowReader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF621C331FE8000600DFDAA4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BF621C351FE8000600DFDAA4 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
@@ -71,11 +87,13 @@
 		BF621C401FE8000600DFDAA4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BF621C421FE8000600DFDAA4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BF864CD52007D1D2000BD5E6 /* CommentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
+		BF901C00203B16310089BD7E /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		BFB4AD6D1FF3A2AA00097C05 /* SavedPostsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedPostsViewController.swift; sourceTree = "<group>"; };
 		BFCC8CE21FFD0D870081575B /* QuestionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionTableViewController.swift; sourceTree = "<group>"; };
 		BFEE044920188E900095105B /* ShallowUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShallowUser.swift; sourceTree = "<group>"; };
 		BFEE6B112008BD3600BD67FB /* UserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewController.swift; sourceTree = "<group>"; };
 		BFEE6B132008D5EB00BD67FB /* AuthorNamePressedProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorNamePressedProtocol.swift; sourceTree = "<group>"; };
+		BFF1BC18203D7C8C008185C0 /* LoadMoreTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadMoreTableViewCell.swift; sourceTree = "<group>"; };
 		BFFE383A2020A78300EFC233 /* HTMLStringToAttributedTextHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLStringToAttributedTextHelper.swift; sourceTree = "<group>"; };
 		F93117EE3B476877F4741F94 /* Pods-StackOverflowReader.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StackOverflowReader.release.xcconfig"; path = "Pods/Target Support Files/Pods-StackOverflowReader/Pods-StackOverflowReader.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -99,6 +117,21 @@
 				F93117EE3B476877F4741F94 /* Pods-StackOverflowReader.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		BF070E94203C427D007D936A /* Intermediate Models */ = {
+			isa = PBXGroup;
+			children = (
+				BF070E95203C42D1007D936A /* IntermediateCommon.swift */,
+				BF070E97203C4354007D936A /* IntermediateShallowUser.swift */,
+				BF070E99203C4435007D936A /* IntermediateUser.swift */,
+				BF070E9B203C4549007D936A /* IntermediateBadgeCount.swift */,
+				BF070E9D203C481E007D936A /* IntermediateAnswer.swift */,
+				BF070E9F203C486B007D936A /* IntermediateComment.swift */,
+				BF070EA1203C4CEF007D936A /* IntermediateQuestion.swift */,
+				BF070EA3203C8922007D936A /* IntermediateBriefQuestion.swift */,
+			);
+			path = "Intermediate Models";
 			sourceTree = "<group>";
 		};
 		BF621C271FE8000500DFDAA4 = {
@@ -137,6 +170,7 @@
 		BF6E44591FED423F004BEF13 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				BF070E94203C427D007D936A /* Intermediate Models */,
 				BF35C8071FFE2AD100AF9FA7 /* Answer.swift */,
 				BF35C8061FFE2AD100AF9FA7 /* Comment.swift */,
 				BF35C8091FFE2AD100AF9FA7 /* Question.swift */,
@@ -160,6 +194,7 @@
 				BF621C3F1FE8000600DFDAA4 /* LaunchScreen.storyboard */,
 				BF0A04352007A163007701EB /* AnswerView.xib */,
 				BF0A04332007A150007701EB /* QuestionView.xib */,
+				BFF1BC18203D7C8C008185C0 /* LoadMoreTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -184,8 +219,8 @@
 				BFEE6B132008D5EB00BD67FB /* AuthorNamePressedProtocol.swift */,
 				BF361D67201B4EE400CEE6FA /* APICallHelper.swift */,
 				BFFE383A2020A78300EFC233 /* HTMLStringToAttributedTextHelper.swift */,
-				BF534FD72022293B00012007 /* AttributedData.swift */,
 				BF23CD4D2029A168003C17ED /* CollapseCommentsProtocol.swift */,
+				BF901C00203B16310089BD7E /* DataController.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -345,13 +380,16 @@
 				BF09525A202AF2F0009B9527 /* BriefQuestion.swift in Sources */,
 				BF0A04382007A4B4007701EB /* QuestionView.swift in Sources */,
 				BF35C80C1FFE2AD100AF9FA7 /* User.swift in Sources */,
+				BF901C01203B16310089BD7E /* DataController.swift in Sources */,
 				BF35C80F1FFE33CD00AF9FA7 /* SOPostCell.swift in Sources */,
 				BF23CD4E2029A168003C17ED /* CollapseCommentsProtocol.swift in Sources */,
 				BFB4AD6E1FF3A2AA00097C05 /* SavedPostsViewController.swift in Sources */,
 				BF621C361FE8000600DFDAA4 /* SearchViewController.swift in Sources */,
-				BF534FD82022293B00012007 /* AttributedData.swift in Sources */,
+				BF070E98203C4354007D936A /* IntermediateShallowUser.swift in Sources */,
 				BF12F268201634DC0056919E /* BadgeCount.swift in Sources */,
 				BF621C3C1FE8000600DFDAA4 /* StackOverflowReader.xcdatamodeld in Sources */,
+				BF070EA0203C486B007D936A /* IntermediateComment.swift in Sources */,
+				BF070EA2203C4CF0007D936A /* IntermediateQuestion.swift in Sources */,
 				BF118A78202CC1C6003591CD /* CommonModelData.swift in Sources */,
 				BF0A043A2007A593007701EB /* AnswerView.swift in Sources */,
 				BF1F2D762031C592003858E2 /* LoginViewController.swift in Sources */,
@@ -359,13 +397,19 @@
 				BFEE6B122008BD3600BD67FB /* UserViewController.swift in Sources */,
 				BF361D68201B4EE400CEE6FA /* APICallHelper.swift in Sources */,
 				BF864CD62007D1D2000BD5E6 /* CommentTableViewCell.swift in Sources */,
+				BF070E9C203C4549007D936A /* IntermediateBadgeCount.swift in Sources */,
 				BF35C80B1FFE2AD100AF9FA7 /* Answer.swift in Sources */,
+				BFF1BC19203D7C8C008185C0 /* LoadMoreTableViewCell.swift in Sources */,
+				BF070E9A203C4435007D936A /* IntermediateUser.swift in Sources */,
 				BF35C80D1FFE2AD100AF9FA7 /* Question.swift in Sources */,
 				BFCC8CE31FFD0D870081575B /* QuestionTableViewController.swift in Sources */,
 				BF621C341FE8000600DFDAA4 /* AppDelegate.swift in Sources */,
+				BF070E96203C42D1007D936A /* IntermediateCommon.swift in Sources */,
 				BFEE6B142008D5EB00BD67FB /* AuthorNamePressedProtocol.swift in Sources */,
 				BF1F2D782031E166003858E2 /* SettingsViewController.swift in Sources */,
+				BF070EA4203C8922007D936A /* IntermediateBriefQuestion.swift in Sources */,
 				BF35C80A1FFE2AD100AF9FA7 /* Comment.swift in Sources */,
+				BF070E9E203C481E007D936A /* IntermediateAnswer.swift in Sources */,
 				BFEE044A20188E900095105B /* ShallowUser.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -8,13 +8,16 @@
 
 import UIKit
 
-@IBDesignable class UITextViewFixed: UITextView {
-    override func layoutSubviews() {
+@IBDesignable class UITextViewFixed: UITextView
+{
+    override func layoutSubviews()
+    {
         super.layoutSubviews()
         setup()
     }
     
-    func setup() {
+    func setup()
+    {
         textContainerInset = UIEdgeInsets.zero
         textContainer.lineFragmentPadding = 0
     }
@@ -34,19 +37,20 @@ class AnswerView: UITableViewHeaderFooterView
     
     var authorNamePressedDelegate : AuthorNamePressedProtocol? // Common
     
-    var owner : ShallowUser?
+    var ownerUserId : Int = -1 // Common
     
-    override func prepareForReuse() {
+    override func prepareForReuse()
+    {
         super.prepareForReuse()
     }
     
-    func initializeAnswerView(_ answer : Answer, screenWidth width : CGFloat, attributedData : CommonAttributedData, _ profilePicture : UIImage?)
+    func initializeAnswerView(_ answer : IntermediateAnswer, _ profilePicture : UIImage?)
     {
         answerScoreLabel.text = "\(answer.score)"
         
-        answerBodyTextView.attributedText = attributedData.attributedBodyString
+        answerBodyTextView.attributedText = answer.body
         
-        answerAuthorNameButton.setTitle(attributedData.attributedAuthorNameString?.string, for: .normal)
+        answerAuthorNameButton.setTitle(answer.owner?.displayName?.string, for: .normal)
 
         if answer.isAccepted == true {
             answerAcceptedPicture.isHidden = false
@@ -58,27 +62,19 @@ class AnswerView: UITableViewHeaderFooterView
             answerAuthorProfileImage.image = picture
         }
         
-        let date = Date(timeIntervalSince1970: TimeInterval(answer.creationDate))
-        
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .medium
         dateFormatter.locale = Locale(identifier: "en_US")
         
-        answerDateLabel.text = "\(dateFormatter.string(from: date))"
-        
-        if let comments = answer.comments {
-            if answer.isCommentsCollapsed == true {
-                showCommentsButton.setTitle("Show comments (\(comments.count))", for: .normal)
-            } else {
-                showCommentsButton.setTitle("Hide comments (not supported yet)", for: .normal)
-            }
-        }
+        answerDateLabel.text = "\(dateFormatter.string(from: answer.creationDate))"
         
         showCommentsButton.isHidden = (answer.comments != nil) ? false : true
+        
+        self.ownerUserId = answer.owner?.userId ?? -1
     }
-
+    
     @IBAction func authorNamePressed(_ sender: UIButton)
     {
-        authorNamePressedDelegate?.authorNamePressed(userId: owner?.userId ?? -1)
+        authorNamePressedDelegate?.authorNamePressed(userId: ownerUserId)
     }
 }

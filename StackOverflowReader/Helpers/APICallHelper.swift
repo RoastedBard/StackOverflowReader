@@ -40,8 +40,8 @@ class APICallHelper
     fileprivate static let pageSize : Int = 30
     
     // MARK: - Filters
-    fileprivate static let briefQuestionsFilter : String = "!*7PYFiX04qGV37sZYPl69Az8N(YS"
-    fileprivate static let fullQuestionsFilter : String = "!.PJ-a73kkFkITr*RVS3lHcM4DBcYDBT5jvbRgxMMnqV*adxO3ZQlb67KV)RMxT"
+    fileprivate static let briefQuestionsFilter : String = "!1PUgU9fzk83OSa1oSJXaAlJsqYYNwPOp4" // !1PUgU9fzk83OSa1oSJXaAlJsqYYNwPOp4 !PvyX(nrryVMTzZo))izCaw5I3DiEg8
+    fileprivate static let fullQuestionsFilter : String = "!.PJ-a73kkFkIVFntcu(u(MlOi*44iZPnrfx077WD7_1BJrMTX7rdf3zP88d3U5"
     fileprivate static let userFilter : String = "!0YzIPZzz24xx9(INJ.yi*SI8a"
     
     fileprivate static var url : URL?

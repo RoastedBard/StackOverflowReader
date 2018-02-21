@@ -16,7 +16,7 @@ class CommentTableViewCell: UITableViewCell
     
     var authorNamePressedDelegate : AuthorNamePressedProtocol? // Common
     
-    var owner : ShallowUser?
+    var ownerUserId : Int = -1
     
     override func awakeFromNib()
     {
@@ -31,21 +31,19 @@ class CommentTableViewCell: UITableViewCell
         // Configure the view for the selected state
     }
 
-    func initializeCommentCell(_ comment: Comment, _ attributedData : CommonAttributedData)
+    func initializeCommentCell(_ comment: IntermediateComment)
     {
-        if let owner = comment.owner {
-            self.owner = owner
-        }
+        self.ownerUserId = comment.owner?.userId ?? -1
+        
+        commentBodyTextView.attributedText = comment.body
 
-        commentBodyTextView.attributedText = attributedData.attributedBodyString
-
-        commentAuthorNameButton.setTitle(attributedData.attributedAuthorNameString?.string ?? "NOT_SPECIFIED", for: .normal)
+        commentAuthorNameButton.setTitle(comment.owner?.displayName?.string ?? "NOT_SPECIFIED", for: .normal)
 
         commentScoreLabel.text = "\(comment.score)"
     }
     
     @IBAction func authorNamePressed(_ sender: UIButton)
     {
-        authorNamePressedDelegate?.authorNamePressed(userId: owner?.userId ?? -1)
+        authorNamePressedDelegate?.authorNamePressed(userId: ownerUserId)
     }
 }

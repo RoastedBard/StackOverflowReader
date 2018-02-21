@@ -7,59 +7,44 @@
 //
 
 import UIKit
+import CoreData
 
 class QuestionTableViewController: UITableViewController
 {
-    // MARK: - Constants
+    // MARK: - Constant properties
     private let cellIdentifier = "CommentCell"
     private let questionHeaderIdentifier = "QuestionHeaderIdentifier"
     private let answerHeaderIdentifier = "AnswerHeaderIdentifier"
     
+    // MARK: - Question Data properties
     var questionId : Int = -1
+    var question : IntermediateQuestion?
+    var profileImages : [Int : UIImage] = [Int : UIImage]()
     
-    var question : Question?
-    
+    // MARK: - Auxiliary properties
+    var isDataFromStorage = false
     var questionAndAnswerContentWidth : CGFloat = 0 // Used for correct resizing and positioning images in question and answer UITextViews
-    
     var activityIndicatorView: UIActivityIndicatorView!
     let dispatchQueue = DispatchQueue(label: "LoadingQuestionData", attributes: [], target: nil)
     
-    // MARK: - Cached data
-    var attributedQuestionData : QuestionAttributedData?
-    var attributedAnswers : [CommonAttributedData?] = [CommonAttributedData?]()
-    var attributedComments : [Int : [CommonAttributedData?]] = [Int : [CommonAttributedData?]]()
+    // MARK: - Core data properties
+    var fetchedResultsController : NSFetchedResultsController<NSFetchRequestResult>?
+    var indexPath : IndexPath = IndexPath()
     
-    var profileImages : [Int : UIImage] = [Int : UIImage]()
-    
-    // MARK: - Configuration
-    override func viewDidLoad()
+    // MARK: - Configuration methods
+    fileprivate func loadQuestionDataFromWeb()
     {
-        super.viewDidLoad()
-        
-        activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
-        
-        tableView.backgroundView = activityIndicatorView
-        
-        configureTableView()
-        
-        questionAndAnswerContentWidth = self.view.frame.size.width - 16 // 16 = 8 units margin on the left + 8 units margin on the right of the UItextView containing answer or question body
-    }
-    
-    override func viewWillAppear(_ animated: Bool)
-    {
-        self.navigationController?.setNavigationBarHidden(false, animated: animated)
-        
-        super.viewWillAppear(animated)
-        
         if question == nil {
             activityIndicatorView.startAnimating()
             
             dispatchQueue.async {
                 OperationQueue.main.addOperation() {
                     APICallHelper.APICall(request: APIRequestType.FullQuestionRequest, apiCallParameter: self.questionId){ (apiWrapperResult : APIResponseWrapper<Question>?) in
-                        self.question = apiWrapperResult?.items![0]
-                        
-                        self.initializeData()
+                        if let questionCodable = apiWrapperResult?.items![0] {
+                            self.question = IntermediateQuestion(question: questionCodable, contentWidth: self.questionAndAnswerContentWidth)
+                            self.question?.answers?.sort(by: {$0.score > $1.score})
+                            self.loadProfileImages()
+                        }
                         
                         self.activityIndicatorView.stopAnimating()
                         self.tableView.reloadData()
@@ -69,15 +54,65 @@ class QuestionTableViewController: UITableViewController
         }
     }
     
-    override func viewDidLayoutSubviews()
+    func loadQuestionDataFromDatabase()
     {
-        super.viewDidLayoutSubviews()
+        activityIndicatorView.startAnimating()
+        
+        dispatchQueue.async {
+            OperationQueue.main.addOperation() {
+                guard let briefQuestion = self.fetchedResultsController?.object(at: self.indexPath) as? BriefQuestionMO else {
+                    print("Unable to get object at preapre for segue")
+                    return
+                }
+                
+                guard let fullQuestion = briefQuestion.detailQuestion else {
+                    print("Unable to get fullQuestion at preapre for segue")
+                    return
+                }
+                
+                self.question = IntermediateQuestion(question: fullQuestion, contentWidth: self.questionAndAnswerContentWidth)
+                self.question?.answers?.sort(by: {$0.score > $1.score})
+                
+                self.question?.comments?.sort(by: {$0.creationDate < $1.creationDate})
+                
+                if let answers = self.question?.answers {
+                    for answer in answers {
+                        answer.comments?.sort(by: {$0.creationDate < $1.creationDate})
+                    }
+                }
+                
+                self.loadProfileImages()
+                
+                self.activityIndicatorView.stopAnimating()
+                self.tableView.reloadData()
+            }
+        }
     }
     
-    override func didReceiveMemoryWarning()
+    fileprivate func loadProfileImages()
     {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        // Downloading and saving question author profile picture
+        if let userImageLink = question?.owner?.profileImage, let userId = question?.owner?.userId {
+            if let url = URL(string: userImageLink) {
+                LinkToImageViewHelper.downloadImage(from: url) { [weak self] image in
+                    guard let sSelf = self else { return }
+                    sSelf.profileImages[userId] = image
+                }
+            }
+        }
+        
+        if let answers = question?.answers {
+            for answer in answers {
+                if let userImageLink = answer.owner?.profileImage, let userId = answer.owner?.userId {
+                    if let url = URL(string: userImageLink) {
+                        LinkToImageViewHelper.downloadImage(from: url) { [weak self] image in
+                            guard let sSelf = self else { return }
+                            sSelf.profileImages[userId] = image
+                        }
+                    }
+                }
+            }
+        }
     }
     
     private func configureTableView()
@@ -91,71 +126,45 @@ class QuestionTableViewController: UITableViewController
         tableView.register(answerNib, forHeaderFooterViewReuseIdentifier: answerHeaderIdentifier)
     }
     
-    fileprivate func initializeData()
+    // MARK : - Tableview loading methods
+    override func viewWillAppear(_ animated: Bool)
     {
-        // Sorting answers in DESC order by score value
-        question?.answers?.sort {$0.score > $1.score}
+        self.navigationController?.setNavigationBarHidden(false, animated: animated)
         
-        // Converting and caching question data (title, body, author name)
-        attributedQuestionData = QuestionAttributedData(title: question!.title, body: question!.body, authorName: question?.owner?.displayName ?? "NAME_NOT_SPECIFIED", contentWidth: questionAndAnswerContentWidth)
+        super.viewWillAppear(animated)
         
-        // Converting and caching question comments
-        // In attributedComments dictionary, 0 index is reserved for question comments attributed data array
-        if let questionComments = question?.comments {
-
-            attributedComments[0] = [CommonAttributedData]()
-
-            for comment in questionComments {
-                attributedComments[0]!.append(CommonAttributedData(body: comment.body, authorName: comment.owner?.displayName ?? "NAME_NOT_SPECIFIED", contentWidth: questionAndAnswerContentWidth, isImageProcessingNeeded: false))
-            }
-        }
-        
-        // Downloading and saving question author profile picture
-        if let userImageLink = question?.owner?.profileImage, let userId = question?.owner?.userId {
-            if let url = URL(string: userImageLink) {
-                //downloadImage(from: url, to: userId)
-                LinkToImageViewHelper.downloadImage(from: url) { [weak self] image in
-                    guard let sSelf = self else { return }
-                    sSelf.profileImages[userId] = image
-                }
-            }
-        }
-        
-        // Converting and caching answer data
-        if let answers = question?.answers {
-            
-            for (i, answer) in answers.enumerated() {
-                // Converting and caching answer body and author name
-                attributedAnswers.append(CommonAttributedData(body: answer.body, authorName: answer.owner?.displayName ?? "NAME_NOT_SPECIFIED", contentWidth: questionAndAnswerContentWidth, isImageProcessingNeeded: true))
-                
-                let answerIndex = i + 1 // "i + 1" because "i = 0" is reserved for question comments
-                
-                // Downloading and saving answer author profile picture
-                if let userImageLink = answer.owner?.profileImage, let userId = answer.owner?.userId {
-                    if let url = URL(string: userImageLink) {
-                        //downloadImage(from: url, to: userId)
-                        LinkToImageViewHelper.downloadImage(from: url) { [weak self] image in
-                            guard let sSelf = self else { return }
-                            sSelf.profileImages[userId] = image
-                        }
-                    }
-                }
-                
-                // Converting and caching answer comments
-                if let comments = answer.comments {
-                    
-                    attributedComments[answerIndex] = [CommonAttributedData]()
-                    
-                    for comment in comments {
-                        attributedComments[answerIndex]?.append(CommonAttributedData(body: comment.body, authorName: comment.owner?.displayName ?? "NAME_NOT_SPECIFIED", contentWidth: questionAndAnswerContentWidth, isImageProcessingNeeded: false))
-                    }
-                }
-            }
+        if isDataFromStorage == false {
+            loadQuestionDataFromWeb()
+        } else {
+            loadQuestionDataFromDatabase()
         }
     }
     
-    // MARK: - UITableViewDelegate & UITableViewDataSource
+    override func viewDidLoad()
+    {
+        super.viewDidLoad()
+        
+        activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+        
+        tableView.backgroundView = activityIndicatorView
+        
+        configureTableView()
+        
+        questionAndAnswerContentWidth = self.view.frame.size.width - 16 // 16 = 8 units margin on the left + 8 units margin on the right of the UItextView containing answer or question body
+    }
+
+    override func viewDidLayoutSubviews()
+    {
+        super.viewDidLayoutSubviews()
+    }
     
+    override func didReceiveMemoryWarning()
+    {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    // MARK: - UITableViewDelegate & UITableViewDataSource
     override func numberOfSections(in tableView: UITableView) -> Int
     {
         if question == nil{
@@ -167,6 +176,7 @@ class QuestionTableViewController: UITableViewController
         } else {
             return 1
         }
+        
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
@@ -182,27 +192,23 @@ class QuestionTableViewController: UITableViewController
     {
         if section == 0 {
             guard let questionView = tableView.dequeueReusableHeaderFooterView(withIdentifier: questionHeaderIdentifier) as? QuestionView else { return nil }
-
-            questionView.owner = question?.owner
+           
             questionView.authorNamePressedDelegate = self
             
-            if let attrData = attributedQuestionData, let question = question {
-                questionView.initializeQuestionView(question, screenWidth: questionAndAnswerContentWidth, attributedData: attrData, profileImages[question.owner?.userId ?? -1])
+            if let question = self.question {
+                questionView.initializeQuestionView(question, profileImages[question.owner?.userId ?? -1], isDataFromStorage: isDataFromStorage)
             }
-            
+        
             return questionView
         } else {
             guard let answerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: answerHeaderIdentifier) as? AnswerView else { return nil }
-
+            
             if let answer = question?.answers?[section - 1] {
-                answerView.owner = answer.owner
                 answerView.authorNamePressedDelegate = self
                 
-                if let attrData = attributedAnswers[section - 1] {
-                    answerView.initializeAnswerView(answer, screenWidth: questionAndAnswerContentWidth, attributedData: attrData, profileImages[answer.owner?.userId ?? -1])
-                }
+                answerView.initializeAnswerView(answer, profileImages[answer.owner?.userId ?? -1])
             }
-
+            
             return answerView
         }
     }
@@ -219,21 +225,21 @@ class QuestionTableViewController: UITableViewController
         cell.authorNamePressedDelegate = self
         
         if indexPath.section == 0 {
-            if let comments = attributedComments[0] {
-                if let comment = comments[indexPath.row] {
-                    cell.initializeCommentCell(question!.comments![indexPath.row], comment)
-                }
+            guard let comment = question?.comments?[indexPath.row] else {
+                print("Failed to get comment model for question")
+                exit(0)
             }
+            
+            cell.initializeCommentCell(comment)
+            
         } else {
-            if let comments = attributedComments[indexPath.section] {
-                let commentModel = question!.answers![indexPath.section - 1].comments![indexPath.row]
-
-                if let attrComment = comments[indexPath.row] {
-                    cell.initializeCommentCell(commentModel, attrComment)
-                }
+            guard let comment = question?.answers?[indexPath.section - 1].comments?[indexPath.row] else {
+                print("Failed to get comment model for answer")
+                exit(0)
             }
+
+            cell.initializeCommentCell(comment)
         }
-        
         return cell
     }
 }
@@ -242,7 +248,9 @@ extension QuestionTableViewController : AuthorNamePressedProtocol
 {
     func authorNamePressed(userId id : Int)
     {
-        performSegue(withIdentifier: "ShowUserInfo", sender: id)
+        if !isDataFromStorage {
+            performSegue(withIdentifier: "ShowUserInfo", sender: id)
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)

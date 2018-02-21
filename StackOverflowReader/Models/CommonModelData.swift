@@ -11,9 +11,9 @@ import Foundation
 class CommonModelData : Codable
 {
     var owner : ShallowUser?
-    var score : Int
-    var creationDate : Int // unix epoch time
-    var body : String
+    var score : Int = 0
+    var creationDate : Int = 0 // unix epoch time
+    var body : String = ""
     
     private enum CodingKeys : String, CodingKey
     {
@@ -22,6 +22,8 @@ class CommonModelData : Codable
         case score
         case body
     }
+    // MARK: - init
+    init() {}
     
     required init(from decoder: Decoder) throws
     {
@@ -31,7 +33,16 @@ class CommonModelData : Codable
         self.score = try container.decode(Int.self, forKey: .score)
         self.creationDate = try container.decode(Int.self, forKey: .creationDate)
         self.body = try container.decode(String.self, forKey: .body)
+    }
+    
+    func encode(to encoder: Encoder) throws {
         
-        //try super.init(from: decoder)
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        
+        try container.encode(owner, forKey: .owner)
+        try container.encode(score, forKey: .score)
+        try container.encode(body, forKey: .body)
+        try container.encode(creationDate, forKey: .creationDate)
+        
     }
 }

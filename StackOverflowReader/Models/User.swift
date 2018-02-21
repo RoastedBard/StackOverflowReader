@@ -10,6 +10,7 @@ import Foundation
 
 class User : ShallowUser
 {
+    // MARK: - Properties returned from API call
     var reputation : Int?
     var aboutMe : String?
     var age : Int?
