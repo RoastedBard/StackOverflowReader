@@ -98,167 +98,19 @@ class QuestionView: UITableViewHeaderFooterView
             fullQuestion.isAnswered = question.isAnswered
             
             // Brief question
-            let briefQuestionEntity = NSEntityDescription.entity(forEntityName: "BriefQuestion", in: privateMOC)!
-            
-            guard let briefQuestionMO = NSManagedObject(entity: briefQuestionEntity, insertInto: privateMOC) as? BriefQuestionMO else {
-                print("Failed to create BriefQuestionMO in SaveQuestion")
-                return
-            }
-            
-            if let acceptedAnswerId = question.acceptedAnswerId {
-                briefQuestionMO.acceptedAnswerId = Int32(acceptedAnswerId)
-            }
-            
-            briefQuestionMO.questionId = Int32(question.questionId)
-            
-            if question.closedReason != nil {
-                briefQuestionMO.isClosed = true
-            } else {
-                briefQuestionMO.isClosed = false
-            }
-            
-            briefQuestionMO.title = question.title?.string
-            briefQuestionMO.body = question.bodyOriginal
-            briefQuestionMO.creationDate = Int32(question.creationDate.timeIntervalSince1970)
-            briefQuestionMO.score = Int32(question.score)
-            briefQuestionMO.dateSaved = Date()
-            
-            let ownerEntity = NSEntityDescription.entity(forEntityName: "ShallowUser", in: privateMOC)!
-            
-            guard let ownerDataMO = NSManagedObject(entity: ownerEntity, insertInto: privateMOC) as? ShallowUserMO else {
-                print("Failed to create ShallowUserMO in SaveQuestion")
-                return
-            }
-            
-            ownerDataMO.displayName = question.owner?.displayName?.string
-            
-            if let userId = question.owner?.userId {
-                ownerDataMO.userId = Int32(userId)
-            }
-            
-            ownerDataMO.profileImage = question.owner?.profileImage
-            
-            briefQuestionMO.owner = ownerDataMO
-            briefQuestionMO.detailQuestion = fullQuestion
-            
-            fullQuestion.brief = briefQuestionMO
+            self.createBriefQuestion(to: fullQuestion, source: question, context: privateMOC)
             
             // Question comments
             if let comments = question.comments {
                 for comment in comments {
-                    
-                    // Comment entity and managed object
-                    let commentEntity = NSEntityDescription.entity(forEntityName: "Comment", in: privateMOC)!
-
-                    guard let commentMO = NSManagedObject(entity: commentEntity, insertInto: privateMOC) as? CommentMO else {
-                        print("Failed to create CommentMO in SaveQuestion")
-                        return
-                    }
-
-                    commentMO.commentId = Int32(comment.commentId)
-                    commentMO.postId = Int32(comment.postId)
-                    commentMO.body = comment.bodyOriginal
-                    commentMO.creationDate = Int32(comment.creationDate.timeIntervalSince1970)
-                    commentMO.score = Int32(comment.score)
-
-                    // Comment owner
-                    if let owner = comment.owner {
-                        let qOwnerEntity = NSEntityDescription.entity(forEntityName: "ShallowUser", in: privateMOC)!
-
-                        guard let qOwnerDataMO = NSManagedObject(entity: qOwnerEntity, insertInto: privateMOC) as? ShallowUserMO else {
-                            print("Failed to create ShallowUserMO in SaveQuestion")
-                            return
-                        }
-
-                        qOwnerDataMO.displayName = owner.displayName?.string
-                        if let userId = owner.userId {
-                            qOwnerDataMO.userId = Int32(userId)
-                        }
-                        qOwnerDataMO.profileImage = owner.profileImage
-
-                        commentMO.owner = qOwnerDataMO
-                    }
-                    
-                    // Add comment to the array of comments
-                    fullQuestion.mutableSetValue(forKey: "comments").add(commentMO)
+                    self.addComment(to: fullQuestion, source: comment, context: privateMOC)
                 }
             }
-            
-            
             
             // Answers
             if let answers = question.answers {
                 for answer in answers {
-                    let answerEntity = NSEntityDescription.entity(forEntityName: "Answer", in: privateMOC)!
-                    
-                    guard let answerMO = NSManagedObject(entity: answerEntity, insertInto: privateMOC) as? AnswerMO else {
-                        print("Failed to create AnswerMO in SaveQuestion")
-                        return
-                    }
-                    
-                    answerMO.answerId = Int32(answer.answerId)
-                    answerMO.isAccepted = answer.isAccepted
-                    answerMO.body = answer.bodyOriginal
-                    answerMO.creationDate = Int32(answer.creationDate.timeIntervalSince1970)
-                    answerMO.score = Int32(answer.score)
-                    
-                    if let owner = answer.owner{
-                        // Answer owner
-                        let aOwnerEntity = NSEntityDescription.entity(forEntityName: "ShallowUser", in: privateMOC)!
-                        
-                        guard let aOwnerDataMO = NSManagedObject(entity: aOwnerEntity, insertInto: privateMOC) as? ShallowUserMO else {
-                            print("Failed to create ShallowUserMO in SaveQuestion")
-                            return
-                        }
-                        
-                        aOwnerDataMO.displayName = owner.displayName?.string
-                        if let userId = owner.userId {
-                            aOwnerDataMO.userId = Int32(userId)
-                        }
-                        aOwnerDataMO.profileImage = owner.profileImage
-                        
-                        answerMO.owner = aOwnerDataMO
-                    }
-                    
-                    answerMO.question = fullQuestion
-                    
-                    // Answer comments
-                    if let comments = answer.comments {
-                        for comment in comments {
-                            // Comment entity and managed object
-                            let commentEntity = NSEntityDescription.entity(forEntityName: "Comment", in: privateMOC)!
-                            
-                            guard let commentMO = NSManagedObject(entity: commentEntity, insertInto: privateMOC) as? CommentMO else {
-                                print("Failed to create CommentMO in SaveQuestion")
-                                return
-                            }
-                            
-                            commentMO.commentId = Int32(comment.commentId)
-                            commentMO.postId = Int32(comment.postId)
-                            commentMO.body = comment.bodyOriginal
-                            commentMO.creationDate = Int32(comment.creationDate.timeIntervalSince1970)
-                            commentMO.score = Int32(comment.score)
-                            
-                            // Comment owner
-                            if let owner = comment.owner {
-                                let qOwnerEntity = NSEntityDescription.entity(forEntityName: "ShallowUser", in: privateMOC)!
-                                
-                                guard let qOwnerDataMO = NSManagedObject(entity: qOwnerEntity, insertInto: privateMOC) as? ShallowUserMO else {
-                                    print("Failed to create ShallowUserMO in SaveQuestion")
-                                    return
-                                }
-                                
-                                qOwnerDataMO.displayName = owner.displayName?.string
-                                if let userId = owner.userId {
-                                    qOwnerDataMO.userId = Int32(userId)
-                                }
-                                commentMO.owner = qOwnerDataMO
-                            }
-                            
-                            // Add comment to the array of comments
-                            answerMO.mutableSetValue(forKey: "comments").add(commentMO)
-                        }
-                    }
+                    self.addAnswer(to: fullQuestion, source: answer, context: privateMOC)
                 }
             }
             
@@ -270,10 +122,113 @@ class QuestionView: UITableViewHeaderFooterView
                     appDelegate.dataController.saveContext()
                 }
             } catch {
-                print("Failure to save context: \(error)")
+                print("Failed to save context: \(error)")
                 exit(0)
             }
         }
+    }
+    
+    fileprivate func createBriefQuestion(to fullQuestion: SavedQuestionMO, source question : IntermediateQuestion, context : NSManagedObjectContext)
+    {
+        let briefQuestionEntity = NSEntityDescription.entity(forEntityName: "BriefQuestion", in: context)!
+        
+        guard let briefQuestionMO = NSManagedObject(entity: briefQuestionEntity, insertInto: context) as? BriefQuestionMO else {
+            print("Failed to create BriefQuestionMO in SaveQuestion")
+            return
+        }
+        
+        if let acceptedAnswerId = question.acceptedAnswerId {
+            briefQuestionMO.acceptedAnswerId = Int32(acceptedAnswerId)
+        }
+        
+        briefQuestionMO.questionId = Int32(question.questionId)
+        
+        if question.closedReason != nil {
+            briefQuestionMO.isClosed = true
+        } else {
+            briefQuestionMO.isClosed = false
+        }
+        
+        briefQuestionMO.title = question.title?.string
+        briefQuestionMO.dateSaved = Date()
+        
+        fillCommonData(commonDataMO: briefQuestionMO, intermediateCommonData: question, context: context)
+        
+        briefQuestionMO.detailQuestion = fullQuestion
+        fullQuestion.brief = briefQuestionMO
+    }
+    
+    fileprivate func addAnswer(to question: SavedQuestionMO, source answer : IntermediateAnswer, context : NSManagedObjectContext)
+    {
+        let answerEntity = NSEntityDescription.entity(forEntityName: "Answer", in: context)!
+        
+        guard let answerMO = NSManagedObject(entity: answerEntity, insertInto: context) as? AnswerMO else {
+            print("Failed to create AnswerMO in SaveQuestion")
+            return
+        }
+        
+        answerMO.answerId = Int32(answer.answerId)
+        answerMO.isAccepted = answer.isAccepted
+        
+        fillCommonData(commonDataMO: answerMO, intermediateCommonData: answer, context: context)
+        
+        answerMO.question = question
+        
+        // Answer comments
+        if let comments = answer.comments {
+            for comment in comments {
+                self.addComment(to: answerMO, source: comment, context: context)
+            }
+        }
+    }
+    
+    fileprivate func addComment(to object: NSManagedObject, source comment : IntermediateComment, context : NSManagedObjectContext)
+    {
+        // Comment entity and managed object
+        let commentEntity = NSEntityDescription.entity(forEntityName: "Comment", in: context)!
+        
+        guard let commentMO = NSManagedObject(entity: commentEntity, insertInto: context) as? CommentMO else {
+            print("Failed to create CommentMO in SaveQuestion")
+            return
+        }
+        
+        commentMO.commentId = Int32(comment.commentId)
+        commentMO.postId = Int32(comment.postId)
+        
+        fillCommonData(commonDataMO: commentMO, intermediateCommonData: comment, context: context)
+
+        // Add comment to the array of comments
+        object.mutableSetValue(forKey: "comments").add(commentMO)
+    }
+    
+    fileprivate func addOwner(to object: CommonModelDataMO, source answerCommentOrQuestion: IntermediateCommon, context: NSManagedObjectContext)
+    {
+        if let owner = answerCommentOrQuestion.owner {
+            let ownerEntity = NSEntityDescription.entity(forEntityName: "ShallowUser", in: context)!
+            
+            guard let ownerDataMO = NSManagedObject(entity: ownerEntity, insertInto: context) as? ShallowUserMO else {
+                print("Failed to create ShallowUserMO in SaveQuestion")
+                return
+            }
+            
+            ownerDataMO.displayName = owner.displayName?.string
+            
+            if let userId = owner.userId {
+                ownerDataMO.userId = Int32(userId)
+            }
+            ownerDataMO.profileImage = owner.profileImage
+            
+            object.owner = ownerDataMO
+        }
+    }
+    
+    fileprivate func fillCommonData(commonDataMO : CommonModelDataMO, intermediateCommonData : IntermediateCommon, context: NSManagedObjectContext)
+    {
+        commonDataMO.body = intermediateCommonData.bodyOriginal
+        commonDataMO.creationDate = Int32(intermediateCommonData.creationDate.timeIntervalSince1970)
+        commonDataMO.score = Int32(intermediateCommonData.score)
+        
+        addOwner(to: commonDataMO, source: intermediateCommonData, context: context)
     }
     
     @IBAction func authorNamePressed(_ sender: UIButton)
