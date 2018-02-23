@@ -39,6 +39,8 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         
         currentSortOptionButton = searchSortButtons[0]
         
+        self.hideKeyboardWhenTappedAround()
+        
         searchBar.delegate = self
         searchResultsTableView.delegate = self
         searchResultsTableView.dataSource = self
@@ -268,4 +270,16 @@ extension SearchViewController : AuthorNamePressedProtocol, LoadMoreQuestionsPro
     {
         performSegue(withIdentifier: "ShowUserInfo", sender: id)
     }
+    
+    func hideKeyboardWhenTappedAround() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(SearchViewController.dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
 }
+
+
