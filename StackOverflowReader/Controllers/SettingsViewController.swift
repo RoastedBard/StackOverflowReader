@@ -7,8 +7,6 @@
 //
 
 import UIKit
-import FacebookCore
-import FacebookLogin
 
 class SettingsViewController: UIViewController
 {
