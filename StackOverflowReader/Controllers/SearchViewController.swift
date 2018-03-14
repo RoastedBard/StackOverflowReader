@@ -44,12 +44,21 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         searchBar.delegate = self
         searchResultsTableView.delegate = self
         searchResultsTableView.dataSource = self
+        
+        // Remove "Saved Posts" tab bar item if not authorized
+        if AuthorizationManager.isAuthorized == false {
+            let savedQuestionsIndex = 1 // Search = 0; Saved Questions = 1; Settings = 2
+            guard var viewControllers = self.tabBarController?.viewControllers else { return }
+            viewControllers.remove(at: savedQuestionsIndex)
+            self.tabBarController?.viewControllers = viewControllers
+        }
     }
     
-    override func viewWillAppear(_ animated: Bool) {
+    override func viewWillAppear(_ animated: Bool)
+    {
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
-        super.viewWillAppear(animated)
         
+        super.viewWillAppear(animated)
     }
     
     override func didReceiveMemoryWarning()
@@ -82,7 +91,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
     {
         animateSortOptionsDropdown()
         
-        if searchQuery == ""{
+        if searchQuery == "" {
             return
         }
         

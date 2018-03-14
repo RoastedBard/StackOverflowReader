@@ -26,6 +26,10 @@
         <attribute name="score" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <relationship name="owner" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="ShallowUser" inverseName="commonData" inverseEntity="ShallowUser" syncable="YES"/>
     </entity>
+    <entity name="LoggedUser" representedClassName="LoggedUserMO" syncable="YES" codeGenerationType="class">
+        <attribute name="userId" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="savedQuestions" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="SavedQuestion" inverseName="loggedUser" inverseEntity="SavedQuestion" syncable="YES"/>
+    </entity>
     <entity name="SavedQuestion" representedClassName="SavedQuestionMO" syncable="YES" codeGenerationType="class">
         <attribute name="closedDate" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="closedReason" optional="YES" attributeType="String" syncable="YES"/>
@@ -34,6 +38,7 @@
         <relationship name="answers" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Answer" inverseName="question" inverseEntity="Answer" syncable="YES"/>
         <relationship name="brief" maxCount="1" deletionRule="Cascade" destinationEntity="BriefQuestion" inverseName="detailQuestion" inverseEntity="BriefQuestion" syncable="YES"/>
         <relationship name="comments" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Comment" inverseName="question" inverseEntity="Comment" syncable="YES"/>
+        <relationship name="loggedUser" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="LoggedUser" inverseName="savedQuestions" inverseEntity="LoggedUser" syncable="YES"/>
     </entity>
     <entity name="ShallowUser" representedClassName="ShallowUserMO" syncable="YES" codeGenerationType="class">
         <attribute name="displayName" attributeType="String" syncable="YES"/>
@@ -46,7 +51,8 @@
         <element name="BriefQuestion" positionX="-261" positionY="-457" width="128" height="135"/>
         <element name="Comment" positionX="-2" positionY="-459" width="128" height="105"/>
         <element name="CommonModelData" positionX="-252" positionY="-711" width="128" height="105"/>
-        <element name="SavedQuestion" positionX="27" positionY="-151" width="128" height="150"/>
+        <element name="LoggedUser" positionX="268" positionY="-63" width="128" height="73"/>
+        <element name="SavedQuestion" positionX="27" positionY="-151" width="128" height="163"/>
         <element name="ShallowUser" positionX="-495" positionY="-693" width="128" height="105"/>
     </elements>
 </model>

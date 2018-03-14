@@ -10,13 +10,19 @@ import UIKit
 import FacebookCore
 import FacebookLogin
 
-class SettingsViewController: UIViewController {
-
+class SettingsViewController: UIViewController
+{
+    @IBOutlet weak var logOutButton: UIButton!
+    @IBOutlet weak var myProfileButton: UIButton!
+    
     override func viewDidLoad()
     {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        if AuthorizationManager.isAuthorized == false {
+            myProfileButton.removeFromSuperview()
+            logOutButton.setTitle("Return to login screen", for: .normal)
+        }
     }
 
     override func didReceiveMemoryWarning()
@@ -29,24 +35,29 @@ class SettingsViewController: UIViewController {
     {
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
         super.viewWillAppear(animated)
-        
+    }
+    
+    @IBAction func myProfileButtonPressed(_ sender: UIButton)
+    {
+        performSegue(withIdentifier: "ShowMyProfileSegue", sender: nil)
     }
     
     @IBAction func logoutButtonPressed(_ sender: UIButton)
     {
-        let loginManager = LoginManager()
-        
-        loginManager.logOut()
+        AuthorizationManager.logout {
+            self.navigationController?.popToRootViewController(animated: true)
+        }
     }
     
-    /*
     // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+    {
+        if segue.identifier == "ShowMyProfileSegue" {
+            guard let userController = segue.destination as? UserViewController else {
+                return
+            }
+            
+            userController.isLoggedUserProfile = true
+        }
     }
-    */
-
 }

@@ -11,20 +11,24 @@ import CoreData
 
 class SavedPostsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, NSFetchedResultsControllerDelegate
 {
-    @IBOutlet weak var savedPostsTableView: UITableView!
+    @IBOutlet weak var savedPostsTableView : UITableView!
     
     var questionAndAnswerContentWidth : CGFloat = 0 // Used for correct resizing and positioning images in question and answer UITextViews
     
     var briefQuestions : [IntermediateBriefQuestion] = [IntermediateBriefQuestion]()
     
+    let dispatchQueue = DispatchQueue(label: "LoadingSavedQuestionData", attributes: [], target: nil)
+    
     // MARK: - Core Data stuff
-    var fetchedResultsController: NSFetchedResultsController<NSFetchRequestResult>!
+    var fetchedResultsController : NSFetchedResultsController<NSFetchRequestResult>!
     var appDelegate : AppDelegate?
     
     // MARK: - TableView loading methods
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        
+        savedPostsTableView.allowsMultipleSelectionDuringEditing = false
         
         questionAndAnswerContentWidth = self.view.frame.size.width - 16 // 16 = 8 units margin on the left + 8 units margin on the right of the UItextView containing answer or question body
         
@@ -35,11 +39,17 @@ class SavedPostsViewController: UIViewController, UITableViewDelegate, UITableVi
         savedPostsTableView.dataSource = self
         
         appDelegate = UIApplication.shared.delegate as? AppDelegate
-        initializeFetchedResultsController()
         
-        if let savedQuestionsMO = fetchedResultsController.fetchedObjects as? [BriefQuestionMO] {
-            for savedQuestionMO in savedQuestionsMO {
-                briefQuestions.append(IntermediateBriefQuestion(savedQuestionMO))
+        dispatchQueue.async {
+            OperationQueue.main.addOperation() {
+                self.initializeFetchedResultsController()
+                
+                if let savedQuestionsMO = self.fetchedResultsController.fetchedObjects as? [BriefQuestionMO] {
+                    for savedQuestionMO in savedQuestionsMO {
+                        self.briefQuestions.append(IntermediateBriefQuestion(savedQuestionMO))
+                    }
+                }
+                self.savedPostsTableView.reloadData()
             }
         }
     }
@@ -54,7 +64,6 @@ class SavedPostsViewController: UIViewController, UITableViewDelegate, UITableVi
     {
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
         super.viewWillAppear(animated)
-        
     }
     
     // MARK: - Configuration
@@ -64,14 +73,21 @@ class SavedPostsViewController: UIViewController, UITableViewDelegate, UITableVi
             return
         }
         
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "BriefQuestion")
+        guard let authorizedUserId = AuthorizationManager.authorizedUser?.userId else {
+            return
+        }
         
         let managedContext = appDelegate.dataController.managedObjectContext
         
-        let dateSort = NSSortDescriptor(key: "dateSaved", ascending: true)
-        request.sortDescriptors = [dateSort]
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "BriefQuestion")
         
-        fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: managedContext, sectionNameKeyPath: nil, cacheName: "SavedQuestionsCache")
+        request.predicate = NSPredicate(format: "detailQuestion.loggedUser.userId = %d", authorizedUserId)
+        
+        let dateSort = NSSortDescriptor(key: "dateSaved", ascending: true)
+        
+        request.sortDescriptors = [dateSort]
+
+        fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: managedContext, sectionNameKeyPath: nil, cacheName: nil)
         
         fetchedResultsController.delegate = self
         
@@ -82,7 +98,7 @@ class SavedPostsViewController: UIViewController, UITableViewDelegate, UITableVi
         }
     }
     
-    // MARK: - NSFetchedResultsControllerDelegate methods
+    // MARK: - NSFetchedResultsControllerDelegate
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>)
     {
         savedPostsTableView.beginUpdates()
@@ -129,16 +145,10 @@ class SavedPostsViewController: UIViewController, UITableViewDelegate, UITableVi
         savedPostsTableView.endUpdates()
     }
 
-    // MARK: - Table view data source methods
+    // MARK: - Table view data source
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        guard let sections = fetchedResultsController.sections else {
-            fatalError("No sections in fetchedResultsController")
-        }
-        
-        let sectionInfo = sections[section]
-        
-        return sectionInfo.numberOfObjects
+        return briefQuestions.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
@@ -154,29 +164,32 @@ class SavedPostsViewController: UIViewController, UITableViewDelegate, UITableVi
         
         return cell
     }
-    
-    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration?
+
+    // this method handles row deletion
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath)
     {
-        guard let object = self.fetchedResultsController?.object(at: indexPath) as? BriefQuestionMO else {
-            print("Attempt to configure cell without a managed object")
-            exit(0)
-        }
-        
-        guard let savedQuestion = object.detailQuestion else {
-            print("Can't get detail question")
-            exit(0)
-        }
-        
-        if let appDelegate = appDelegate {
-            appDelegate.dataController.managedObjectContext.delete(savedQuestion)
+        if editingStyle == .delete {
             
-            appDelegate.dataController.saveContext()
+            // remove the item from the data model
+            guard let object = self.fetchedResultsController?.object(at: indexPath) as? BriefQuestionMO else {
+                print("Attempt to configure cell without a managed object")
+                exit(0)
+            }
+            
+            guard let savedQuestion = object.detailQuestion else {
+                print("Can't get detail question")
+                exit(0)
+            }
+            
+            if let appDelegate = appDelegate {
+                appDelegate.dataController.managedObjectContext.delete(savedQuestion)
+                
+                appDelegate.dataController.saveContext()
+            }
         }
-    
-        return nil
     }
     
-    // MARK: - Navigation methods
+    // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
         if segue.identifier == "ShowQuestionSeque" {

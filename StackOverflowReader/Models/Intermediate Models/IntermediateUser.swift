@@ -21,9 +21,12 @@ class IntermediateUser : IntermediateShallowUser
     var questionCount : Int?
     var viewCount : Int?
     var websiteUrl : String?
+    var badgeCounts : BadgeCount?
     
     init(_ user : User)
     {
+        self.badgeCounts = user.badgeCounts
+        
         if let reputation = user.reputation {
             self.reputation = reputation
         }
