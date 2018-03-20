@@ -11,6 +11,7 @@ import Foundation
 struct BriefQuestion : Codable
 {
     // MARK: - Properties returned from API call
+    var tags : [String]?
     var title : String
     var isAnswered : Bool
     var score : Int
@@ -30,5 +31,6 @@ struct BriefQuestion : Codable
         case title
         case score
         case owner
+        case tags
     }
 }

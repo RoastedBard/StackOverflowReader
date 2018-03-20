@@ -194,6 +194,7 @@ class QuestionTableViewController: UITableViewController
             guard let questionView = tableView.dequeueReusableHeaderFooterView(withIdentifier: questionHeaderIdentifier) as? QuestionView else { return nil }
            
             questionView.authorNamePressedDelegate = self
+            questionView.tagPressedDelegate = self
             
             if let question = self.question {
                 questionView.initializeQuestionView(question, profileImages[question.owner?.userId ?? -1], isDataFromStorage: isDataFromStorage)
@@ -244,8 +245,13 @@ class QuestionTableViewController: UITableViewController
     }
 }
 
-extension QuestionTableViewController : AuthorNamePressedProtocol
+extension QuestionTableViewController : AuthorNamePressedProtocol, TagButtonPressedProtocol
 {
+    func tagButtonPressed(tagText: String)
+    {
+        performSegue(withIdentifier: "SearchByTagSegue", sender: tagText)
+    }
+    
     func authorNamePressed(userId id : Int)
     {
         if !isDataFromStorage {
@@ -255,11 +261,19 @@ extension QuestionTableViewController : AuthorNamePressedProtocol
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
-        let userId = sender as? Int
-        
         if let uvc = segue.destination as? UserViewController {
+            let userId = sender as? Int
+            
             uvc.userId = userId ?? -1
             uvc.profilePicture = profileImages[userId ?? -1]
+        }
+        
+        if let searchController = segue.destination as? SearchViewController {
+            guard let tagText = sender as? String else {
+                return
+            }
+            
+            searchController.searchQuery = tagText
         }
     }
 }

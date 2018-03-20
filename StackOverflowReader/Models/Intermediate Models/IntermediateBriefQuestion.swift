@@ -10,6 +10,7 @@ import Foundation
 
 class IntermediateBriefQuestion : IntermediateCommon
 {
+    var tags : [String]?
     var isAnswered : Bool
     var title : NSAttributedString?
     var questionId : Int
@@ -35,7 +36,9 @@ class IntermediateBriefQuestion : IntermediateCommon
             self.title = title
         }
         
-       super.init(shallowUser: briefQuestion.owner, score: briefQuestion.score, creationDate: briefQuestion.creationDate, body: "", contentWidth: 0)
+        self.tags = briefQuestion.tags
+        
+        super.init(shallowUser: briefQuestion.owner, score: briefQuestion.score, creationDate: briefQuestion.creationDate, body: "", contentWidth: 0)
     }
     
     init(_ briefQuestion : BriefQuestionMO)

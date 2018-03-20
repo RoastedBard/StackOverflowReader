@@ -15,6 +15,8 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var searchResultsTableView: UITableView!
     
+    @IBOutlet weak var tagsCollectionView: UICollectionView!
+    
     weak var currentSortOptionButton: UIButton!
     
     var searchQuery : String = ""
@@ -28,6 +30,8 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
     let dispatchQueue = DispatchQueue(label: "LoadingQuestionData", attributes: [], target: nil)
     
     var isNothingFound = false
+    
+    var questionsTotal = 0
     
     override func viewDidLoad()
     {
@@ -149,6 +153,8 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
                         return
                     }
                     
+                    self.questionsTotal = apiWrapperResult?.total ?? 0
+                    
                     for question in questions {
                         self.briefQuestions.append(IntermediateBriefQuestion(question))
                     }
@@ -199,6 +205,9 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
             }
             
             cell.loadMoreDelegate = self
+            
+            cell.loadMoreButton.setTitle("Load \(APICallHelper.pageSize) more (\(questionsTotal) total)", for: .normal)
+            
             return cell
         }
         
@@ -217,6 +226,14 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
             cell.initCell(question: briefQuestions[indexPath.row])
             
             return cell
+        }
+    }
+    
+    @IBAction func unwindToSearchController(segue:UIStoryboardSegue)
+    {
+        if searchQuery != "" {
+            searchBar.text = searchQuery
+            reloadSearchResults()
         }
     }
     
@@ -268,6 +285,8 @@ extension SearchViewController : AuthorNamePressedProtocol, LoadMoreQuestionsPro
                     activityIndicatorView.stopAnimating()
                     sender.isHidden = false
                     self.searchResultsTableView.reloadData()
+                    
+                    self.questionsTotal -= APICallHelper.pageSize
                     
                     self.sortByButton.isEnabled = true
                 }

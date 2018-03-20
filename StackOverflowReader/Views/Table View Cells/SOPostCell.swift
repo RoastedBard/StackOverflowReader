@@ -16,6 +16,9 @@ class SOPostCell: UITableViewCell
     
     @IBOutlet weak var authorNameButton: UIButton!
     
+    @IBOutlet weak var tagCollectionView: UIView!
+    @IBOutlet weak var tagCollectionViewHeightConstraint: NSLayoutConstraint!
+    
     var authorNamePressedDelegate : AuthorNamePressedProtocol? // Common
     
     var ownerUserId = -1
@@ -48,8 +51,6 @@ class SOPostCell: UITableViewCell
         
         dateLabel.text = "\(dateFormatter.string(from: question.creationDate))"
         
-        
-        
         if question.acceptedAnswerId != nil {
             self.backgroundColor = #colorLiteral(red: 0.7333333333, green: 0.9960784314, blue: 0.7764705882, alpha: 1)
         } else if question.isClosed == true {
@@ -58,10 +59,46 @@ class SOPostCell: UITableViewCell
             self.backgroundColor = .white
         }
         
-        
-        
         self.questionId = question.questionId
         self.ownerUserId = question.owner?.userId ?? -1
+        
+        if let tags = question.tags {
+            createTags(tags: tags)
+        }
+    }
+    
+    func createTags(tags : [String])
+    {
+        tagCollectionView.subviews.forEach({ $0.removeFromSuperview() })
+        
+        tagCollectionViewHeightConstraint.constant = 24
+        
+        let buttonHeight : CGFloat = 24
+        let horizontalSpacing : CGFloat = 8
+        let verticalSpacing : CGFloat = 8
+        
+        var nextOrigin : CGPoint = CGPoint.zero
+        
+        for tag in tags {
+            let tagView = UILabel(frame: CGRect(x: nextOrigin.x, y: nextOrigin.y, width: 0, height: 0))
+            tagView.text = tag == tags.last ? tag : "\(tag),"
+            tagView.sizeToFit()
+            tagView.frame.size.height = buttonHeight
+            tagView.textColor = .black
+
+            if (nextOrigin.x + tagView.frame.width + horizontalSpacing) > tagCollectionView.frame.width {
+                nextOrigin.x = 0.0
+                nextOrigin.y += buttonHeight + verticalSpacing
+                
+                tagCollectionViewHeightConstraint.constant += buttonHeight + verticalSpacing
+                
+                tagView.frame.origin = nextOrigin
+            }
+            
+            tagCollectionView.addSubview(tagView)
+            
+            nextOrigin.x = tagView.frame.maxX + horizontalSpacing
+        }
     }
     
     @IBAction func authorNameButtonPressed(_ sender: UIButton) {

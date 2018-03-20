@@ -23,6 +23,10 @@
 		BF118A78202CC1C6003591CD /* CommonModelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF118A77202CC1C6003591CD /* CommonModelData.swift */; };
 		BF12F268201634DC0056919E /* BadgeCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF12F267201634DC0056919E /* BadgeCount.swift */; };
 		BF1F2D782031E166003858E2 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF1F2D772031E166003858E2 /* SettingsViewController.swift */; };
+		BF1F2F372061485300D7AC83 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF1F2F362061485300D7AC83 /* SettingsTableViewController.swift */; };
+		BF1F2F3A206150F900D7AC83 /* ProfileSettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF1F2F39206150F900D7AC83 /* ProfileSettingsTableViewCell.swift */; };
+		BF1F2F3C2061510800D7AC83 /* SearchSettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF1F2F3B2061510800D7AC83 /* SearchSettingsTableViewCell.swift */; };
+		BF1F2F3E206172B500D7AC83 /* HistoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF1F2F3D206172B400D7AC83 /* HistoryTableViewController.swift */; };
 		BF23CD4E2029A168003C17ED /* CollapseCommentsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF23CD4D2029A168003C17ED /* CollapseCommentsProtocol.swift */; };
 		BF251927202DFFF4008CC8D0 /* LinkToImageViewHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF251926202DFFF4008CC8D0 /* LinkToImageViewHelper.swift */; };
 		BF35C80A1FFE2AD100AF9FA7 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF35C8061FFE2AD100AF9FA7 /* Comment.swift */; };
@@ -31,6 +35,7 @@
 		BF35C80D1FFE2AD100AF9FA7 /* Question.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF35C8091FFE2AD100AF9FA7 /* Question.swift */; };
 		BF35C80F1FFE33CD00AF9FA7 /* SOPostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF35C80E1FFE33CD00AF9FA7 /* SOPostCell.swift */; };
 		BF3AFAF620482400006126A1 /* KeychainPasswordItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF3AFAF520482400006126A1 /* KeychainPasswordItem.swift */; };
+		BF3BC19E205C20FB0062ABE6 /* TagsTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF3BC19D205C20FB0062ABE6 /* TagsTestViewController.swift */; };
 		BF621C341FE8000600DFDAA4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF621C331FE8000600DFDAA4 /* AppDelegate.swift */; };
 		BF621C361FE8000600DFDAA4 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF621C351FE8000600DFDAA4 /* SearchViewController.swift */; };
 		BF621C391FE8000600DFDAA4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF621C371FE8000600DFDAA4 /* Main.storyboard */; };
@@ -72,6 +77,10 @@
 		BF118A77202CC1C6003591CD /* CommonModelData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonModelData.swift; sourceTree = "<group>"; };
 		BF12F267201634DC0056919E /* BadgeCount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeCount.swift; sourceTree = "<group>"; };
 		BF1F2D772031E166003858E2 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		BF1F2F362061485300D7AC83 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
+		BF1F2F39206150F900D7AC83 /* ProfileSettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingsTableViewCell.swift; sourceTree = "<group>"; };
+		BF1F2F3B2061510800D7AC83 /* SearchSettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchSettingsTableViewCell.swift; sourceTree = "<group>"; };
+		BF1F2F3D206172B400D7AC83 /* HistoryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HistoryTableViewController.swift; path = StackOverflowReader/Controllers/HistoryTableViewController.swift; sourceTree = SOURCE_ROOT; };
 		BF23CD4D2029A168003C17ED /* CollapseCommentsProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollapseCommentsProtocol.swift; sourceTree = "<group>"; };
 		BF251926202DFFF4008CC8D0 /* LinkToImageViewHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinkToImageViewHelper.swift; sourceTree = "<group>"; };
 		BF35C8061FFE2AD100AF9FA7 /* Comment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
@@ -80,6 +89,7 @@
 		BF35C8091FFE2AD100AF9FA7 /* Question.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Question.swift; sourceTree = "<group>"; };
 		BF35C80E1FFE33CD00AF9FA7 /* SOPostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SOPostCell.swift; sourceTree = "<group>"; };
 		BF3AFAF520482400006126A1 /* KeychainPasswordItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainPasswordItem.swift; sourceTree = "<group>"; };
+		BF3BC19D205C20FB0062ABE6 /* TagsTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsTestViewController.swift; sourceTree = "<group>"; };
 		BF621C301FE8000500DFDAA4 /* StackOverflowReader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StackOverflowReader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF621C331FE8000600DFDAA4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BF621C351FE8000600DFDAA4 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
@@ -139,6 +149,18 @@
 			path = "Intermediate Models";
 			sourceTree = "<group>";
 		};
+		BF1F2F38206150A300D7AC83 /* Table View Cells */ = {
+			isa = PBXGroup;
+			children = (
+				BF35C80E1FFE33CD00AF9FA7 /* SOPostCell.swift */,
+				BF864CD52007D1D2000BD5E6 /* CommentTableViewCell.swift */,
+				BFF1BC18203D7C8C008185C0 /* LoadMoreTableViewCell.swift */,
+				BF1F2F39206150F900D7AC83 /* ProfileSettingsTableViewCell.swift */,
+				BF1F2F3B2061510800D7AC83 /* SearchSettingsTableViewCell.swift */,
+			);
+			path = "Table View Cells";
+			sourceTree = "<group>";
+		};
 		BF621C271FE8000500DFDAA4 = {
 			isa = PBXGroup;
 			children = (
@@ -193,15 +215,13 @@
 		BF6E445A1FED4279004BEF13 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				BF35C80E1FFE33CD00AF9FA7 /* SOPostCell.swift */,
-				BF864CD52007D1D2000BD5E6 /* CommentTableViewCell.swift */,
+				BF1F2F38206150A300D7AC83 /* Table View Cells */,
 				BF0A04372007A4B4007701EB /* QuestionView.swift */,
 				BF0A04392007A593007701EB /* AnswerView.swift */,
 				BF621C371FE8000600DFDAA4 /* Main.storyboard */,
 				BF621C3F1FE8000600DFDAA4 /* LaunchScreen.storyboard */,
 				BF0A04352007A163007701EB /* AnswerView.xib */,
 				BF0A04332007A150007701EB /* QuestionView.xib */,
-				BFF1BC18203D7C8C008185C0 /* LoadMoreTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -216,6 +236,9 @@
 				BF8EB272205676AF00EBF70B /* LoginViewController.swift */,
 				BF1F2D772031E166003858E2 /* SettingsViewController.swift */,
 				BF8EB2782056770700EBF70B /* UserViewController.swift */,
+				BF1F2F3D206172B400D7AC83 /* HistoryTableViewController.swift */,
+				BF1F2F362061485300D7AC83 /* SettingsTableViewController.swift */,
+				BF3BC19D205C20FB0062ABE6 /* TagsTestViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -320,11 +343,14 @@
 				BF8EB273205676AF00EBF70B /* LoginViewController.swift in Sources */,
 				BF09525A202AF2F0009B9527 /* BriefQuestion.swift in Sources */,
 				BF0A04382007A4B4007701EB /* QuestionView.swift in Sources */,
+				BF1F2F3C2061510800D7AC83 /* SearchSettingsTableViewCell.swift in Sources */,
 				BF35C80C1FFE2AD100AF9FA7 /* User.swift in Sources */,
+				BF3BC19E205C20FB0062ABE6 /* TagsTestViewController.swift in Sources */,
 				BF901C01203B16310089BD7E /* DataController.swift in Sources */,
 				BF35C80F1FFE33CD00AF9FA7 /* SOPostCell.swift in Sources */,
 				BF23CD4E2029A168003C17ED /* CollapseCommentsProtocol.swift in Sources */,
 				BFB4AD6E1FF3A2AA00097C05 /* SavedPostsViewController.swift in Sources */,
+				BF1F2F3E206172B500D7AC83 /* HistoryTableViewController.swift in Sources */,
 				BF8EB26B2056766700EBF70B /* AccessTokenInfo.swift in Sources */,
 				BF621C361FE8000600DFDAA4 /* SearchViewController.swift in Sources */,
 				BF8EB277205676E500EBF70B /* Utility.swift in Sources */,
@@ -342,6 +368,7 @@
 				BF8EB2792056770700EBF70B /* UserViewController.swift in Sources */,
 				BF864CD62007D1D2000BD5E6 /* CommentTableViewCell.swift in Sources */,
 				BF070E9C203C4549007D936A /* IntermediateBadgeCount.swift in Sources */,
+				BF1F2F3A206150F900D7AC83 /* ProfileSettingsTableViewCell.swift in Sources */,
 				BF8EB275205676D200EBF70B /* LogOutResponse.swift in Sources */,
 				BF35C80B1FFE2AD100AF9FA7 /* Answer.swift in Sources */,
 				BF3AFAF620482400006126A1 /* KeychainPasswordItem.swift in Sources */,
@@ -351,6 +378,7 @@
 				BFCC8CE31FFD0D870081575B /* QuestionTableViewController.swift in Sources */,
 				BF621C341FE8000600DFDAA4 /* AppDelegate.swift in Sources */,
 				BF070E96203C42D1007D936A /* IntermediateCommon.swift in Sources */,
+				BF1F2F372061485300D7AC83 /* SettingsTableViewController.swift in Sources */,
 				BFEE6B142008D5EB00BD67FB /* AuthorNamePressedProtocol.swift in Sources */,
 				BF1F2D782031E166003858E2 /* SettingsViewController.swift in Sources */,
 				BF8EB2692056765100EBF70B /* AuthorizationManager.swift in Sources */,

@@ -19,11 +19,11 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="QuestionView" customModule="StackOverflowReader" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <rect key="frame" x="0.0" y="0.0" width="375" height="745"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eL0-Xw-cnO" userLabel="authorAndDateView">
-                    <rect key="frame" x="0.0" y="596" width="375" height="25"/>
+                    <rect key="frame" x="0.0" y="674" width="375" height="25"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12.02.2017" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RJC-w2-8PH" userLabel="dateLabel">
                             <rect key="frame" x="301.5" y="0.0" width="65.5" height="25"/>
@@ -59,34 +59,34 @@
                         <constraint firstItem="XMN-J8-JB1" firstAttribute="top" secondItem="eL0-Xw-cnO" secondAttribute="top" id="y3C-ZT-82Q"/>
                     </constraints>
                 </view>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" horizontalCompressionResistancePriority="751" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="an8-Lr-41J" userLabel="questionScoreLabel">
-                    <rect key="frame" x="8" y="518" width="0.0" height="46"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" horizontalCompressionResistancePriority="751" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="an8-Lr-41J" userLabel="questionScoreLabel">
+                    <rect key="frame" x="8" y="67.5" width="0.0" height="46"/>
                     <color key="backgroundColor" red="0.0" green="0.99143940210000003" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="48"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="rtgrtg" lineBreakMode="wordWrap" numberOfLines="999" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="clH-oQ-yfO" userLabel="questionTitleLAbel">
-                    <rect key="frame" x="8" y="28" width="359" height="482"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" text="rtgrtg" lineBreakMode="wordWrap" numberOfLines="999" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="clH-oQ-yfO" userLabel="questionTitleLAbel">
+                    <rect key="frame" x="8" y="28" width="359" height="31.5"/>
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                     <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalHuggingPriority="252" verticalCompressionResistancePriority="752" scrollEnabled="NO" editable="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NnK-MA-0RR" userLabel="questionBodyTextView" customClass="UITextViewFixed" customModule="StackOverflowReader" customModuleProvider="target">
-                    <rect key="frame" x="8" y="572" width="359" height="16.5"/>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="752" scrollEnabled="NO" editable="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NnK-MA-0RR" userLabel="questionBodyTextView" customClass="UITextViewFixed" customModule="StackOverflowReader" customModuleProvider="target">
+                    <rect key="frame" x="8" y="121.5" width="359" height="504"/>
                     <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                     <attributedString key="attributedText">
                         <fragment content="fgbfgbfgbfgb">
                             <attributes>
-                                <font key="NSFont" size="14" name="Helvetica"/>
+                                <font key="NSFont" size="18" name="Helvetica"/>
                                 <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                             </attributes>
                         </fragment>
                     </attributedString>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                 </textView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="999" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZAV-yM-a74">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="999" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZAV-yM-a74">
                     <rect key="frame" x="8" y="20" width="359" height="0.0"/>
                     <color key="backgroundColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
@@ -94,7 +94,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1X8-gB-CZY">
-                    <rect key="frame" x="0.0" y="629" width="375" height="30"/>
+                    <rect key="frame" x="0.0" y="707" width="375" height="30"/>
                     <color key="backgroundColor" red="1" green="0.2527923882" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <state key="normal" title="Show Comments">
                         <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -103,8 +103,8 @@
                         <action selector="showCommentsButtonPressed:" destination="-1" eventType="touchUpInside" id="vBE-gJ-l2w"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yiT-uQ-eAd">
-                    <rect key="frame" x="303" y="526" width="64" height="30"/>
+                <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yiT-uQ-eAd">
+                    <rect key="frame" x="303" y="75.5" width="64" height="30"/>
                     <color key="backgroundColor" red="0.0" green="0.99143940210000003" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="64" id="vOZ-T0-36m"/>
@@ -116,6 +116,13 @@
                         <action selector="saveQuestionButtonPressed:" destination="iN0-l3-epB" eventType="touchUpInside" id="y0a-wK-vVl"/>
                     </connections>
                 </button>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vhe-mz-Em4">
+                    <rect key="frame" x="8" y="642" width="359" height="24"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="24" id="eQV-od-uhp"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
@@ -127,6 +134,7 @@
                 <constraint firstItem="NnK-MA-0RR" firstAttribute="top" secondItem="yiT-uQ-eAd" secondAttribute="bottom" constant="16" id="AUf-R1-ndy"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="1X8-gB-CZY" secondAttribute="trailing" id="CV4-YR-BEz"/>
                 <constraint firstAttribute="trailing" secondItem="eL0-Xw-cnO" secondAttribute="trailing" id="EHq-WK-BeY"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="vhe-mz-Em4" secondAttribute="trailing" constant="8" id="HMM-db-1gK"/>
                 <constraint firstItem="an8-Lr-41J" firstAttribute="top" secondItem="clH-oQ-yfO" secondAttribute="bottom" constant="8" symbolic="YES" id="KTG-ok-nYO"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="ZAV-yM-a74" secondAttribute="trailing" constant="8" id="MJj-3A-UQ7"/>
                 <constraint firstItem="NnK-MA-0RR" firstAttribute="top" secondItem="an8-Lr-41J" secondAttribute="bottom" constant="8" symbolic="YES" id="N2O-1k-rr5"/>
@@ -134,13 +142,16 @@
                 <constraint firstItem="clH-oQ-yfO" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="SAn-0M-8lz"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="NnK-MA-0RR" secondAttribute="trailing" constant="8" id="U3E-fn-2Ji"/>
                 <constraint firstItem="1X8-gB-CZY" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="bN1-hd-OTV"/>
+                <constraint firstItem="vhe-mz-Em4" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="8" id="cTn-ip-vvW"/>
                 <constraint firstItem="NnK-MA-0RR" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="lXm-fF-wbN"/>
-                <constraint firstItem="eL0-Xw-cnO" firstAttribute="top" secondItem="NnK-MA-0RR" secondAttribute="bottom" constant="7.5" id="lfX-bW-2n2"/>
                 <constraint firstItem="yiT-uQ-eAd" firstAttribute="top" secondItem="clH-oQ-yfO" secondAttribute="bottom" constant="16" id="ltd-V2-udy"/>
                 <constraint firstItem="clH-oQ-yfO" firstAttribute="top" secondItem="ZAV-yM-a74" secondAttribute="bottom" constant="8" symbolic="YES" id="pSq-13-1R3"/>
+                <constraint firstItem="vhe-mz-Em4" firstAttribute="top" secondItem="NnK-MA-0RR" secondAttribute="bottom" constant="16" id="rKI-lX-Mtd"/>
+                <constraint firstItem="eL0-Xw-cnO" firstAttribute="top" secondItem="vhe-mz-Em4" secondAttribute="bottom" constant="8" id="z05-v5-zbB"/>
                 <constraint firstAttribute="trailing" secondItem="clH-oQ-yfO" secondAttribute="trailing" constant="8" id="zNh-9V-A38"/>
                 <constraint firstItem="1X8-gB-CZY" firstAttribute="top" secondItem="eL0-Xw-cnO" secondAttribute="bottom" constant="8" id="zmy-hi-U6u"/>
             </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
                 <outlet property="questionAuthorNameButton" destination="LD2-sI-5hf" id="c1o-ke-zwc"/>
@@ -152,8 +163,10 @@
                 <outlet property="questionTitleLabel" destination="clH-oQ-yfO" id="hF2-cA-yIl"/>
                 <outlet property="saveQuestionButton" destination="yiT-uQ-eAd" id="Ip7-ZH-hAF"/>
                 <outlet property="showCommentsButton" destination="1X8-gB-CZY" id="Jkg-7X-eYi"/>
+                <outlet property="tagCollectionView" destination="vhe-mz-Em4" id="pqy-AL-aIh"/>
+                <outlet property="tagCollectionViewHeightConstraint" destination="eQV-od-uhp" id="GFg-1Y-VhZ"/>
             </connections>
-            <point key="canvasLocation" x="32.5" y="59.5"/>
+            <point key="canvasLocation" x="32.5" y="98.5"/>
         </view>
     </objects>
     <resources>

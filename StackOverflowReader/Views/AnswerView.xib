@@ -29,10 +29,10 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J3T-80-NeA" userLabel="nameDateView">
-                    <rect key="frame" x="0.0" y="60.5" width="320" height="373.5"/>
+                    <rect key="frame" x="0.0" y="65" width="320" height="369"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="14.02.2017" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="axJ-4V-03I" userLabel="dateLabel">
-                            <rect key="frame" x="246" y="0.0" width="66" height="373.5"/>
+                            <rect key="frame" x="246" y="0.0" width="66" height="369"/>
                             <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                         </label>
                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="default_user" translatesAutoresizingMaskIntoConstraints="NO" id="CZy-hz-uRc" userLabel="profilePic">
@@ -46,7 +46,7 @@
                             </constraints>
                         </imageView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="avc-Ca-VSS">
-                            <rect key="frame" x="41" y="0.0" width="75" height="373.5"/>
+                            <rect key="frame" x="41" y="0.0" width="75" height="369"/>
                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                             <state key="normal" title="Author Name"/>
                             <connections>
@@ -75,12 +75,12 @@
                     </constraints>
                 </imageView>
                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalHuggingPriority="252" verticalCompressionResistancePriority="752" scrollEnabled="NO" contentInsetAdjustmentBehavior="never" editable="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XcO-T2-Cfp" customClass="UITextViewFixed" customModule="StackOverflowReader" customModuleProvider="target">
-                    <rect key="frame" x="8" y="36" width="304" height="16.5"/>
+                    <rect key="frame" x="8" y="36" width="304" height="21"/>
                     <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <attributedString key="attributedText">
                         <fragment content="DFffvdfvfvf Vfffvfvf dddfg 5">
                             <attributes>
-                                <font key="NSFont" size="14" name="Helvetica"/>
+                                <font key="NSFont" size="18" name="Helvetica"/>
                                 <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                             </attributes>
                         </fragment>
