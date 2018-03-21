@@ -13,6 +13,7 @@
         <attribute name="questionId" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="title" attributeType="String" syncable="YES"/>
         <relationship name="detailQuestion" maxCount="1" deletionRule="Nullify" destinationEntity="SavedQuestion" inverseName="brief" inverseEntity="SavedQuestion" syncable="YES"/>
+        <relationship name="searchHistoryItem" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SearchHistoryItem" inverseName="questions" inverseEntity="SearchHistoryItem" syncable="YES"/>
     </entity>
     <entity name="Comment" representedClassName="CommentMO" parentEntity="CommonModelData" syncable="YES" codeGenerationType="class">
         <attribute name="commentId" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
@@ -28,6 +29,7 @@
     </entity>
     <entity name="LoggedUser" representedClassName="LoggedUserMO" syncable="YES" codeGenerationType="class">
         <attribute name="userId" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="history" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="SearchHistoryItem" inverseName="loggedUser" inverseEntity="SearchHistoryItem" syncable="YES"/>
         <relationship name="savedQuestions" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="SavedQuestion" inverseName="loggedUser" inverseEntity="SavedQuestion" syncable="YES"/>
     </entity>
     <entity name="SavedQuestion" representedClassName="SavedQuestionMO" syncable="YES" codeGenerationType="class">
@@ -40,6 +42,11 @@
         <relationship name="comments" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Comment" inverseName="question" inverseEntity="Comment" syncable="YES"/>
         <relationship name="loggedUser" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="LoggedUser" inverseName="savedQuestions" inverseEntity="LoggedUser" syncable="YES"/>
     </entity>
+    <entity name="SearchHistoryItem" representedClassName="SearchHistoryItemMO" syncable="YES" codeGenerationType="class">
+        <attribute name="searchQuery" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="loggedUser" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="LoggedUser" inverseName="history" inverseEntity="LoggedUser" syncable="YES"/>
+        <relationship name="questions" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="BriefQuestion" inverseName="searchHistoryItem" inverseEntity="BriefQuestion" syncable="YES"/>
+    </entity>
     <entity name="ShallowUser" representedClassName="ShallowUserMO" syncable="YES" codeGenerationType="class">
         <attribute name="displayName" attributeType="String" syncable="YES"/>
         <attribute name="profileImage" optional="YES" attributeType="String" syncable="YES"/>
@@ -48,11 +55,12 @@
     </entity>
     <elements>
         <element name="Answer" positionX="261" positionY="-711" width="128" height="105"/>
-        <element name="BriefQuestion" positionX="-261" positionY="-457" width="128" height="135"/>
+        <element name="BriefQuestion" positionX="-261" positionY="-457" width="128" height="148"/>
         <element name="Comment" positionX="-2" positionY="-459" width="128" height="105"/>
         <element name="CommonModelData" positionX="-252" positionY="-711" width="128" height="105"/>
-        <element name="LoggedUser" positionX="268" positionY="-63" width="128" height="73"/>
+        <element name="LoggedUser" positionX="-254" positionY="-70" width="128" height="88"/>
         <element name="SavedQuestion" positionX="27" positionY="-151" width="128" height="163"/>
         <element name="ShallowUser" positionX="-495" positionY="-693" width="128" height="105"/>
+        <element name="SearchHistoryItem" positionX="-515" positionY="-225" width="128" height="88"/>
     </elements>
 </model>

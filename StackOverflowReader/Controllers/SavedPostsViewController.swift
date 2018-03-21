@@ -67,6 +67,7 @@ class SavedPostsViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     // MARK: - Configuration
+    
     func initializeFetchedResultsController()
     {
         guard let appDelegate = appDelegate else {

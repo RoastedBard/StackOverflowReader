@@ -20,9 +20,10 @@
 		BF0A04362007A163007701EB /* AnswerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF0A04352007A163007701EB /* AnswerView.xib */; };
 		BF0A04382007A4B4007701EB /* QuestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0A04372007A4B4007701EB /* QuestionView.swift */; };
 		BF0A043A2007A593007701EB /* AnswerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF0A04392007A593007701EB /* AnswerView.swift */; };
+		BF111D8C2062B0FB00E5A547 /* SearchHistoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF111D8B2062B0FB00E5A547 /* SearchHistoryManager.swift */; };
+		BF111D8E2062B9B800E5A547 /* HistorySettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF111D8D2062B9B800E5A547 /* HistorySettingsTableViewCell.swift */; };
 		BF118A78202CC1C6003591CD /* CommonModelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF118A77202CC1C6003591CD /* CommonModelData.swift */; };
 		BF12F268201634DC0056919E /* BadgeCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF12F267201634DC0056919E /* BadgeCount.swift */; };
-		BF1F2D782031E166003858E2 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF1F2D772031E166003858E2 /* SettingsViewController.swift */; };
 		BF1F2F372061485300D7AC83 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF1F2F362061485300D7AC83 /* SettingsTableViewController.swift */; };
 		BF1F2F3A206150F900D7AC83 /* ProfileSettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF1F2F39206150F900D7AC83 /* ProfileSettingsTableViewCell.swift */; };
 		BF1F2F3C2061510800D7AC83 /* SearchSettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF1F2F3B2061510800D7AC83 /* SearchSettingsTableViewCell.swift */; };
@@ -74,9 +75,10 @@
 		BF0A04352007A163007701EB /* AnswerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AnswerView.xib; sourceTree = "<group>"; };
 		BF0A04372007A4B4007701EB /* QuestionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionView.swift; sourceTree = "<group>"; };
 		BF0A04392007A593007701EB /* AnswerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerView.swift; sourceTree = "<group>"; };
+		BF111D8B2062B0FB00E5A547 /* SearchHistoryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryManager.swift; sourceTree = "<group>"; };
+		BF111D8D2062B9B800E5A547 /* HistorySettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistorySettingsTableViewCell.swift; sourceTree = "<group>"; };
 		BF118A77202CC1C6003591CD /* CommonModelData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonModelData.swift; sourceTree = "<group>"; };
 		BF12F267201634DC0056919E /* BadgeCount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeCount.swift; sourceTree = "<group>"; };
-		BF1F2D772031E166003858E2 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		BF1F2F362061485300D7AC83 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		BF1F2F39206150F900D7AC83 /* ProfileSettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingsTableViewCell.swift; sourceTree = "<group>"; };
 		BF1F2F3B2061510800D7AC83 /* SearchSettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchSettingsTableViewCell.swift; sourceTree = "<group>"; };
@@ -157,6 +159,7 @@
 				BFF1BC18203D7C8C008185C0 /* LoadMoreTableViewCell.swift */,
 				BF1F2F39206150F900D7AC83 /* ProfileSettingsTableViewCell.swift */,
 				BF1F2F3B2061510800D7AC83 /* SearchSettingsTableViewCell.swift */,
+				BF111D8D2062B9B800E5A547 /* HistorySettingsTableViewCell.swift */,
 			);
 			path = "Table View Cells";
 			sourceTree = "<group>";
@@ -234,7 +237,6 @@
 				BFCC8CE21FFD0D870081575B /* QuestionTableViewController.swift */,
 				BF8EB270205676A300EBF70B /* GreetingScreenViewController.swift */,
 				BF8EB272205676AF00EBF70B /* LoginViewController.swift */,
-				BF1F2D772031E166003858E2 /* SettingsViewController.swift */,
 				BF8EB2782056770700EBF70B /* UserViewController.swift */,
 				BF1F2F3D206172B400D7AC83 /* HistoryTableViewController.swift */,
 				BF1F2F362061485300D7AC83 /* SettingsTableViewController.swift */,
@@ -255,6 +257,7 @@
 				BF8EB276205676E500EBF70B /* Utility.swift */,
 				BF8EB27A20567B4300EBF70B /* StringExtension.swift */,
 				BF8EB2682056765100EBF70B /* AuthorizationManager.swift */,
+				BF111D8B2062B0FB00E5A547 /* SearchHistoryManager.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -340,6 +343,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BF111D8E2062B9B800E5A547 /* HistorySettingsTableViewCell.swift in Sources */,
 				BF8EB273205676AF00EBF70B /* LoginViewController.swift in Sources */,
 				BF09525A202AF2F0009B9527 /* BriefQuestion.swift in Sources */,
 				BF0A04382007A4B4007701EB /* QuestionView.swift in Sources */,
@@ -366,6 +370,7 @@
 				BF251927202DFFF4008CC8D0 /* LinkToImageViewHelper.swift in Sources */,
 				BF8EB271205676A300EBF70B /* GreetingScreenViewController.swift in Sources */,
 				BF8EB2792056770700EBF70B /* UserViewController.swift in Sources */,
+				BF111D8C2062B0FB00E5A547 /* SearchHistoryManager.swift in Sources */,
 				BF864CD62007D1D2000BD5E6 /* CommentTableViewCell.swift in Sources */,
 				BF070E9C203C4549007D936A /* IntermediateBadgeCount.swift in Sources */,
 				BF1F2F3A206150F900D7AC83 /* ProfileSettingsTableViewCell.swift in Sources */,
@@ -380,7 +385,6 @@
 				BF070E96203C42D1007D936A /* IntermediateCommon.swift in Sources */,
 				BF1F2F372061485300D7AC83 /* SettingsTableViewController.swift in Sources */,
 				BFEE6B142008D5EB00BD67FB /* AuthorNamePressedProtocol.swift in Sources */,
-				BF1F2D782031E166003858E2 /* SettingsViewController.swift in Sources */,
 				BF8EB2692056765100EBF70B /* AuthorizationManager.swift in Sources */,
 				BF070EA4203C8922007D936A /* IntermediateBriefQuestion.swift in Sources */,
 				BF35C80A1FFE2AD100AF9FA7 /* Comment.swift in Sources */,

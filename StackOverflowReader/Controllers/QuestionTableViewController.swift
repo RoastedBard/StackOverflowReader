@@ -12,26 +12,31 @@ import CoreData
 class QuestionTableViewController: UITableViewController
 {
     // MARK: - Constant properties
+    
     private let cellIdentifier = "CommentCell"
     private let questionHeaderIdentifier = "QuestionHeaderIdentifier"
     private let answerHeaderIdentifier = "AnswerHeaderIdentifier"
     
     // MARK: - Question Data properties
+    
     var questionId : Int = -1
     var question : IntermediateQuestion?
     var profileImages : [Int : UIImage] = [Int : UIImage]()
     
     // MARK: - Auxiliary properties
+    
     var isDataFromStorage = false
     var questionAndAnswerContentWidth : CGFloat = 0 // Used for correct resizing and positioning images in question and answer UITextViews
     var activityIndicatorView: UIActivityIndicatorView!
     let dispatchQueue = DispatchQueue(label: "LoadingQuestionData", attributes: [], target: nil)
     
     // MARK: - Core data properties
+    
     var fetchedResultsController : NSFetchedResultsController<NSFetchRequestResult>?
     var indexPath : IndexPath = IndexPath()
     
     // MARK: - Configuration methods
+    
     fileprivate func loadQuestionDataFromWeb()
     {
         if question == nil {
@@ -126,7 +131,8 @@ class QuestionTableViewController: UITableViewController
         tableView.register(answerNib, forHeaderFooterViewReuseIdentifier: answerHeaderIdentifier)
     }
     
-    // MARK : - Tableview loading methods
+    // MARK : - Lifecycle
+    
     override func viewWillAppear(_ animated: Bool)
     {
         self.navigationController?.setNavigationBarHidden(false, animated: animated)
@@ -165,6 +171,7 @@ class QuestionTableViewController: UITableViewController
     }
     
     // MARK: - UITableViewDelegate & UITableViewDataSource
+    
     override func numberOfSections(in tableView: UITableView) -> Int
     {
         if question == nil{

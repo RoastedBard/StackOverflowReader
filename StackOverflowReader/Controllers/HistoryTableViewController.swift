@@ -7,50 +7,117 @@
 //
 
 import UIKit
-
-struct SearchHistory
-{
-    var searchQuery : String = ""
-    var visitedQuestions : [IntermediateBriefQuestion] = [IntermediateBriefQuestion]()
-}
+import CoreData
 
 class HistoryTableViewController: UITableViewController
 {
-    // MARK: - Data
+    // MARK: - Core Data properties
     
-    var history : [SearchHistory]?
+    var fetchedResultsController : NSFetchedResultsController<NSFetchRequestResult>!
+    
+    let dispatchQueue = DispatchQueue(label: "LoadingSearchHistoryData", attributes: [], target: nil)
     
     // MARK: - Lifecycle
     
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        
+        dispatchQueue.async {
+            OperationQueue.main.addOperation() {
+                self.initializeFetchedResultsController()
+                
+                if let loggedUser = self.fetchedResultsController.fetchedObjects as? [LoggedUserMO] {
+                    
+                    if let searchHistoryMO = loggedUser[0].history?.allObjects as? [SearchHistoryItemMO] {
+                        
+                        for searchHistoryItemMO in searchHistoryMO {
+                            let searchHistoryItem = SearchHistoryItem(searchQuery: searchHistoryItemMO.searchQuery ?? "")
+                            
+                            if let briefQuestionsMO = searchHistoryItemMO.questions?.allObjects as? [BriefQuestionMO] {
+                                
+                                for briefQuestionMO in briefQuestionsMO {
+                                    let briefQuestion = IntermediateBriefQuestion(briefQuestionMO)
+                                    searchHistoryItem.visitedQuestions.append(briefQuestion)
+                                }
+                            }
+                            
+                            SearchHistoryManager.searchHistory.append(searchHistoryItem)
+                        }
+                    }
+                }
+                
+            }
+        }
     }
-
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.tableView.reloadData()
+    }
+    
     override func didReceiveMemoryWarning()
     {
         super.didReceiveMemoryWarning()
     }
-
+    
+    // MARK: - Fetched results controller configuration
+    
+    func initializeFetchedResultsController()
+    {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            return
+        }
+        
+        guard let authorizedUserId = AuthorizationManager.authorizedUser?.userId else {
+            return
+        }
+        
+        let managedContext = appDelegate.dataController.managedObjectContext
+        
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "LoggedUser")
+        
+        request.predicate = NSPredicate(format: "userId = %d", authorizedUserId)
+        
+        let userIdSort = NSSortDescriptor(key: "userId", ascending: true)
+        
+        request.sortDescriptors = [userIdSort]
+        
+        fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: managedContext, sectionNameKeyPath: nil, cacheName: nil)
+        
+        //fetchedResultsController.delegate = self
+        
+        do {
+            try fetchedResultsController.performFetch()
+        } catch {
+            fatalError("Failed to initialize FetchedResultsController: \(error)")
+        }
+    }
+    
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int
     {
-        return history?.count ?? 1
+        if SearchHistoryManager.searchHistory.count == 0 {
+            return 1
+        } else {
+            return SearchHistoryManager.searchHistory.count
+        }
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        if history == nil {
+        if SearchHistoryManager.searchHistory.count == 0 {
             return 1
         }
         
-        return history?[section].visitedQuestions.count ?? 0
+        return SearchHistoryManager.searchHistory[section].visitedQuestions.count
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if history == nil {
+        if SearchHistoryManager.searchHistory.count == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "NoHistoryCell", for: indexPath)
 
             return cell
@@ -62,9 +129,7 @@ class HistoryTableViewController: UITableViewController
             
             cell.authorNamePressedDelegate = self
             
-            guard let briefQuestions = history?[indexPath.section].visitedQuestions else {
-                exit(0)
-            }
+            let briefQuestions = SearchHistoryManager.searchHistory[indexPath.section].visitedQuestions
             
             cell.initCell(question: briefQuestions[indexPath.row])
             
@@ -74,7 +139,11 @@ class HistoryTableViewController: UITableViewController
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String?
     {
-        return "History"
+        if SearchHistoryManager.searchHistory.count == 0 {
+            return "History"
+        } else {
+            return SearchHistoryManager.searchHistory[section].searchQuery
+        }
     }
 }
 

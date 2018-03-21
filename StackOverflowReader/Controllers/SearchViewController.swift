@@ -51,7 +51,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         
         // Remove "Saved Posts" tab bar item if not authorized
         if AuthorizationManager.isAuthorized == false {
-            let savedQuestionsIndex = 1 // Search = 0; Saved Questions = 1; Settings = 2
+            let savedQuestionsIndex = 2 // Search = 0; History = 1; Saved Questions = 2; More = 3
             guard var viewControllers = self.tabBarController?.viewControllers else { return }
             viewControllers.remove(at: savedQuestionsIndex)
             self.tabBarController?.viewControllers = viewControllers
@@ -246,7 +246,20 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
                     return
                 }
                 
+                guard let indexPath = self.searchResultsTableView.indexPath(for: pressedCell) else {
+                    return
+                }
+                
+                if var historyItem = SearchHistoryManager.searchHistory.first(where: {$0.searchQuery == searchQuery}) {
+                    historyItem.visitedQuestions.append(briefQuestions[indexPath.row])
+                } else {
+                    var historyItem = SearchHistoryItem(searchQuery: searchQuery)
+                    historyItem.visitedQuestions.append(briefQuestions[indexPath.row])
+                    SearchHistoryManager.searchHistory.append(historyItem)
+                }
+                
                 qtvc.questionId = pressedCell.questionId
+                
                 qtvc.isDataFromStorage = false
             }
         }
@@ -283,7 +296,9 @@ extension SearchViewController : AuthorNamePressedProtocol, LoadMoreQuestionsPro
                     }
                     
                     activityIndicatorView.stopAnimating()
+                    
                     sender.isHidden = false
+                    
                     self.searchResultsTableView.reloadData()
                     
                     self.questionsTotal -= APICallHelper.pageSize

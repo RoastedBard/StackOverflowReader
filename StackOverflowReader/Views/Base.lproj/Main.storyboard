@@ -139,6 +139,38 @@
                                     </constraints>
                                 </tableViewCellContentView>
                             </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="HistorySettingsCell" rowHeight="53" id="LEJ-Up-XPB" customClass="HistorySettingsTableViewCell" customModule="StackOverflowReader" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="363.5" width="320" height="53"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="LEJ-Up-XPB" id="yRP-iI-Jv0">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="52.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="jbf-Cl-71L">
+                                            <rect key="frame" x="16" y="11" width="51" height="31"/>
+                                            <color key="onTintColor" red="0.016804177310000001" green="0.19835099580000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <connections>
+                                                <action selector="clearHistorySwitchValueChanged:" destination="LEJ-Up-XPB" eventType="valueChanged" id="MLB-cS-VcI"/>
+                                            </connections>
+                                        </switch>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Clear history when app closes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0eN-qy-P2a">
+                                            <rect key="frame" x="73" y="11" width="231" height="31"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="0eN-qy-P2a" firstAttribute="leading" secondItem="jbf-Cl-71L" secondAttribute="trailing" constant="8" id="Q65-Fc-eWX"/>
+                                        <constraint firstItem="jbf-Cl-71L" firstAttribute="leading" secondItem="yRP-iI-Jv0" secondAttribute="leadingMargin" id="TVB-Tt-ozb"/>
+                                        <constraint firstItem="jbf-Cl-71L" firstAttribute="bottom" secondItem="yRP-iI-Jv0" secondAttribute="bottomMargin" id="Vzl-za-L1d"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="0eN-qy-P2a" secondAttribute="bottom" id="dQy-PC-eJw"/>
+                                        <constraint firstItem="jbf-Cl-71L" firstAttribute="top" secondItem="yRP-iI-Jv0" secondAttribute="topMargin" id="fyx-Vc-blx"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="0eN-qy-P2a" secondAttribute="trailing" id="hng-wc-Mbj"/>
+                                        <constraint firstItem="0eN-qy-P2a" firstAttribute="top" secondItem="yRP-iI-Jv0" secondAttribute="topMargin" id="rab-Bj-aZw"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                            </tableViewCell>
                         </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="iNz-SY-dsK" id="QNk-sb-0ZC"/>
@@ -152,7 +184,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LRm-KR-P6t" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3197" y="-1821"/>
+            <point key="canvasLocation" x="3196.875" y="-1821.1267605633802"/>
         </scene>
         <!--Saved Posts View Controller-->
         <scene sceneID="cqr-1h-Ioe">
@@ -1158,7 +1190,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="tMT-lY-bws"/>
-        <segue reference="r75-0o-yyV"/>
+        <segue reference="ZXt-lr-FmV"/>
         <segue reference="NGj-if-jXK"/>
     </inferredMetricsTieBreakers>
 </document>
