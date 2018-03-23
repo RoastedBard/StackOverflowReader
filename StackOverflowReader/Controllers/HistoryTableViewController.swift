@@ -15,7 +15,7 @@ class HistoryTableViewController: UITableViewController
     
     var fetchedResultsController : NSFetchedResultsController<NSFetchRequestResult>!
     
-    let dispatchQueue = DispatchQueue(label: "LoadingSearchHistoryData", attributes: [], target: nil)
+    //let dispatchQueue = DispatchQueue(label: "LoadingSearchHistoryData", attributes: [], target: nil)
     
     // MARK: - Lifecycle
     
@@ -23,32 +23,32 @@ class HistoryTableViewController: UITableViewController
     {
         super.viewDidLoad()
         
-        dispatchQueue.async {
-            OperationQueue.main.addOperation() {
-                self.initializeFetchedResultsController()
-                
-                if let loggedUser = self.fetchedResultsController.fetchedObjects as? [LoggedUserMO] {
-                    
-                    if let searchHistoryMO = loggedUser[0].history?.allObjects as? [SearchHistoryItemMO] {
-                        
-                        for searchHistoryItemMO in searchHistoryMO {
-                            let searchHistoryItem = SearchHistoryItem(searchQuery: searchHistoryItemMO.searchQuery ?? "")
-                            
-                            if let briefQuestionsMO = searchHistoryItemMO.questions?.allObjects as? [BriefQuestionMO] {
-                                
-                                for briefQuestionMO in briefQuestionsMO {
-                                    let briefQuestion = IntermediateBriefQuestion(briefQuestionMO)
-                                    searchHistoryItem.visitedQuestions.append(briefQuestion)
-                                }
-                            }
-                            
-                            SearchHistoryManager.searchHistory.append(searchHistoryItem)
-                        }
-                    }
-                }
-                
-            }
-        }
+//        dispatchQueue.async {
+//            OperationQueue.main.addOperation() {
+//                self.initializeFetchedResultsController()
+//
+//                if let loggedUser = self.fetchedResultsController.fetchedObjects as? [LoggedUserMO] {
+//
+//                    if let searchHistoryMO = loggedUser[0].history?.allObjects as? [SearchHistoryItemMO] {
+//
+//                        for searchHistoryItemMO in searchHistoryMO {
+//                            let searchHistoryItem = SearchHistoryItem(searchQuery: searchHistoryItemMO.searchQuery ?? "")
+//
+//                            if let briefQuestionsMO = searchHistoryItemMO.questions?.allObjects as? [BriefQuestionMO] {
+//
+//                                for briefQuestionMO in briefQuestionsMO {
+//                                    let briefQuestion = IntermediateBriefQuestion(briefQuestionMO)
+//                                    searchHistoryItem.visitedQuestions.append(briefQuestion)
+//                                }
+//                            }
+//
+//                            SearchHistoryManager.searchHistory.append(searchHistoryItem)
+//                        }
+//                    }
+//                }
+//
+//            }
+//        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -122,7 +122,7 @@ class HistoryTableViewController: UITableViewController
 
             return cell
         } else {
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "SOPostCell", for: indexPath) as? SOPostCell else {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "SearchHistoryCell", for: indexPath) as? SearchHistoryTableViewCell else {
                 print("Failed to deque cell in SearchViewController")
                 exit(0)
             }
@@ -142,18 +142,13 @@ class HistoryTableViewController: UITableViewController
         if SearchHistoryManager.searchHistory.count == 0 {
             return "History"
         } else {
-            return SearchHistoryManager.searchHistory[section].searchQuery
+            return SearchHistoryManager.searchHistory[section].searchQuery.removingPercentEncoding
         }
     }
 }
 
-extension HistoryTableViewController : AuthorNamePressedProtocol, TagButtonPressedProtocol
+extension HistoryTableViewController : AuthorNamePressedProtocol
 {
-    func tagButtonPressed(tagText: String)
-    {
-        performSegue(withIdentifier: "SearchByTagSegue", sender: tagText)
-    }
-    
     func authorNamePressed(userId id : Int)
     {
         performSegue(withIdentifier: "ShowUserInfo", sender: id)
@@ -166,6 +161,19 @@ extension HistoryTableViewController : AuthorNamePressedProtocol, TagButtonPress
             
             uvc.userId = userId ?? -1
             //uvc.profilePicture = profileImages[userId ?? -1]
+        }
+        
+        if segue.identifier == "ShowQuestionSeque" {
+            if let qtvc = segue.destination as? QuestionTableViewController {
+                
+                guard let pressedCell = sender as? SearchHistoryTableViewCell else {
+                    return
+                }
+                
+                qtvc.questionId = pressedCell.questionId
+                
+                qtvc.isDataFromStorage = false
+            }
         }
     }
 }

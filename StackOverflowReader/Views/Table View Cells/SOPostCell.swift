@@ -19,6 +19,8 @@ class SOPostCell: UITableViewCell
     @IBOutlet weak var tagCollectionView: UIView!
     @IBOutlet weak var tagCollectionViewHeightConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var acceptedOrClosedImageView: UIImageView!
+    
     var authorNamePressedDelegate : AuthorNamePressedProtocol? // Common
     
     var ownerUserId = -1
@@ -52,11 +54,11 @@ class SOPostCell: UITableViewCell
         dateLabel.text = "\(dateFormatter.string(from: question.creationDate))"
         
         if question.acceptedAnswerId != nil {
-            self.backgroundColor = #colorLiteral(red: 0.7333333333, green: 0.9960784314, blue: 0.7764705882, alpha: 1)
+            acceptedOrClosedImageView.image = #imageLiteral(resourceName: "icons8-checked-50")
         } else if question.isClosed == true {
-            self.backgroundColor = #colorLiteral(red: 0.8707411024, green: 0.5153266059, blue: 0.6025402082, alpha: 1)
+            acceptedOrClosedImageView.image = #imageLiteral(resourceName: "icons8-cancel-40")
         } else {
-            self.backgroundColor = .white
+            acceptedOrClosedImageView.image = nil
         }
         
         self.questionId = question.questionId
@@ -80,12 +82,35 @@ class SOPostCell: UITableViewCell
         var nextOrigin : CGPoint = CGPoint.zero
         
         for tag in tags {
-            let tagView = UILabel(frame: CGRect(x: nextOrigin.x, y: nextOrigin.y, width: 0, height: 0))
-            tagView.text = tag == tags.last ? tag : "\(tag),"
+//            let tagView = UILabel(frame: CGRect(x: nextOrigin.x, y: nextOrigin.y, width: 0, height: 0))
+//            tagView.text = tag == tags.last ? tag : "\(tag),"
+//            tagView.font = UIFont(name: "Helvetica", size: 14)
+//            tagView.sizeToFit()
+//            tagView.frame.size.height = buttonHeight
+//            tagView.textColor = .black
+            
+            let tagView = UILabelWithBorderAndInsets(frame: CGRect(x: nextOrigin.x, y: nextOrigin.y, width: 0, height: 0))
+            
+            tagView.isUserInteractionEnabled = true
+            
+            tagView.text = tag
+            
+            tagView.font = UIFont(name: "Helvetica", size: 14)
+            
+            tagView.layer.masksToBounds = true;
+            tagView.borderWidth = 1
+            tagView.cornerRadius = 10
+            tagView.borderColor = #colorLiteral(red: 0.8791649938, green: 0.923817575, blue: 0.9553330541, alpha: 1)
+            tagView.backgroundColor = #colorLiteral(red: 0.8791649938, green: 0.923817575, blue: 0.9553330541, alpha: 1)
+            tagView.textColor = #colorLiteral(red: 0.2233205736, green: 0.4514970183, blue: 0.6146772504, alpha: 1)
+            tagView.leftTextInset = 5.0
+            tagView.rightTextInset = 5.0
+            tagView.topTextInset = 1.0
+            tagView.bottomTextInset = 1.0
+            
             tagView.sizeToFit()
             tagView.frame.size.height = buttonHeight
-            tagView.textColor = .black
-
+            
             if (nextOrigin.x + tagView.frame.width + horizontalSpacing) > tagCollectionView.frame.width {
                 nextOrigin.x = 0.0
                 nextOrigin.y += buttonHeight + verticalSpacing

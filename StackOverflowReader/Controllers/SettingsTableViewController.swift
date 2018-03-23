@@ -39,11 +39,12 @@ class SettingsTableViewController: UITableViewController
 
     override func numberOfSections(in tableView: UITableView) -> Int
     {
-        if AuthorizationManager.isAuthorized == true {
-            return 3
-        } else {
-            return 2
-        }
+//        if AuthorizationManager.isAuthorized == true {
+//            return 3
+//        } else {
+//            return 2
+//        }
+        return 2
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
@@ -58,8 +59,8 @@ class SettingsTableViewController: UITableViewController
             case 0:
                 return "Search Settings"
             case 1:
-                return "History Settings"
-            case 2:
+//                return "History Settings"
+//            case 2:
                 return "Profile Settings"
             default:
                 return ""
@@ -89,14 +90,7 @@ class SettingsTableViewController: UITableViewController
             
             return cell
             
-        } else if indexPath.section == 1 && AuthorizationManager.isAuthorized == true {
-            cellIdentifier = "HistorySettingsCell"
-            
-            let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
-            
-            return cell
-            
-        } else if (indexPath.section == 1 && AuthorizationManager.isAuthorized == false) || indexPath.section == 2 {
+        } else if indexPath.section == 1 {
             cellIdentifier = "ProfileSettingsCell"
             
             guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? ProfileSettingsTableViewCell else {

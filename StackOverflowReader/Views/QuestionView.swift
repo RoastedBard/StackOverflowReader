@@ -92,13 +92,30 @@ class QuestionView: UITableViewHeaderFooterView
         var nextOrigin : CGPoint = CGPoint.zero
         
         for tag in tags {
-            let tagView = UIButton(frame: CGRect(x: nextOrigin.x, y: nextOrigin.y, width: 0, height: 0))
-            tagView.setTitle(tag, for: .normal)
+            let tap = UITapGestureRecognizer(target: self, action: #selector(tagButtonPressed))
+            
+            let tagView = UILabelWithBorderAndInsets(frame: CGRect(x: nextOrigin.x, y: nextOrigin.y, width: 0, height: 0))
+            
+            tagView.isUserInteractionEnabled = true
+            tagView.addGestureRecognizer(tap)
+            
+            tagView.text = tag
+            
+            tagView.font = UIFont(name: "Helvetica", size: 14)
+            
+            tagView.layer.masksToBounds = true;
+            tagView.borderWidth = 1
+            tagView.cornerRadius = 10
+            tagView.borderColor = #colorLiteral(red: 0.8791649938, green: 0.923817575, blue: 0.9553330541, alpha: 1)
+            tagView.backgroundColor = #colorLiteral(red: 0.8791649938, green: 0.923817575, blue: 0.9553330541, alpha: 1)
+            tagView.textColor = #colorLiteral(red: 0.2233205736, green: 0.4514970183, blue: 0.6146772504, alpha: 1)
+            tagView.leftTextInset = 5.0
+            tagView.rightTextInset = 5.0
+            tagView.topTextInset = 1.0
+            tagView.bottomTextInset = 1.0
+            
             tagView.sizeToFit()
             tagView.frame.size.height = buttonHeight
-            tagView.setTitleColor(.black, for: .normal)
-            tagView.backgroundColor = .cyan
-            tagView.addTarget(self, action: #selector(tagButtonPressed), for: .touchUpInside)
             
             if (nextOrigin.x + tagView.frame.width + horizontalSpacing) > tagCollectionView.frame.width {
                 nextOrigin.x = 0.0
@@ -127,9 +144,11 @@ class QuestionView: UITableViewHeaderFooterView
     
     //MARK: - Actions
     
-    @objc func tagButtonPressed(sender: UIButton!)
+    @objc func tagButtonPressed(_ sender: UITapGestureRecognizer)
     {
-        tagPressedDelegate?.tagButtonPressed(tagText: sender.titleLabel?.text ?? "")
+        if let tappedLabel = sender.view as? UILabelWithBorderAndInsets {
+            tagPressedDelegate?.tagButtonPressed(tagText: tappedLabel.text ?? "NOT_IDENTIFIED")
+        }
     }
     
     @IBAction func authorNamePressed(_ sender: UIButton)

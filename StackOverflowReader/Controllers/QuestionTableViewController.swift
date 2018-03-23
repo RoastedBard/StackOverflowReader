@@ -212,6 +212,7 @@ class QuestionTableViewController: UITableViewController
             guard let answerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: answerHeaderIdentifier) as? AnswerView else { return nil }
             
             if let answer = question?.answers?[section - 1] {
+                
                 answerView.authorNamePressedDelegate = self
                 
                 answerView.initializeAnswerView(answer, profileImages[answer.owner?.userId ?? -1])
@@ -249,6 +250,12 @@ class QuestionTableViewController: UITableViewController
             cell.initializeCommentCell(comment)
         }
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int)
+    {
+        view.backgroundColor = .white
+        view.tintColor = .white
     }
 }
 
