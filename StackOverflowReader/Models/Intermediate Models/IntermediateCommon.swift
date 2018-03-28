@@ -11,11 +11,15 @@ import UIKit
 
 class IntermediateCommon
 {
+    // MARK: - Properties
+    
     var owner : IntermediateShallowUser?
     var score : Int = 0
     var creationDate : Date = Date()
-    var body : NSAttributedString = NSAttributedString() // For presenting
-    var bodyOriginal : String = "" // For storing in the database
+    var body : NSAttributedString = NSAttributedString() // Parsed body for presenting
+    var bodyOriginal : String = "" // Unparsed HTML for storing in the database
+    
+    // MARK: - Init
     
     init(shallowUser : ShallowUser?, score : Int, creationDate : Int, body : String, contentWidth : CGFloat)
     {
@@ -50,6 +54,8 @@ class IntermediateCommon
             adjustImagesInAttributedString(self.body, contentWidth)
         }
     }
+    
+    // MARK: - Methods
     
     fileprivate func adjustImagesInAttributedString(_ attributedString : NSAttributedString, _ width : CGFloat)
     {

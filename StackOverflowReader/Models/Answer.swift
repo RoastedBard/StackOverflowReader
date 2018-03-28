@@ -11,6 +11,7 @@ import Foundation
 class Answer : Codable
 {
     // MARK: - Properties returned from API call
+    
     var owner : ShallowUser?
     var isAccepted : Bool
     var score : Int = 0

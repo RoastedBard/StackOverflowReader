@@ -10,8 +10,10 @@ import Foundation
 
 struct AccessTokenInfo : Codable
 {
+    // MARK: - Properties returned from API call
+    
     var accountId : Int
-    var expiresOnDate : Int
+    var expiresOnDate : Int?
     var scope : [String]
     
     enum CodingKeys : String, CodingKey

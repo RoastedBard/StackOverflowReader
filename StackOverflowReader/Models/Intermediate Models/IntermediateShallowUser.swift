@@ -10,9 +10,13 @@ import Foundation
 
 class IntermediateShallowUser
 {
+    // MARK: - Properties
+    
     var userId : Int?
     var profileImage : String?
     var displayName : NSAttributedString?
+    
+    // MARK: - Init
     
     init(userId : Int, profileImage : String, displayName : String)
     {

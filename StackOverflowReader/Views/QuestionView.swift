@@ -11,37 +11,32 @@ import CoreData
 
 // MARK: - Delegates
 
-protocol TagButtonPressedProtocol
-{
-    func tagButtonPressed(tagText : String)
-}
-
 class QuestionView: UITableViewHeaderFooterView
 {
+    // MARK: - UI Elements
+    
     @IBOutlet weak var questionTitleLabel: UILabel!
-    @IBOutlet weak var questionScoreLabel: UILabel!  // Common
-    @IBOutlet weak var questionBodyTextView: UITextView!  // Common
-    
-    @IBOutlet weak var questionDateLabel: UILabel!
-    @IBOutlet weak var questionAuthorNameButton: UIButton!  // Common
-    @IBOutlet weak var questionAuthorProfileImage: UIImageView!
+    @IBOutlet weak var questionScoreLabel: UILabelWithBorderAndInsets!
+    @IBOutlet weak var questionBodyTextView: UITextView!
+    @IBOutlet weak var authorAndDateView: AuthorAndDateInfoView!
     @IBOutlet weak var questionClosedReasonLabel: UILabel!
-    
     @IBOutlet weak var showCommentsButton: UIButton!
     @IBOutlet weak var saveQuestionButton: UIButton!
-    
-    // MARK: - Delegates
-    var authorNamePressedDelegate : AuthorNamePressedProtocol? // Common
-    var tagPressedDelegate : TagButtonPressedProtocol?
-    
-    // Tags
     @IBOutlet weak var tagCollectionView: UIView!
     @IBOutlet weak var tagCollectionViewHeightConstraint: NSLayoutConstraint!
     
+    // MARK: - Delegates
+    
+    var tagPressedDelegate : TagButtonPressedProtocol?
+    
+    // MARK: - Properties
+
     var ownerUserId : Int = -1
     var question: IntermediateQuestion?
+
+    // MARK: - Methods
     
-    func initializeQuestionView(_ question : IntermediateQuestion, _ profilePicture : UIImage?, isDataFromStorage : Bool)
+    func initializeQuestionView(with question : IntermediateQuestion, _ profilePicture : UIImage?, isDataFromStorage : Bool)
     {
         if isDataFromStorage == true || AuthorizationManager.isAuthorized == false {
             saveQuestionButton.isHidden = true
@@ -49,29 +44,26 @@ class QuestionView: UITableViewHeaderFooterView
         
         if let reason = question.closedReason {
             questionClosedReasonLabel.text = "CLOSED AS: \(reason.string)"
+        } else if questionClosedReasonLabel != nil, questionClosedReasonLabel.isDescendant(of: self) {
+            questionClosedReasonLabel.removeFromSuperview()
+            questionTitleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 8).isActive = true
         }
         
         questionTitleLabel.text = question.title?.string ?? "NOT_SPECIFIED"
         
         questionBodyTextView.attributedText = question.body
         
-        questionAuthorNameButton.setTitle(question.owner?.displayName?.string, for: .normal)
-        
         questionScoreLabel.text = "\(question.score)"
         
-        if let picture = profilePicture {
-            questionAuthorProfileImage.image = picture
-        }
-        
         let dateFormatter = DateFormatter()
+        
         dateFormatter.dateStyle = .medium
         dateFormatter.locale = Locale(identifier: "en_US")
         
-        questionDateLabel.text = "\(dateFormatter.string(from: question.creationDate))"
+        authorAndDateView.fillViewWithData(date: dateFormatter.string(from: question.creationDate), authorName: question.owner?.displayName?.string, authorImageURL: question.owner?.profileImage, userId: question.owner?.userId)
         
         showCommentsButton.isHidden = (question.comments != nil) ? false : true
         
-        self.ownerUserId = question.owner?.userId ?? -1
         self.question = question
         
         if let tags = question.tags {
@@ -132,7 +124,8 @@ class QuestionView: UITableViewHeaderFooterView
         }
     }
     
-    // MARK: - Core Data
+    //MARK: - Actions
+    
     @IBAction func saveQuestionButtonPressed(_ sender: UIButton)
     {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
@@ -142,17 +135,10 @@ class QuestionView: UITableViewHeaderFooterView
         appDelegate.dataController.saveQuestion(question: self.question)
     }
     
-    //MARK: - Actions
-    
     @objc func tagButtonPressed(_ sender: UITapGestureRecognizer)
     {
         if let tappedLabel = sender.view as? UILabelWithBorderAndInsets {
             tagPressedDelegate?.tagButtonPressed(tagText: tappedLabel.text ?? "NOT_IDENTIFIED")
         }
-    }
-    
-    @IBAction func authorNamePressed(_ sender: UIButton)
-    {
-        authorNamePressedDelegate?.authorNamePressed(userId: ownerUserId)
     }
 }

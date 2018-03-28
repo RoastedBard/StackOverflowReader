@@ -10,9 +10,13 @@ import Foundation
 
 class IntermediateBadgeCount
 {
+    // MARK: - Properties
+    
     var bronze : Int
     var silver : Int
     var gold : Int
+    
+    // MARK: - Init
     
     init(_ badgeCountCodable : BadgeCount)
     {

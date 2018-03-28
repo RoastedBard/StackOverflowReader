@@ -11,6 +11,8 @@ import UIKit
 
 class IntermediateQuestion : IntermediateCommon
 {
+    // MARK: - Properties
+    
     var tags : [String]?
     var comments : [IntermediateComment]?
     var answers : [IntermediateAnswer]?
@@ -20,6 +22,8 @@ class IntermediateQuestion : IntermediateCommon
     var isAnswered : Bool = false
     var title : NSAttributedString?
     var questionId : Int
+    
+    // MARK: - Init
     
     init(question : Question, contentWidth : CGFloat)
     {

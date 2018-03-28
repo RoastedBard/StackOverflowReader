@@ -10,6 +10,8 @@ import Foundation
 
 class IntermediateBriefQuestion : IntermediateCommon
 {
+    // MARK: - Properties
+    
     var tags : [String]?
     var isAnswered : Bool
     var title : NSAttributedString?
@@ -17,6 +19,8 @@ class IntermediateBriefQuestion : IntermediateCommon
     var acceptedAnswerId : Int?
     var isClosed : Bool = false
     var dateSaved : Date = Date()
+    
+    // MARK: - Init
     
     init(_ briefQuestion : BriefQuestion)
     {

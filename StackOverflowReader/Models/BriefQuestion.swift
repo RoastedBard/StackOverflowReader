@@ -11,6 +11,7 @@ import Foundation
 struct BriefQuestion : Codable
 {
     // MARK: - Properties returned from API call
+    
     var tags : [String]?
     var title : String
     var isAnswered : Bool

@@ -10,7 +10,7 @@ import UIKit
 
 class SearchSettingsTableViewCell: UITableViewCell
 {
-    // MARK: - Outlets
+    // MARK: - UI Elements
     
     @IBOutlet weak var searchResultsOnPageSlider: UISlider!
     @IBOutlet weak var searchResultsOnPageLabel: UILabel!
@@ -20,7 +20,6 @@ class SearchSettingsTableViewCell: UITableViewCell
     override func awakeFromNib()
     {
         super.awakeFromNib()
-        // Initialization code
     }
 
     override func setSelected(_ selected: Bool, animated: Bool)

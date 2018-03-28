@@ -11,44 +11,11 @@ import CoreData
 
 class HistoryTableViewController: UITableViewController
 {
-    // MARK: - Core Data properties
-    
-    var fetchedResultsController : NSFetchedResultsController<NSFetchRequestResult>!
-    
-    //let dispatchQueue = DispatchQueue(label: "LoadingSearchHistoryData", attributes: [], target: nil)
-    
     // MARK: - Lifecycle
     
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        
-//        dispatchQueue.async {
-//            OperationQueue.main.addOperation() {
-//                self.initializeFetchedResultsController()
-//
-//                if let loggedUser = self.fetchedResultsController.fetchedObjects as? [LoggedUserMO] {
-//
-//                    if let searchHistoryMO = loggedUser[0].history?.allObjects as? [SearchHistoryItemMO] {
-//
-//                        for searchHistoryItemMO in searchHistoryMO {
-//                            let searchHistoryItem = SearchHistoryItem(searchQuery: searchHistoryItemMO.searchQuery ?? "")
-//
-//                            if let briefQuestionsMO = searchHistoryItemMO.questions?.allObjects as? [BriefQuestionMO] {
-//
-//                                for briefQuestionMO in briefQuestionsMO {
-//                                    let briefQuestion = IntermediateBriefQuestion(briefQuestionMO)
-//                                    searchHistoryItem.visitedQuestions.append(briefQuestion)
-//                                }
-//                            }
-//
-//                            SearchHistoryManager.searchHistory.append(searchHistoryItem)
-//                        }
-//                    }
-//                }
-//
-//            }
-//        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -60,39 +27,6 @@ class HistoryTableViewController: UITableViewController
     override func didReceiveMemoryWarning()
     {
         super.didReceiveMemoryWarning()
-    }
-    
-    // MARK: - Fetched results controller configuration
-    
-    func initializeFetchedResultsController()
-    {
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-            return
-        }
-        
-        guard let authorizedUserId = AuthorizationManager.authorizedUser?.userId else {
-            return
-        }
-        
-        let managedContext = appDelegate.dataController.managedObjectContext
-        
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "LoggedUser")
-        
-        request.predicate = NSPredicate(format: "userId = %d", authorizedUserId)
-        
-        let userIdSort = NSSortDescriptor(key: "userId", ascending: true)
-        
-        request.sortDescriptors = [userIdSort]
-        
-        fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: managedContext, sectionNameKeyPath: nil, cacheName: nil)
-        
-        //fetchedResultsController.delegate = self
-        
-        do {
-            try fetchedResultsController.performFetch()
-        } catch {
-            fatalError("Failed to initialize FetchedResultsController: \(error)")
-        }
     }
     
     // MARK: - Table view data source
@@ -115,7 +49,6 @@ class HistoryTableViewController: UITableViewController
         return SearchHistoryManager.searchHistory[section].visitedQuestions.count
     }
 
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if SearchHistoryManager.searchHistory.count == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "NoHistoryCell", for: indexPath)
@@ -146,6 +79,8 @@ class HistoryTableViewController: UITableViewController
         }
     }
 }
+
+// MARK: - AuthorNamePressedProtocol
 
 extension HistoryTableViewController : AuthorNamePressedProtocol
 {

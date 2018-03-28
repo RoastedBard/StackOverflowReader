@@ -10,6 +10,8 @@ import UIKit
 
 class GreetingScreenViewController: UIViewController
 {
+    // MARK: - Lifecycle
+    
     override func viewDidAppear(_ animated: Bool)
     {
         // Attempt login if access token is available
@@ -29,6 +31,7 @@ class GreetingScreenViewController: UIViewController
     }
     
     // MARK: - Navigation
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
         

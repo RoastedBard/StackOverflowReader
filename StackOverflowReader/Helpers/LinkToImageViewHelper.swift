@@ -10,9 +10,16 @@ import Foundation
 import UIKit.UIImageView
 import UIKit.UIImage
 
+class ProfileImagesStorage
+{
+    private init() {}
+    
+    static var profileImages : [Int : UIImage] = [Int : UIImage]()
+}
+
 class LinkToImageViewHelper
 {
-    static func getDataFromUrl(url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ())
+    fileprivate static func getDataFromUrl(url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ())
     {
         URLSession.shared.dataTask(with: url) { data, response, error in
             completion(data, response, error)

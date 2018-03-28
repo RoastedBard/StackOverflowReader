@@ -10,6 +10,8 @@ import Foundation
 
 class IntermediateUser : IntermediateShallowUser
 {
+    // MARK: - Properties
+    
     var reputation : Int?
     var aboutMe : NSAttributedString?
     var age : Int?
@@ -22,6 +24,8 @@ class IntermediateUser : IntermediateShallowUser
     var viewCount : Int?
     var websiteUrl : String?
     var badgeCounts : BadgeCount?
+    
+    // MARK: - Init
     
     init(_ user : User)
     {

@@ -10,6 +10,8 @@ import Foundation
 
 class CommonModelData : Codable
 {
+    // MARK: - Properties returned from API call
+    
     var owner : ShallowUser?
     var score : Int = 0
     var creationDate : Int = 0 // unix epoch time
@@ -22,7 +24,9 @@ class CommonModelData : Codable
         case score
         case body
     }
+    
     // MARK: - init
+    
     init() {}
     
     required init(from decoder: Decoder) throws

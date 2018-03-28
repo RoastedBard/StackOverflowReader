@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BF054BDB206A3FA9003DD822 /* LoadMoreQuestionsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF054BDA206A3FA9003DD822 /* LoadMoreQuestionsProtocol.swift */; };
+		BF054BDD206A3FEF003DD822 /* ProfileSettingsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF054BDC206A3FEF003DD822 /* ProfileSettingsProtocol.swift */; };
+		BF054BDF206A4035003DD822 /* TagButtonPressedProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF054BDE206A4035003DD822 /* TagButtonPressedProtocol.swift */; };
+		BF054BE2206A41D0003DD822 /* UITextViewFixed.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF054BE1206A41D0003DD822 /* UITextViewFixed.swift */; };
+		BF054BE4206A96E3003DD822 /* SavedPostsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF054BE3206A96E3003DD822 /* SavedPostsTableViewController.swift */; };
 		BF070E96203C42D1007D936A /* IntermediateCommon.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF070E95203C42D1007D936A /* IntermediateCommon.swift */; };
 		BF070E98203C4354007D936A /* IntermediateShallowUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF070E97203C4354007D936A /* IntermediateShallowUser.swift */; };
 		BF070E9A203C4435007D936A /* IntermediateUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF070E99203C4435007D936A /* IntermediateUser.swift */; };
@@ -34,7 +39,7 @@
 		BF35C80B1FFE2AD100AF9FA7 /* Answer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF35C8071FFE2AD100AF9FA7 /* Answer.swift */; };
 		BF35C80C1FFE2AD100AF9FA7 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF35C8081FFE2AD100AF9FA7 /* User.swift */; };
 		BF35C80D1FFE2AD100AF9FA7 /* Question.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF35C8091FFE2AD100AF9FA7 /* Question.swift */; };
-		BF35C80F1FFE33CD00AF9FA7 /* SOPostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF35C80E1FFE33CD00AF9FA7 /* SOPostCell.swift */; };
+		BF35C80F1FFE33CD00AF9FA7 /* BriefQuestionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF35C80E1FFE33CD00AF9FA7 /* BriefQuestionTableViewCell.swift */; };
 		BF3AFAF620482400006126A1 /* KeychainPasswordItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF3AFAF520482400006126A1 /* KeychainPasswordItem.swift */; };
 		BF621C341FE8000600DFDAA4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF621C331FE8000600DFDAA4 /* AppDelegate.swift */; };
 		BF621C361FE8000600DFDAA4 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF621C351FE8000600DFDAA4 /* SearchViewController.swift */; };
@@ -42,6 +47,8 @@
 		BF621C3C1FE8000600DFDAA4 /* StackOverflowReader.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BF621C3A1FE8000600DFDAA4 /* StackOverflowReader.xcdatamodeld */; };
 		BF621C3E1FE8000600DFDAA4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BF621C3D1FE8000600DFDAA4 /* Assets.xcassets */; };
 		BF621C411FE8000600DFDAA4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BF621C3F1FE8000600DFDAA4 /* LaunchScreen.storyboard */; };
+		BF7001392068D4F9009ED50B /* AuthorAndDateInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF7001382068D4F9009ED50B /* AuthorAndDateInfoView.xib */; };
+		BF70013B2068D5D6009ED50B /* AuthorAndDateInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF70013A2068D5D6009ED50B /* AuthorAndDateInfoView.swift */; };
 		BF7CA48820650B1900A070E6 /* APICallHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF7CA48720650B1900A070E6 /* APICallHelper.swift */; };
 		BF7CA48A20650B2700A070E6 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF7CA48920650B2700A070E6 /* LoginViewController.swift */; };
 		BF7CA48C20650B2F00A070E6 /* UserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF7CA48B20650B2F00A070E6 /* UserViewController.swift */; };
@@ -54,7 +61,6 @@
 		BF8EB277205676E500EBF70B /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8EB276205676E500EBF70B /* Utility.swift */; };
 		BF8EB27B20567B4300EBF70B /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF8EB27A20567B4300EBF70B /* StringExtension.swift */; };
 		BF901C01203B16310089BD7E /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF901C00203B16310089BD7E /* DataController.swift */; };
-		BFB4AD6E1FF3A2AA00097C05 /* SavedPostsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB4AD6D1FF3A2AA00097C05 /* SavedPostsViewController.swift */; };
 		BFCC8CE31FFD0D870081575B /* QuestionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFCC8CE21FFD0D870081575B /* QuestionTableViewController.swift */; };
 		BFEBAF902063AEC000B36348 /* UILabelWithBorderAndInsets.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFEBAF8F2063AEC000B36348 /* UILabelWithBorderAndInsets.swift */; };
 		BFEE044A20188E900095105B /* ShallowUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFEE044920188E900095105B /* ShallowUser.swift */; };
@@ -63,6 +69,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		BF054BDA206A3FA9003DD822 /* LoadMoreQuestionsProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadMoreQuestionsProtocol.swift; sourceTree = "<group>"; };
+		BF054BDC206A3FEF003DD822 /* ProfileSettingsProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingsProtocol.swift; sourceTree = "<group>"; };
+		BF054BDE206A4035003DD822 /* TagButtonPressedProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagButtonPressedProtocol.swift; sourceTree = "<group>"; };
+		BF054BE1206A41D0003DD822 /* UITextViewFixed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextViewFixed.swift; sourceTree = "<group>"; };
+		BF054BE3206A96E3003DD822 /* SavedPostsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedPostsTableViewController.swift; sourceTree = "<group>"; };
 		BF070E95203C42D1007D936A /* IntermediateCommon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntermediateCommon.swift; sourceTree = "<group>"; };
 		BF070E97203C4354007D936A /* IntermediateShallowUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntermediateShallowUser.swift; sourceTree = "<group>"; };
 		BF070E99203C4435007D936A /* IntermediateUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntermediateUser.swift; sourceTree = "<group>"; };
@@ -90,7 +101,7 @@
 		BF35C8071FFE2AD100AF9FA7 /* Answer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Answer.swift; sourceTree = "<group>"; };
 		BF35C8081FFE2AD100AF9FA7 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		BF35C8091FFE2AD100AF9FA7 /* Question.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Question.swift; sourceTree = "<group>"; };
-		BF35C80E1FFE33CD00AF9FA7 /* SOPostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SOPostCell.swift; sourceTree = "<group>"; };
+		BF35C80E1FFE33CD00AF9FA7 /* BriefQuestionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BriefQuestionTableViewCell.swift; sourceTree = "<group>"; };
 		BF3AFAF520482400006126A1 /* KeychainPasswordItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainPasswordItem.swift; sourceTree = "<group>"; };
 		BF621C301FE8000500DFDAA4 /* StackOverflowReader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StackOverflowReader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF621C331FE8000600DFDAA4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -100,6 +111,8 @@
 		BF621C3D1FE8000600DFDAA4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BF621C401FE8000600DFDAA4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BF621C421FE8000600DFDAA4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BF7001382068D4F9009ED50B /* AuthorAndDateInfoView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AuthorAndDateInfoView.xib; sourceTree = "<group>"; };
+		BF70013A2068D5D6009ED50B /* AuthorAndDateInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorAndDateInfoView.swift; sourceTree = "<group>"; };
 		BF7CA48720650B1900A070E6 /* APICallHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APICallHelper.swift; sourceTree = "<group>"; };
 		BF7CA48920650B2700A070E6 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		BF7CA48B20650B2F00A070E6 /* UserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserViewController.swift; sourceTree = "<group>"; };
@@ -112,7 +125,6 @@
 		BF8EB276205676E500EBF70B /* Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
 		BF8EB27A20567B4300EBF70B /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		BF901C00203B16310089BD7E /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
-		BFB4AD6D1FF3A2AA00097C05 /* SavedPostsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedPostsViewController.swift; sourceTree = "<group>"; };
 		BFCC8CE21FFD0D870081575B /* QuestionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionTableViewController.swift; sourceTree = "<group>"; };
 		BFEBAF8F2063AEC000B36348 /* UILabelWithBorderAndInsets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabelWithBorderAndInsets.swift; sourceTree = "<group>"; };
 		BFEE044920188E900095105B /* ShallowUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShallowUser.swift; sourceTree = "<group>"; };
@@ -138,6 +150,18 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		BF054BE0206A409E003DD822 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				BF054BDA206A3FA9003DD822 /* LoadMoreQuestionsProtocol.swift */,
+				BF054BDC206A3FEF003DD822 /* ProfileSettingsProtocol.swift */,
+				BF054BDE206A4035003DD822 /* TagButtonPressedProtocol.swift */,
+				BFEE6B132008D5EB00BD67FB /* AuthorNamePressedProtocol.swift */,
+				BF23CD4D2029A168003C17ED /* CollapseCommentsProtocol.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
 		BF070E94203C427D007D936A /* Intermediate Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -156,7 +180,7 @@
 		BF1F2F38206150A300D7AC83 /* Table View Cells */ = {
 			isa = PBXGroup;
 			children = (
-				BF35C80E1FFE33CD00AF9FA7 /* SOPostCell.swift */,
+				BF35C80E1FFE33CD00AF9FA7 /* BriefQuestionTableViewCell.swift */,
 				BF864CD52007D1D2000BD5E6 /* CommentTableViewCell.swift */,
 				BFF1BC18203D7C8C008185C0 /* LoadMoreTableViewCell.swift */,
 				BF1F2F39206150F900D7AC83 /* ProfileSettingsTableViewCell.swift */,
@@ -221,14 +245,14 @@
 		BF6E445A1FED4279004BEF13 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				BF70013C2068F4B6009ED50B /* Storyboards */,
+				BF7001372068D4BC009ED50B /* Xib */,
 				BF1F2F38206150A300D7AC83 /* Table View Cells */,
 				BF0A04372007A4B4007701EB /* QuestionView.swift */,
 				BF0A04392007A593007701EB /* AnswerView.swift */,
-				BF621C371FE8000600DFDAA4 /* Main.storyboard */,
-				BF621C3F1FE8000600DFDAA4 /* LaunchScreen.storyboard */,
-				BF0A04352007A163007701EB /* AnswerView.xib */,
-				BF0A04332007A150007701EB /* QuestionView.xib */,
 				BFEBAF8F2063AEC000B36348 /* UILabelWithBorderAndInsets.swift */,
+				BF70013A2068D5D6009ED50B /* AuthorAndDateInfoView.swift */,
+				BF054BE1206A41D0003DD822 /* UITextViewFixed.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -238,12 +262,12 @@
 			children = (
 				BF7CA48B20650B2F00A070E6 /* UserViewController.swift */,
 				BF7CA48920650B2700A070E6 /* LoginViewController.swift */,
-				BFB4AD6D1FF3A2AA00097C05 /* SavedPostsViewController.swift */,
 				BF621C351FE8000600DFDAA4 /* SearchViewController.swift */,
 				BFCC8CE21FFD0D870081575B /* QuestionTableViewController.swift */,
 				BF8EB270205676A300EBF70B /* GreetingScreenViewController.swift */,
 				BF1F2F3D206172B400D7AC83 /* HistoryTableViewController.swift */,
 				BF1F2F362061485300D7AC83 /* SettingsTableViewController.swift */,
+				BF054BE3206A96E3003DD822 /* SavedPostsTableViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -251,10 +275,9 @@
 		BF6E445D1FED42A4004BEF13 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				BF054BE0206A409E003DD822 /* Protocols */,
 				BF7CA48720650B1900A070E6 /* APICallHelper.swift */,
 				BF251926202DFFF4008CC8D0 /* LinkToImageViewHelper.swift */,
-				BFEE6B132008D5EB00BD67FB /* AuthorNamePressedProtocol.swift */,
-				BF23CD4D2029A168003C17ED /* CollapseCommentsProtocol.swift */,
 				BF901C00203B16310089BD7E /* DataController.swift */,
 				BF3AFAF520482400006126A1 /* KeychainPasswordItem.swift */,
 				BF8EB276205676E500EBF70B /* Utility.swift */,
@@ -263,6 +286,25 @@
 				BF111D8B2062B0FB00E5A547 /* SearchHistoryManager.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		BF7001372068D4BC009ED50B /* Xib */ = {
+			isa = PBXGroup;
+			children = (
+				BF0A04352007A163007701EB /* AnswerView.xib */,
+				BF0A04332007A150007701EB /* QuestionView.xib */,
+				BF7001382068D4F9009ED50B /* AuthorAndDateInfoView.xib */,
+			);
+			path = Xib;
+			sourceTree = "<group>";
+		};
+		BF70013C2068F4B6009ED50B /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				BF621C371FE8000600DFDAA4 /* Main.storyboard */,
+				BF621C3F1FE8000600DFDAA4 /* LaunchScreen.storyboard */,
+			);
+			path = Storyboards;
 			sourceTree = "<group>";
 		};
 		EF714B4C9D8CD38252A48BCF /* Frameworks */ = {
@@ -335,6 +377,7 @@
 				BF621C411FE8000600DFDAA4 /* LaunchScreen.storyboard in Resources */,
 				BF621C3E1FE8000600DFDAA4 /* Assets.xcassets in Resources */,
 				BF0A04342007A150007701EB /* QuestionView.xib in Resources */,
+				BF7001392068D4F9009ED50B /* AuthorAndDateInfoView.xib in Resources */,
 				BF0A04362007A163007701EB /* AnswerView.xib in Resources */,
 				BF621C391FE8000600DFDAA4 /* Main.storyboard in Resources */,
 			);
@@ -351,20 +394,23 @@
 				BF7CA48C20650B2F00A070E6 /* UserViewController.swift in Sources */,
 				BF09525A202AF2F0009B9527 /* BriefQuestion.swift in Sources */,
 				BF0A04382007A4B4007701EB /* QuestionView.swift in Sources */,
+				BF054BE2206A41D0003DD822 /* UITextViewFixed.swift in Sources */,
 				BF1F2F3C2061510800D7AC83 /* SearchSettingsTableViewCell.swift in Sources */,
 				BF35C80C1FFE2AD100AF9FA7 /* User.swift in Sources */,
 				BF901C01203B16310089BD7E /* DataController.swift in Sources */,
-				BF35C80F1FFE33CD00AF9FA7 /* SOPostCell.swift in Sources */,
+				BF35C80F1FFE33CD00AF9FA7 /* BriefQuestionTableViewCell.swift in Sources */,
+				BF054BDD206A3FEF003DD822 /* ProfileSettingsProtocol.swift in Sources */,
 				BF23CD4E2029A168003C17ED /* CollapseCommentsProtocol.swift in Sources */,
-				BFB4AD6E1FF3A2AA00097C05 /* SavedPostsViewController.swift in Sources */,
 				BF1F2F3E206172B500D7AC83 /* HistoryTableViewController.swift in Sources */,
 				BF7CA4912065102000A070E6 /* SearchHistoryTableViewCell.swift in Sources */,
 				BF8EB26B2056766700EBF70B /* AccessTokenInfo.swift in Sources */,
+				BF70013B2068D5D6009ED50B /* AuthorAndDateInfoView.swift in Sources */,
 				BF7CA48A20650B2700A070E6 /* LoginViewController.swift in Sources */,
 				BF621C361FE8000600DFDAA4 /* SearchViewController.swift in Sources */,
 				BF8EB277205676E500EBF70B /* Utility.swift in Sources */,
 				BF070E98203C4354007D936A /* IntermediateShallowUser.swift in Sources */,
 				BF12F268201634DC0056919E /* BadgeCount.swift in Sources */,
+				BF054BE4206A96E3003DD822 /* SavedPostsTableViewController.swift in Sources */,
 				BF621C3C1FE8000600DFDAA4 /* StackOverflowReader.xcdatamodeld in Sources */,
 				BF070EA0203C486B007D936A /* IntermediateComment.swift in Sources */,
 				BF070EA2203C4CF0007D936A /* IntermediateQuestion.swift in Sources */,
@@ -386,9 +432,11 @@
 				BF7CA48820650B1900A070E6 /* APICallHelper.swift in Sources */,
 				BFCC8CE31FFD0D870081575B /* QuestionTableViewController.swift in Sources */,
 				BF621C341FE8000600DFDAA4 /* AppDelegate.swift in Sources */,
+				BF054BDB206A3FA9003DD822 /* LoadMoreQuestionsProtocol.swift in Sources */,
 				BFEBAF902063AEC000B36348 /* UILabelWithBorderAndInsets.swift in Sources */,
 				BF070E96203C42D1007D936A /* IntermediateCommon.swift in Sources */,
 				BF1F2F372061485300D7AC83 /* SettingsTableViewController.swift in Sources */,
+				BF054BDF206A4035003DD822 /* TagButtonPressedProtocol.swift in Sources */,
 				BFEE6B142008D5EB00BD67FB /* AuthorNamePressedProtocol.swift in Sources */,
 				BF8EB2692056765100EBF70B /* AuthorizationManager.swift in Sources */,
 				BF070EA4203C8922007D936A /* IntermediateBriefQuestion.swift in Sources */,

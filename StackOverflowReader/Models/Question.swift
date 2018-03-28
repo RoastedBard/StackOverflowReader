@@ -11,6 +11,7 @@ import Foundation
 class Question : Codable
 {
     // MARK: - Properties returned from API call
+    
     var tags : [String]?
     var comments : [Comment]?
     var answers : [Answer]? = nil

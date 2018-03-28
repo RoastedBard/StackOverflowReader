@@ -10,28 +10,25 @@ import UIKit
 
 class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource
 {
+    // MARK: - UI Elements
+    
     @IBOutlet var searchSortButtons: [UIButton]!
     @IBOutlet weak var sortByButton: UIButton!
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var searchResultsTableView: UITableView!
-    
     @IBOutlet weak var tagsCollectionView: UICollectionView!
-    
     weak var currentSortOptionButton: UIButton!
-    
-    var searchQuery : String = ""
-    
-    var briefQuestions : [IntermediateBriefQuestion] = [IntermediateBriefQuestion]()
-    
-    var apiCallWrapper : APIResponseWrapper<BriefQuestion>?
-    
     var activityIndicatorView: UIActivityIndicatorView!
     
-    let dispatchQueue = DispatchQueue(label: "LoadingQuestionData", attributes: [], target: nil)
+    // MARK: - Properties
     
+    var searchQuery : String = ""
+    var briefQuestions : [IntermediateBriefQuestion] = [IntermediateBriefQuestion]()
+    var apiCallWrapper : APIResponseWrapper<BriefQuestion>?
     var isNothingFound = false
-    
     var questionsTotal = 0
+    
+    // MARK: - Lifecycle
     
     override func viewDidLoad()
     {
@@ -70,7 +67,9 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
+    // MARK: - Sort dropdown
+    
     fileprivate func animateSortOptionsDropdown() {
         for button in searchSortButtons {
             UIView.animate(withDuration: 0.3, animations: {
@@ -79,6 +78,8 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
             })
         }
     }
+    
+    // MARK: - Actions
     
     @IBAction func expandSortDropDown(_ sender: UIButton)
     {
@@ -89,17 +90,6 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
     {
         sortByButton.setTitle("Sort by \(sender.titleLabel!.text!)", for: .normal)
         sortSearchResults()
-    }
-    
-    func sortSearchResults()
-    {
-        animateSortOptionsDropdown()
-        
-        if searchQuery == "" {
-            return
-        }
-        
-        reloadSearchResults()
     }
     
     @IBAction func sortByActivityButtonPressed(_ sender: UIButton)
@@ -122,6 +112,19 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         APICallHelper.sort = .relevance
     }
     
+    // MARK: - Methods
+    
+    func sortSearchResults()
+    {
+        animateSortOptionsDropdown()
+        
+        if searchQuery == "" {
+            return
+        }
+        
+        reloadSearchResults()
+    }
+    
     func reloadSearchResults()
     {
         if apiCallWrapper?.items != nil, apiCallWrapper?.items?.count != 0 {
@@ -137,8 +140,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         activityIndicatorView.startAnimating()
         sortByButton.isEnabled = false
         
-        dispatchQueue.async {
-            OperationQueue.main.addOperation() {
+        DispatchQueue.global(qos: .userInitiated).async {
                 APICallHelper.APICall(request: APIRequestType.BriefQuestionsRequest, apiCallParameter: self.searchQuery){ (apiWrapperResult : APIResponseWrapper<BriefQuestion>?) in
                     
                     if apiWrapperResult?.items?.count == 0 {
@@ -166,7 +168,6 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
                     
                     self.sortByButton.isEnabled = true
                 }
-            }
         }
     }
     
@@ -175,13 +176,15 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         if searchBar.text!.isEmpty {
             return
         }
-        
+
         searchQuery = searchBar.text?.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) ?? ""
-        
+
         searchBar.endEditing(true)
-        
+
         reloadSearchResults()
     }
+    
+    // MARK: - UITableViewDelegate
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
@@ -216,7 +219,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
             
             return cell
         } else {
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "SOPostCell", for: indexPath) as? SOPostCell else {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "BriefQuestionTableViewCell", for: indexPath) as? BriefQuestionTableViewCell else {
                 print("Failed to deque cell in SearchViewController")
                 exit(0)
             }
@@ -228,6 +231,8 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
             return cell
         }
     }
+    
+    // MARK: - Navigation
     
     @IBAction func unwindToSearchController(segue:UIStoryboardSegue)
     {
@@ -242,7 +247,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         if segue.identifier == "ShowQuestionSeque"{
             if let qtvc = segue.destination as? QuestionTableViewController {
                 
-                guard let pressedCell = sender as? SOPostCell else {
+                guard let pressedCell = sender as? BriefQuestionTableViewCell else {
                     return
                 }
                 
@@ -250,10 +255,10 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
                     return
                 }
                 
-                if var historyItem = SearchHistoryManager.searchHistory.first(where: {$0.searchQuery == searchQuery}) {
+                if let historyItem = SearchHistoryManager.searchHistory.first(where: {$0.searchQuery == searchQuery}) {
                     historyItem.visitedQuestions.append(briefQuestions[indexPath.row])
                 } else {
-                    var historyItem = SearchHistoryItem(searchQuery: searchQuery)
+                    let historyItem = SearchHistoryItem(searchQuery: searchQuery)
                     historyItem.visitedQuestions.append(briefQuestions[indexPath.row])
                     SearchHistoryManager.searchHistory.append(historyItem)
                 }
@@ -282,29 +287,27 @@ extension SearchViewController : AuthorNamePressedProtocol, LoadMoreQuestionsPro
         
         sortByButton.isEnabled = false
         
-        dispatchQueue.async {
-            OperationQueue.main.addOperation() {
-                APICallHelper.currentPage += 1
-                
-                APICallHelper.APICall(request: APIRequestType.BriefQuestionsRequest, apiCallParameter: self.searchQuery){ (apiWrapperResult : APIResponseWrapper<BriefQuestion>?) in
-                    if let newQuestions = apiWrapperResult?.items {
-                        self.apiCallWrapper?.items?.append(contentsOf: newQuestions)
-                        
-                        for question in newQuestions {
-                            self.briefQuestions.append(IntermediateBriefQuestion(question))
-                        }
+        DispatchQueue.global(qos: .userInitiated).async {
+            APICallHelper.currentPage += 1
+            
+            APICallHelper.APICall(request: APIRequestType.BriefQuestionsRequest, apiCallParameter: self.searchQuery){ (apiWrapperResult : APIResponseWrapper<BriefQuestion>?) in
+                if let newQuestions = apiWrapperResult?.items {
+                    self.apiCallWrapper?.items?.append(contentsOf: newQuestions)
+                    
+                    for question in newQuestions {
+                        self.briefQuestions.append(IntermediateBriefQuestion(question))
                     }
-                    
-                    activityIndicatorView.stopAnimating()
-                    
-                    sender.isHidden = false
-                    
-                    self.searchResultsTableView.reloadData()
-                    
-                    self.questionsTotal -= APICallHelper.pageSize
-                    
-                    self.sortByButton.isEnabled = true
                 }
+                
+                activityIndicatorView.stopAnimating()
+                
+                sender.isHidden = false
+                
+                self.searchResultsTableView.reloadData()
+                
+                self.questionsTotal -= APICallHelper.pageSize
+                
+                self.sortByButton.isEnabled = true
             }
         }
     }

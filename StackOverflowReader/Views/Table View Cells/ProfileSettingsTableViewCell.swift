@@ -8,21 +8,16 @@
 
 import UIKit
 
-protocol ProfileSettingsProtocol {
-    func myProfileAction()
-    func logOutAction()
-}
-
 class ProfileSettingsTableViewCell: UITableViewCell
 {
-    // MARK: - Outlets
+    // MARK: - UI Elements
     
     @IBOutlet weak var myProfileButton: UIButton!
     @IBOutlet weak var logOutButton: UIButton!
     
     @IBOutlet weak var logOutButtonTopConstraint: NSLayoutConstraint!
     
-    // MARK: - Delegate
+    // MARK: - Delegates
     
     var profileSettingsDelegate : ProfileSettingsProtocol?
     
@@ -31,13 +26,11 @@ class ProfileSettingsTableViewCell: UITableViewCell
     override func awakeFromNib()
     {
         super.awakeFromNib()
-        // Initialization code
     }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool)
+    {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
     
     // MARK: - Actions

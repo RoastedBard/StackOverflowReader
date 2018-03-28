@@ -1,5 +1,5 @@
 //
-//  SOPostCell.swift
+//  BriefQuestionTableViewCell.swift
 //  StackOverflowReader
 //
 //  Created by Ruslan Lezhnin on 1/4/18.
@@ -8,35 +8,46 @@
 
 import UIKit
 
-class SOPostCell: UITableViewCell
+class BriefQuestionTableViewCell: UITableViewCell
 {
-    @IBOutlet weak var scoreLabel: UILabel!  // Common
-    @IBOutlet weak var titleLabel: UILabel!  // Common
-    @IBOutlet weak var dateLabel: UILabel!  // Common
+    // MARK: - UI Elements
     
+    @IBOutlet weak var scoreLabel: UILabel!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var authorNameButton: UIButton!
-    
     @IBOutlet weak var tagCollectionView: UIView!
     @IBOutlet weak var tagCollectionViewHeightConstraint: NSLayoutConstraint!
-    
     @IBOutlet weak var acceptedOrClosedImageView: UIImageView!
     
-    var authorNamePressedDelegate : AuthorNamePressedProtocol? // Common
+    // MARK: - Delegates
+    
+    var authorNamePressedDelegate : AuthorNamePressedProtocol?
+    
+    // MARK: - Properties
     
     var ownerUserId = -1
     var questionId = 0
     
+    // MARK: - Lifecycle
+    
     override func awakeFromNib()
     {
         super.awakeFromNib()
-        // Initialization code
     }
 
     override func setSelected(_ selected: Bool, animated: Bool)
     {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    }
+    
+    // MARK: - Methods
+    
+    func initCell(question : BriefQuestionMO)
+    {
+        let briefQuestion = IntermediateBriefQuestion(question)
+        
+        initCell(question: briefQuestion)
     }
     
     func initCell(question : IntermediateBriefQuestion)
@@ -82,13 +93,6 @@ class SOPostCell: UITableViewCell
         var nextOrigin : CGPoint = CGPoint.zero
         
         for tag in tags {
-//            let tagView = UILabel(frame: CGRect(x: nextOrigin.x, y: nextOrigin.y, width: 0, height: 0))
-//            tagView.text = tag == tags.last ? tag : "\(tag),"
-//            tagView.font = UIFont(name: "Helvetica", size: 14)
-//            tagView.sizeToFit()
-//            tagView.frame.size.height = buttonHeight
-//            tagView.textColor = .black
-            
             let tagView = UILabelWithBorderAndInsets(frame: CGRect(x: nextOrigin.x, y: nextOrigin.y, width: 0, height: 0))
             
             tagView.isUserInteractionEnabled = true
@@ -126,7 +130,10 @@ class SOPostCell: UITableViewCell
         }
     }
     
-    @IBAction func authorNameButtonPressed(_ sender: UIButton) {
+    //MARK: - Actions
+    
+    @IBAction func authorNameButtonPressed(_ sender: UIButton)
+    {
         authorNamePressedDelegate?.authorNamePressed(userId: ownerUserId)
     }
 }

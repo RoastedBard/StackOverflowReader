@@ -33,7 +33,6 @@ class UILabelWithBorderAndInsets: UILabel
     }
 }
 
-// UILabelWithBorderAndInsets
 @IBDesignable
 extension UILabelWithBorderAndInsets
 {

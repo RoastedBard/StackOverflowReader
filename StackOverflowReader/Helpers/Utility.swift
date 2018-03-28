@@ -16,24 +16,29 @@ class Utility
         guard let indexOfHashTag = url.index(of: "#") else {
             return nil
         }
-        
+
         let queryParameters = String(url.suffix(from: indexOfHashTag))
-        
+
         guard let indexOfValueKey = queryParameters.endIndex(of: valueForKey + "=") else {
             return nil
         }
-        guard let indexOfQuerySeparator = queryParameters.index(of: "&") else {
-            return nil
+        
+        var value = ""
+        
+        if let indexOfQuerySeparator = queryParameters.index(of: "&") {
+            let range = indexOfValueKey..<indexOfQuerySeparator
+            
+            value = String(queryParameters[range])
+        } else {
+            let range = indexOfValueKey..<queryParameters.endIndex
+            
+            value = String(queryParameters[range])
         }
-        
-        let range = indexOfValueKey..<indexOfQuerySeparator
-        
-        let value = queryParameters[range]
         
         return String(value)
     }
     
-    static func showFailedAlert(_ viewController : UIViewController, title : String, message : String)
+    static func showAlert(_ viewController : UIViewController, title : String, message : String)
     {
         let alertView = UIAlertController(title: title,
                                           message: message,

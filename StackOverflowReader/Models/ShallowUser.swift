@@ -10,6 +10,8 @@ import Foundation
 
 class ShallowUser : Codable
 {
+    // MARK: - Properties returned from API call
+    
     var userId : Int?
     var profileImage : String?
     var displayName : String?

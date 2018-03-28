@@ -11,8 +11,12 @@ import UIKit
 
 class IntermediateComment : IntermediateCommon
 {
+    // MARK: - Properties
+    
     var postId : Int = 0
     var commentId : Int = 0
+    
+    // MARK: - Init
     
     init(_ comment : Comment, contentWidth: CGFloat)
     {

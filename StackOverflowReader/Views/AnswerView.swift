@@ -8,73 +8,53 @@
 
 import UIKit
 
-@IBDesignable class UITextViewFixed: UITextView
-{
-    override func layoutSubviews()
-    {
-        super.layoutSubviews()
-        setup()
-    }
-    
-    func setup()
-    {
-        textContainerInset = UIEdgeInsets.zero
-        textContainer.lineFragmentPadding = 0
-    }
-}
-
 class AnswerView: UITableViewHeaderFooterView
 {
-    @IBOutlet weak var answerScoreLabel: UILabel!  // Common
+    // MARK: - UI Elements
+    
+    @IBOutlet weak var answerScoreLabel: UILabelWithBorderAndInsets!
     @IBOutlet weak var answerAcceptedPicture: UIImageView!
-    @IBOutlet weak var answerBodyTextView: UITextView!  // Common
-    
-    @IBOutlet weak var answerAuthorNameButton: UIButton!  // Common
-    @IBOutlet weak var answerDateLabel: UILabel!
-    @IBOutlet weak var answerAuthorProfileImage: UIImageView!
-    
+    @IBOutlet weak var answerBodyTextView: UITextView!
+    @IBOutlet weak var authorAndDateView: AuthorAndDateInfoView!
     @IBOutlet weak var showCommentsButton: UIButton!
     
-    var authorNamePressedDelegate : AuthorNamePressedProtocol? // Common
+    // MARK: - Delegates
     
-    var ownerUserId : Int = -1 // Common
+    var authorNamePressedDelegate : AuthorNamePressedProtocol?
+    
+    // MARK: - Properties
+    
+    var ownerUserId : Int = -1
+    
+    // MARK: - Lifecycle
     
     override func prepareForReuse()
     {
         super.prepareForReuse()
     }
     
-    func initializeAnswerView(_ answer : IntermediateAnswer, _ profilePicture : UIImage?)
+    // MARK: - Methods
+    
+    func initializeAnswerView(with answer : IntermediateAnswer, _ profilePicture : UIImage?)
     {
         answerScoreLabel.text = "\(answer.score)"
         
         answerBodyTextView.attributedText = answer.body
         
-        answerAuthorNameButton.setTitle(answer.owner?.displayName?.string, for: .normal)
-
         if answer.isAccepted == true {
             answerAcceptedPicture.isHidden = false
         } else {
             answerAcceptedPicture.isHidden = true
         }
         
-        if let picture = profilePicture {
-            answerAuthorProfileImage.image = picture
-        }
-        
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .medium
         dateFormatter.locale = Locale(identifier: "en_US")
         
-        answerDateLabel.text = "\(dateFormatter.string(from: answer.creationDate))"
+        authorAndDateView.fillViewWithData(date: dateFormatter.string(from: answer.creationDate), authorName: answer.owner?.displayName?.string, authorImageURL: answer.owner?.profileImage, userId: answer.owner?.userId)
         
         showCommentsButton.isHidden = (answer.comments != nil) ? false : true
         
         self.ownerUserId = answer.owner?.userId ?? -1
-    }
-    
-    @IBAction func authorNamePressed(_ sender: UIButton)
-    {
-        authorNamePressedDelegate?.authorNamePressed(userId: ownerUserId)
     }
 }

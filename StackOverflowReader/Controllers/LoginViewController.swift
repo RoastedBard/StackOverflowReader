@@ -19,12 +19,17 @@ struct KeychainConfiguration
 
 class LoginViewController: UIViewController, UIScrollViewDelegate, WKNavigationDelegate
 {
-    private var userContentController: WKUserContentController!
-    private var loginUrl = "https://stackexchange.com/oauth/dialog?client_id=11764&redirect_uri=https://stackexchange.com/oauth/login_success&scope=private_info"
+    // MARK: - UI Elements
     
-    // MARK: - IBOutlets
     var wkWebView: WKWebView!
     var activityIndicator : UIActivityIndicatorView!
+    
+    // MARK: - Properties
+    
+    private var userContentController: WKUserContentController!
+    private var loginUrl = "https://stackexchange.com/oauth/dialog?client_id=11764&redirect_uri=https://stackexchange.com/oauth/login_success&scope=no_expiry"
+    
+    // MARK: - Lifecycle
     
     override func viewDidLoad()
     {
@@ -43,6 +48,7 @@ class LoginViewController: UIViewController, UIScrollViewDelegate, WKNavigationD
     }
     
     // MARK: - WKNavigationDelegate
+    
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!)
     {
         webView.isHidden = false
@@ -77,13 +83,8 @@ class LoginViewController: UIViewController, UIScrollViewDelegate, WKNavigationD
         return nil
     }
     
-    // MARK : Navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
-    {
-        
-    }
-    
     // MARK: - Methods
+    
     fileprivate func setupWebView()
     {
         userContentController = WKUserContentController()
@@ -127,12 +128,12 @@ class LoginViewController: UIViewController, UIScrollViewDelegate, WKNavigationD
         let userScript = WKUserScript(source: scriptSource,
                                       injectionTime: WKUserScriptInjectionTime.atDocumentEnd,
                                       forMainFrameOnly: true)
-
-        userContentController.addUserScript(userScript)
         
         let myURL = URL(string: loginUrl)
         
         let myRequest = URLRequest(url: myURL!)
+        
+        userContentController.addUserScript(userScript)
         
         activityIndicator.startAnimating()
         
@@ -149,24 +150,31 @@ class LoginViewController: UIViewController, UIScrollViewDelegate, WKNavigationD
         case "access_denied":
             AuthorizationManager.deleteCookies()
             loadLoginPage()
+            
         case "unauthorized_client":
-            Utility.showFailedAlert(self, title: "Login Error", message: "Unauthorized Client")
+            Utility.showAlert(self, title: "Login Error", message: "Unauthorized Client")
             return
+            
         case "invalid_request":
-            Utility.showFailedAlert(self, title: "Login Error", message: "Invalid Request")
+            Utility.showAlert(self, title: "Login Error", message: "Invalid Request")
             return
+            
         case "unsupported_response_type":
-            Utility.showFailedAlert(self, title: "Login Error", message: "Unsupported Response Type")
+            Utility.showAlert(self, title: "Login Error", message: "Unsupported Response Type")
             return
+            
         case "invalid_scope":
-            Utility.showFailedAlert(self, title: "Login Error", message: "Invalid Scope")
+            Utility.showAlert(self, title: "Login Error", message: "Invalid Scope")
             return
+            
         case "server_error":
-            Utility.showFailedAlert(self, title: "Login Error", message: "Server Error")
+            Utility.showAlert(self, title: "Login Error", message: "Server Error")
             return
+            
         case "temporarily_unavailable":
-            Utility.showFailedAlert(self, title: "Login Error", message: "Temporarily Unavailable")
+            Utility.showAlert(self, title: "Login Error", message: "Temporarily Unavailable")
             return
+            
         default:
             return
         }

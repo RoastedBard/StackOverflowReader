@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AuthorAndDateInfoView" customModule="StackOverflowReader" customModuleProvider="target">
+            <connections>
+                <outlet property="authorNameButton" destination="lKo-aP-KsC" id="PnW-5H-Wky"/>
+                <outlet property="authorProfileImage" destination="JkF-4v-hb0" id="4S3-bh-EzU"/>
+                <outlet property="contentView" destination="iN0-l3-epB" id="j8g-rt-sOP"/>
+                <outlet property="dateLabel" destination="PHt-DS-ey4" id="JKI-Ll-QeY"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="25"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lKo-aP-KsC">
+                    <rect key="frame" x="33" y="0.0" width="75" height="25"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <state key="normal" title="Author Name">
+                        <color key="titleColor" red="0.016804177310000001" green="0.19835099580000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="authorNamePressed:" destination="-1" eventType="touchUpInside" id="5fH-mk-7dm"/>
+                    </connections>
+                </button>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="JkF-4v-hb0" userLabel="profilePicture">
+                    <rect key="frame" x="0.0" y="0.0" width="25" height="25"/>
+                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="25" id="Iea-SU-D6A"/>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="25" id="ImA-p2-hn3"/>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="25" id="S0j-O0-HXH"/>
+                        <constraint firstAttribute="width" constant="25" id="zCv-D3-Scr"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12.02.2017" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PHt-DS-ey4" userLabel="dateLabel">
+                    <rect key="frame" x="309" y="0.0" width="65.5" height="25"/>
+                    <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="PHt-DS-ey4" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="9Mn-6T-dwf"/>
+                <constraint firstItem="lKo-aP-KsC" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="C7Z-7r-IB0"/>
+                <constraint firstItem="lKo-aP-KsC" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="MPu-U7-UOb"/>
+                <constraint firstItem="JkF-4v-hb0" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="OVc-19-kaK"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="PHt-DS-ey4" secondAttribute="trailing" id="cVH-Cw-Q4L"/>
+                <constraint firstItem="JkF-4v-hb0" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="eQx-y1-fzl"/>
+                <constraint firstItem="lKo-aP-KsC" firstAttribute="leading" secondItem="JkF-4v-hb0" secondAttribute="trailing" constant="8" id="gso-xJ-80b"/>
+                <constraint firstItem="JkF-4v-hb0" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="lPT-5f-dpF"/>
+                <constraint firstItem="PHt-DS-ey4" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="mFC-Eq-bcV"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="24.5" y="-588"/>
+        </view>
+    </objects>
+</document>

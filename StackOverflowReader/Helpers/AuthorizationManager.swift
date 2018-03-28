@@ -13,6 +13,7 @@ import WebKit
 class AuthorizationManager
 {
     // MARK : Properties
+    
     static var authorizedUser : IntermediateUser?
     
     fileprivate static let accesTokenAccountString = "access_token"
@@ -61,7 +62,7 @@ class AuthorizationManager
         }
     }
     
-    // MARK : Public
+    // MARK : Public methods
     
     static func login(urlWithAccessToken : String? = nil, completion : @escaping () -> Void)
     {
@@ -73,6 +74,7 @@ class AuthorizationManager
         if self.accessToken == nil {
             guard let url = urlWithAccessToken, let accessToken = Utility.parseUrlForValue(url: url, valueForKey: "access_token") else {
                 print("Unable to extract access token from url")
+                print("url: \(urlWithAccessToken!)")
                 return
             }
             
@@ -145,7 +147,7 @@ class AuthorizationManager
         }
     }
     
-    // MARK : Fileprivate
+    // MARK : Fileprivate methods
     
     fileprivate static func saveAccessToken(_ newAccessToken: String) {
         let hasLogin = UserDefaults.standard.bool(forKey: "hasLoginKey")

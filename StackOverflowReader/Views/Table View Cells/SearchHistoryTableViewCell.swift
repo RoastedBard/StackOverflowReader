@@ -10,29 +10,36 @@ import UIKit
 
 class SearchHistoryTableViewCell: UITableViewCell
 {
-    @IBOutlet weak var scoreLabel: UILabel!  // Common
-    @IBOutlet weak var titleLabel: UILabel!  // Common
-    @IBOutlet weak var dateLabel: UILabel!  // Common
+    // MARK: - UI Elements
     
+    @IBOutlet weak var scoreLabel: UILabel!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var authorNameButton: UIButton!
+    @IBOutlet weak var acceptedOrClosedImageView: UIImageView!
     
-    var authorNamePressedDelegate : AuthorNamePressedProtocol? // Common
+    // MARK: - Delegates
+    
+    var authorNamePressedDelegate : AuthorNamePressedProtocol?
+    
+    // MARK: - Properties
     
     var ownerUserId = -1
     var questionId = 0
     
+    // MARK: - Lifecycle
+    
     override func awakeFromNib()
     {
         super.awakeFromNib()
-        // Initialization code
     }
     
     override func setSelected(_ selected: Bool, animated: Bool)
     {
         super.setSelected(selected, animated: animated)
-        
-        // Configure the view for the selected state
     }
+    
+    // MARK: - Methods
     
     func initCell(question : IntermediateBriefQuestion)
     {
@@ -49,16 +56,18 @@ class SearchHistoryTableViewCell: UITableViewCell
         dateLabel.text = "\(dateFormatter.string(from: question.creationDate))"
         
         if question.acceptedAnswerId != nil {
-            self.backgroundColor = #colorLiteral(red: 0.7333333333, green: 0.9960784314, blue: 0.7764705882, alpha: 1)
+            acceptedOrClosedImageView.image = #imageLiteral(resourceName: "icons8-checked-50")
         } else if question.isClosed == true {
-            self.backgroundColor = #colorLiteral(red: 0.8707411024, green: 0.5153266059, blue: 0.6025402082, alpha: 1)
+            acceptedOrClosedImageView.image = #imageLiteral(resourceName: "icons8-cancel-40")
         } else {
-            self.backgroundColor = .white
+            acceptedOrClosedImageView.image = nil
         }
         
         self.questionId = question.questionId
         self.ownerUserId = question.owner?.userId ?? -1
     }
+    
+    // MARK: - Actions
     
     @IBAction func authorNameButtonPressed(_ sender: UIButton) {
         authorNamePressedDelegate?.authorNamePressed(userId: ownerUserId)

@@ -21,6 +21,7 @@ class QuestionTableViewController: UITableViewController
     
     var questionId : Int = -1
     var question : IntermediateQuestion?
+    var questionMO : SavedQuestionMO?
     var profileImages : [Int : UIImage] = [Int : UIImage]()
     
     // MARK: - Auxiliary properties
@@ -30,108 +31,7 @@ class QuestionTableViewController: UITableViewController
     var activityIndicatorView: UIActivityIndicatorView!
     let dispatchQueue = DispatchQueue(label: "LoadingQuestionData", attributes: [], target: nil)
     
-    // MARK: - Core data properties
-    
-    var fetchedResultsController : NSFetchedResultsController<NSFetchRequestResult>?
-    var indexPath : IndexPath = IndexPath()
-    
-    // MARK: - Configuration methods
-    
-    fileprivate func loadQuestionDataFromWeb()
-    {
-        if question == nil {
-            activityIndicatorView.startAnimating()
-            
-            dispatchQueue.async {
-                OperationQueue.main.addOperation() {
-                    APICallHelper.APICall(request: APIRequestType.FullQuestionRequest, apiCallParameter: self.questionId){ (apiWrapperResult : APIResponseWrapper<Question>?) in
-                        if let questionCodable = apiWrapperResult?.items![0] {
-                            self.question = IntermediateQuestion(question: questionCodable, contentWidth: self.questionAndAnswerContentWidth)
-                            self.question?.answers?.sort(by: {$0.score > $1.score})
-                            self.loadProfileImages()
-                        }
-                        
-                        self.activityIndicatorView.stopAnimating()
-                        self.tableView.reloadData()
-                    }
-                }
-            }
-        }
-    }
-    
-    func loadQuestionDataFromDatabase()
-    {
-        activityIndicatorView.startAnimating()
-        
-        dispatchQueue.async {
-            OperationQueue.main.addOperation() {
-                guard let briefQuestion = self.fetchedResultsController?.object(at: self.indexPath) as? BriefQuestionMO else {
-                    print("Unable to get object at preapre for segue")
-                    return
-                }
-                
-                guard let fullQuestion = briefQuestion.detailQuestion else {
-                    print("Unable to get fullQuestion at preapre for segue")
-                    return
-                }
-                
-                self.question = IntermediateQuestion(question: fullQuestion, contentWidth: self.questionAndAnswerContentWidth)
-                self.question?.answers?.sort(by: {$0.score > $1.score})
-                
-                self.question?.comments?.sort(by: {$0.creationDate < $1.creationDate})
-                
-                if let answers = self.question?.answers {
-                    for answer in answers {
-                        answer.comments?.sort(by: {$0.creationDate < $1.creationDate})
-                    }
-                }
-                
-                self.loadProfileImages()
-                
-                self.activityIndicatorView.stopAnimating()
-                self.tableView.reloadData()
-            }
-        }
-    }
-    
-    fileprivate func loadProfileImages()
-    {
-        // Downloading and saving question author profile picture
-        if let userImageLink = question?.owner?.profileImage, let userId = question?.owner?.userId {
-            if let url = URL(string: userImageLink) {
-                LinkToImageViewHelper.downloadImage(from: url) { [weak self] image in
-                    guard let sSelf = self else { return }
-                    sSelf.profileImages[userId] = image
-                }
-            }
-        }
-        
-        if let answers = question?.answers {
-            for answer in answers {
-                if let userImageLink = answer.owner?.profileImage, let userId = answer.owner?.userId {
-                    if let url = URL(string: userImageLink) {
-                        LinkToImageViewHelper.downloadImage(from: url) { [weak self] image in
-                            guard let sSelf = self else { return }
-                            sSelf.profileImages[userId] = image
-                        }
-                    }
-                }
-            }
-        }
-    }
-    
-    private func configureTableView()
-    {
-        tableView.estimatedSectionHeaderHeight = 44.0
-        
-        let questionNib = UINib.init(nibName: String(describing: QuestionView.self), bundle: nil)
-        let answerNib = UINib.init(nibName: String(describing: AnswerView.self), bundle: nil)
-        
-        tableView.register(questionNib, forHeaderFooterViewReuseIdentifier: questionHeaderIdentifier)
-        tableView.register(answerNib, forHeaderFooterViewReuseIdentifier: answerHeaderIdentifier)
-    }
-    
-    // MARK : - Lifecycle
+    // MARK: - Lifecycle
     
     override func viewWillAppear(_ animated: Bool)
     {
@@ -164,10 +64,93 @@ class QuestionTableViewController: UITableViewController
         super.viewDidLayoutSubviews()
     }
     
+    override func viewDidDisappear(_ animated: Bool)
+    {
+        super.viewDidDisappear(animated)
+        
+        ProfileImagesStorage.profileImages.removeAll()
+    }
+    
     override func didReceiveMemoryWarning()
     {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    }
+    
+    // MARK: - Configuration methods
+    
+    fileprivate func loadQuestionDataFromWeb()
+    {
+        if question == nil {
+            activityIndicatorView.startAnimating()
+            
+            dispatchQueue.async {
+                OperationQueue.main.addOperation() {
+                    APICallHelper.APICall(request: APIRequestType.FullQuestionRequest, apiCallParameter: self.questionId){ (apiWrapperResult : APIResponseWrapper<Question>?) in
+                        if let questionCodable = apiWrapperResult?.items![0] {
+                            self.question = IntermediateQuestion(question: questionCodable, contentWidth: self.questionAndAnswerContentWidth)
+                            self.question?.answers?.sort(by: {$0.score > $1.score})
+                            self.loadProfileImages()
+                        }
+                        
+                        self.activityIndicatorView.stopAnimating()
+                        self.tableView.reloadData()
+                    }
+                }
+            }
+        }
+    }
+    
+    func loadQuestionDataFromDatabase()
+    {
+        activityIndicatorView.startAnimating()
+        
+        dispatchQueue.async {
+            OperationQueue.main.addOperation() {
+                if let questionMO = self.questionMO {
+                    self.question = IntermediateQuestion(question: questionMO, contentWidth: self.questionAndAnswerContentWidth)
+                }
+                
+                self.activityIndicatorView.stopAnimating()
+                self.tableView.reloadData()
+            }
+        }
+    }
+    
+    fileprivate func loadProfileImages()
+    {
+        var imageUrlDictionary = [Int : String]()
+        
+        if let url = question?.owner?.profileImage, let userId = question?.owner?.userId {
+            imageUrlDictionary[userId] = url
+        }
+        
+        if let answers = question?.answers {
+            for answer in answers {
+                if let url = answer.owner?.profileImage, let userId = answer.owner?.userId {
+                    imageUrlDictionary[userId] = url
+                }
+            }
+        }
+        
+        for (userId, url) in imageUrlDictionary {
+            if let url = URL(string: url) {
+                LinkToImageViewHelper.downloadImage(from: url) { [weak self] image in
+                    guard let sSelf = self else { return }
+                    sSelf.profileImages[userId] = image
+                }
+            }
+        }
+    }
+    
+    private func configureTableView()
+    {
+        tableView.estimatedSectionHeaderHeight = 44.0
+        
+        let questionNib = UINib.init(nibName: String(describing: QuestionView.self), bundle: nil)
+        let answerNib = UINib.init(nibName: String(describing: AnswerView.self), bundle: nil)
+        
+        tableView.register(questionNib, forHeaderFooterViewReuseIdentifier: questionHeaderIdentifier)
+        tableView.register(answerNib, forHeaderFooterViewReuseIdentifier: answerHeaderIdentifier)
     }
     
     // MARK: - UITableViewDelegate & UITableViewDataSource
@@ -199,12 +182,12 @@ class QuestionTableViewController: UITableViewController
     {
         if section == 0 {
             guard let questionView = tableView.dequeueReusableHeaderFooterView(withIdentifier: questionHeaderIdentifier) as? QuestionView else { return nil }
-           
-            questionView.authorNamePressedDelegate = self
+
+            questionView.authorAndDateView.authorNamePressedDelegate = self
             questionView.tagPressedDelegate = self
             
             if let question = self.question {
-                questionView.initializeQuestionView(question, profileImages[question.owner?.userId ?? -1], isDataFromStorage: isDataFromStorage)
+                questionView.initializeQuestionView(with: question, profileImages[question.owner?.userId ?? -1], isDataFromStorage: isDataFromStorage)
             }
         
             return questionView
@@ -213,9 +196,9 @@ class QuestionTableViewController: UITableViewController
             
             if let answer = question?.answers?[section - 1] {
                 
-                answerView.authorNamePressedDelegate = self
+                answerView.authorAndDateView.authorNamePressedDelegate = self
                 
-                answerView.initializeAnswerView(answer, profileImages[answer.owner?.userId ?? -1])
+                answerView.initializeAnswerView(with: answer, profileImages[answer.owner?.userId ?? -1])
             }
             
             return answerView
@@ -258,6 +241,8 @@ class QuestionTableViewController: UITableViewController
         view.tintColor = .white
     }
 }
+
+// MARK: - AuthorNamePressedProtocol, TagButtonPressedProtocol
 
 extension QuestionTableViewController : AuthorNamePressedProtocol, TagButtonPressedProtocol
 {

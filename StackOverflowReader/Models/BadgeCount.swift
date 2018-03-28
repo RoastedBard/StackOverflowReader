@@ -10,6 +10,8 @@ import Foundation
 
 struct BadgeCount : Codable
 {
+    // MARK: - Properties returned from API call
+    
     var bronze : Int
     var silver : Int
     var gold : Int

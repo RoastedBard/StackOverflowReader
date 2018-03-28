@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina3_5" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="HelveticaNeue.ttc">
+            <string>HelveticaNeue</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="AnswerView" customModule="StackOverflowReader" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="150"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="750" horizontalCompressionResistancePriority="752" insetsLayoutMarginsFromSafeArea="NO" text="35" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pN9-4e-80w" userLabel="scoreLabel" customClass="UILabelWithBorderAndInsets" customModule="StackOverflowReader" customModuleProvider="target">
+                    <rect key="frame" x="8" y="0.0" width="37" height="30"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="24"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="10"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                            <real key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                            <color key="value" red="0.62935827850000003" green="0.62935827850000003" blue="0.62935827850000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="leftTextInset">
+                            <real key="value" value="5"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="rightTextInset">
+                            <real key="value" value="5"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="topTextInset">
+                            <real key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="bottomTextInset">
+                            <real key="value" value="1"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </label>
+                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" image="icons8-checked-50" translatesAutoresizingMaskIntoConstraints="NO" id="duM-pu-TgN" userLabel="acceptedPicture">
+                    <rect key="frame" x="53" y="0.0" width="28" height="28"/>
+                    <color key="tintColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="28" id="UDO-zC-Lzb"/>
+                        <constraint firstAttribute="height" constant="28" id="ZpU-Ft-QBo"/>
+                    </constraints>
+                </imageView>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalHuggingPriority="252" verticalCompressionResistancePriority="752" scrollEnabled="NO" contentInsetAdjustmentBehavior="never" editable="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XcO-T2-Cfp" customClass="UITextViewFixed" customModule="StackOverflowReader" customModuleProvider="target">
+                    <rect key="frame" x="8" y="38" width="304" height="21"/>
+                    <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <attributedString key="attributedText">
+                        <fragment content="Answer Body">
+                            <attributes>
+                                <font key="NSFont" size="18" name="Helvetica"/>
+                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                            </attributes>
+                        </fragment>
+                    </attributedString>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                </textView>
+                <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OWP-nl-liF">
+                    <rect key="frame" x="0.0" y="112" width="320" height="30"/>
+                    <color key="backgroundColor" red="1" green="0.2527923882" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <state key="normal" title="Show Comments">
+                        <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="showCommentsButtonPressed:" destination="-1" eventType="touchUpInside" id="hrR-WV-eqj"/>
+                    </connections>
+                </button>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w6r-Fx-6qD" customClass="AuthorAndDateInfoView" customModule="StackOverflowReader" customModuleProvider="target">
+                    <rect key="frame" x="8" y="65" width="304" height="39"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="OWP-nl-liF" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="0au-p2-Onk"/>
+                <constraint firstItem="OWP-nl-liF" firstAttribute="top" secondItem="w6r-Fx-6qD" secondAttribute="bottom" constant="8" id="Oxh-jM-1Le"/>
+                <constraint firstItem="w6r-Fx-6qD" firstAttribute="top" secondItem="XcO-T2-Cfp" secondAttribute="bottom" constant="6" id="P1M-Md-FgJ"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="w6r-Fx-6qD" secondAttribute="trailing" constant="8" id="SU0-o2-Yt3"/>
+                <constraint firstItem="duM-pu-TgN" firstAttribute="leading" secondItem="pN9-4e-80w" secondAttribute="trailing" constant="8" id="TNj-ex-2Al"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="OWP-nl-liF" secondAttribute="bottom" constant="8" id="TPR-qL-Hnn"/>
+                <constraint firstItem="w6r-Fx-6qD" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="8" id="dgW-Sp-LqR"/>
+                <constraint firstItem="XcO-T2-Cfp" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="emf-Jg-XZr"/>
+                <constraint firstItem="pN9-4e-80w" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="jn8-54-jGB"/>
+                <constraint firstItem="duM-pu-TgN" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="m8v-tk-IKp"/>
+                <constraint firstAttribute="trailing" secondItem="XcO-T2-Cfp" secondAttribute="trailing" constant="8" id="mxe-Ch-DnN"/>
+                <constraint firstAttribute="trailing" secondItem="OWP-nl-liF" secondAttribute="trailing" id="ohZ-cm-d4a"/>
+                <constraint firstItem="XcO-T2-Cfp" firstAttribute="top" secondItem="pN9-4e-80w" secondAttribute="bottom" constant="8" id="vjw-39-4CO"/>
+                <constraint firstItem="pN9-4e-80w" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="x1t-6t-t2Z"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="answerAcceptedPicture" destination="duM-pu-TgN" id="SHM-R4-Y4H"/>
+                <outlet property="answerBodyTextView" destination="XcO-T2-Cfp" id="xLZ-mT-naR"/>
+                <outlet property="answerScoreLabel" destination="pN9-4e-80w" id="JpW-Ew-P3I"/>
+                <outlet property="authorAndDateView" destination="w6r-Fx-6qD" id="IaP-cu-eJX"/>
+                <outlet property="showCommentsButton" destination="OWP-nl-liF" id="7B6-Gv-pkW"/>
+            </connections>
+            <point key="canvasLocation" x="24" y="-114"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="icons8-checked-50" width="50" height="50"/>
+    </resources>
+</document>

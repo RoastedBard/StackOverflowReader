@@ -11,6 +11,8 @@ import WebKit
 
 class UserViewController: UIViewController
 {
+    // MARK: - UI Elements
+    
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var userReputationLabel: UILabel!
     @IBOutlet weak var userAgeLabel: UILabel!
@@ -27,14 +29,15 @@ class UserViewController: UIViewController
     @IBOutlet weak var silverBadgeCountLabel: UILabel!
     @IBOutlet weak var bronzeBadgeCountLabel: UILabel!
     
-    var profilePicture : UIImage?
+    // MARK: - Properties
     
+    var profilePicture : UIImage?
     var userId : Int = 0
     var user : IntermediateUser?
-    
     let dispatchQueue = DispatchQueue(label: "LoadingQuestionData", attributes: [], target: nil)
-    
     var isLoggedUserProfile = false
+    
+    // MARK: - Lifecycle
     
     override func viewDidLoad()
     {
@@ -49,8 +52,7 @@ class UserViewController: UIViewController
             self.user = AuthorizationManager.authorizedUser
             self.fillViewWithUserData()
         } else {
-            dispatchQueue.async {
-                OperationQueue.main.addOperation() {
+            DispatchQueue.global(qos: .userInitiated) .async {
                     APICallHelper.APICall(request: APIRequestType.UserRequest, apiCallParameter: self.userId){ (apiWrapperResult : APIResponseWrapper<User>?) in
                         guard let userModel = apiWrapperResult?.items?[0] else {
                             print("Failed to convert user model to intermediate model")
@@ -61,7 +63,6 @@ class UserViewController: UIViewController
 
                         self.fillViewWithUserData()
                     }
-                }
             }
         }
     }
@@ -76,14 +77,7 @@ class UserViewController: UIViewController
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func logOutButtonClicked(_ sender: UIButton)
-    {
-        APICallHelper.APICall(request: APIRequestType.LogOutRequest, apiCallParameter: AuthorizationManager.accessToken){ (apiWrapperResult : APIResponseWrapper<LogOutResponse>?) in
-            AuthorizationManager.logout {
-                self.performSegue(withIdentifier: "LogOutSegue", sender: nil)
-            }
-        }
-    }
+    // MARK: - Methods
     
     private func fillViewWithUserData()
     {
@@ -159,7 +153,7 @@ class UserViewController: UIViewController
                 userProfileViewsLabel.text = "unknown"
             }
             
-            /* Dates */
+            // Dates
             let dateComponentsFormatter = DateComponentsFormatter()
             dateComponentsFormatter.unitsStyle = .full
             

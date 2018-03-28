@@ -10,8 +10,12 @@ import Foundation
 
 class SearchHistoryItem
 {
+    // MARK: - Properties
+    
     var searchQuery : String = ""
     var visitedQuestions : [IntermediateBriefQuestion] = [IntermediateBriefQuestion]()
+    
+    // MARK: - Init
     
     init(searchQuery : String)
     {

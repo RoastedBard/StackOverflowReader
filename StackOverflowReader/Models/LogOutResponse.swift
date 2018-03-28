@@ -10,6 +10,8 @@ import Foundation
 
 class LogOutResponse : Codable
 {
+    // MARK: - Properties returned from API call
+    
     var accountId : Int = 0
     var expiresOnDate : Int = 0
     var accessToken : String = ""

@@ -8,31 +8,31 @@
 
 import UIKit
 
-protocol LoadMoreQuestionsProtocol
-{
-    func loadMoreQuestions(sender : UIButton, activityIndicatorView : UIActivityIndicatorView)
-}
-
 class LoadMoreTableViewCell: UITableViewCell
 {
+    // MARK: - UI Elements
+    
     @IBOutlet weak var loadMoreButton: UIButton!
     @IBOutlet weak var loadMoreActivityIndicator: UIActivityIndicatorView!
     
+    // MARK: - Delegates
+    
     var loadMoreDelegate : LoadMoreQuestionsProtocol?
+    
+    // MARK: - Lifecycle
     
     override func awakeFromNib()
     {
         super.awakeFromNib()
-        // Initialization code
     }
 
     override func setSelected(_ selected: Bool, animated: Bool)
     {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
 
+    // MARK: - Actions
+    
     @IBAction func loadMoreButtonPressed(_ sender: Any)
     {
         if let loadMore = loadMoreDelegate {

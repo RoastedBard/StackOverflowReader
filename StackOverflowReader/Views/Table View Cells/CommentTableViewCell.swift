@@ -10,13 +10,21 @@ import UIKit
 
 class CommentTableViewCell: UITableViewCell
 {
-    @IBOutlet weak var commentBodyTextView: UITextView!  // Common
-    @IBOutlet weak var commentScoreLabel: UILabel!  // Common
-    @IBOutlet weak var commentAuthorNameButton: UIButton!  // Common
+    // MARK: - UI Elements
     
-    var authorNamePressedDelegate : AuthorNamePressedProtocol? // Common
+    @IBOutlet weak var commentBodyTextView: UITextView!
+    @IBOutlet weak var commentScoreLabel: UILabelWithBorderAndInsets!
+    @IBOutlet weak var commentAuthorNameButton: UIButton!
+    
+    // MARK: - Delegates
+    
+    var authorNamePressedDelegate : AuthorNamePressedProtocol?
+    
+    // MARK: - Properties
     
     var ownerUserId : Int = -1
+    
+    // MARK: - Lifecycle
     
     override func awakeFromNib()
     {
@@ -31,6 +39,8 @@ class CommentTableViewCell: UITableViewCell
         // Configure the view for the selected state
     }
 
+    // MARK: - Methods
+    
     func initializeCommentCell(_ comment: IntermediateComment)
     {
         self.ownerUserId = comment.owner?.userId ?? -1
@@ -41,6 +51,8 @@ class CommentTableViewCell: UITableViewCell
 
         commentScoreLabel.text = "\(comment.score)"
     }
+    
+    // MARK: - Actions
     
     @IBAction func authorNamePressed(_ sender: UIButton)
     {

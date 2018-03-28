@@ -43,6 +43,7 @@ struct APIResponseWrapper<T : Codable> : Codable
 class APICallHelper
 {
     // MARK: - API call parts
+    
     static var currentPage : Int = 1
     static var sort : SearchSortingType = .votes
     
@@ -52,14 +53,16 @@ class APICallHelper
     static var pageSize : Int = 30
     
     // MARK: - Filters
+    
     fileprivate static let briefQuestionsFilter : String = "!1PUgU9fzk8OTrwiO(l_6bIsha)5ivzsYW"
     fileprivate static let fullQuestionsFilter : String = "!v)Cpd1)X)148G5bcy7XHn8n(yDS2yxYNtCnCv(qRtnF2EdvtdCwYkdOHiOpBLI(X"
-    fileprivate static let userFilter : String = "!BTTDH9mpUuRPJUS4dOfslFqNDXMy.C" //"!0YzIPZzz24xx9(INJ.yi*SI8a"
-    fileprivate static let accessTokenInfoFilter : String = "!-.-gvNflsiZx" //"!)*(CTkz"
+    fileprivate static let userFilter : String = "!BTTDH9mpUuRPJUS4dOfslFqNDXMy.C"
+    fileprivate static let accessTokenInfoFilter : String = "!-.-gvNflsiZx"
     
     fileprivate static var url : URL?
     
     // MARK: - Methods
+    
     static func APICall<T>(request : APIRequestType, apiCallParameter : Any?, updateUIClosure: @escaping (_ apiCallWrapper : APIResponseWrapper<T>?) -> Void)
     {
         constructURL(request, apiCallParameter)

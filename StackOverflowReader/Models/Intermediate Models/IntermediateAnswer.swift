@@ -11,9 +11,13 @@ import UIKit
 
 class IntermediateAnswer : IntermediateCommon
 {
+    // MARK: - Properties
+    
     var isAccepted : Bool
     var answerId : Int
     var comments : [IntermediateComment]?
+    
+    // MARK: - Init
     
     init(_ answer : Answer, contentWidth: CGFloat)
     {

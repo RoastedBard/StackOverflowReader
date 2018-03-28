@@ -11,6 +11,7 @@ import Foundation
 class Comment : Codable
 {
     // MARK: - Properties returned from API call
+    
     var owner : ShallowUser?
     var score : Int = 0
     var creationDate : Int = 0 // unix epoch time

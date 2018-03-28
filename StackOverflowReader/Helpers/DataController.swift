@@ -12,7 +12,12 @@ import UIKit
 
 class DataController: NSObject
 {
+    // MARK: - Properties
+    
     var managedObjectContext: NSManagedObjectContext
+    var isNeedUpdate: Bool = false
+    
+    // MARK: - Init
     
     init(completionClosure: @escaping () -> ())
     {
@@ -31,10 +36,8 @@ class DataController: NSObject
         managedObjectContext = NSManagedObjectContext(concurrencyType: NSManagedObjectContextConcurrencyType.mainQueueConcurrencyType)
         
         managedObjectContext.persistentStoreCoordinator = psc
-        
-        let queue = DispatchQueue.global(qos: DispatchQoS.QoSClass.background)
-        
-        queue.async {
+    
+        DispatchQueue.global(qos: DispatchQoS.QoSClass.utility).async {
             guard let docURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).last else {
                 print("Unable to resolve document directory")
                 exit(0)
@@ -69,112 +72,6 @@ class DataController: NSObject
                 exit(0)
             }
         }
-    }
-    
-    // MARK: - History data operations
-    
-    func saveHistory()
-    {
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-            return
-        }
-        
-        let managedContext = appDelegate.dataController.managedObjectContext
-        
-        let privateMOC = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
-        privateMOC.parent = managedContext
-        
-        privateMOC.perform {
-            
-            // Logged  user
-            var loggedUserMO : LoggedUserMO?
-            
-            if let authorizedUserId = AuthorizationManager.authorizedUser?.userId {
-                let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "LoggedUser")
-                fetchRequest.predicate = NSPredicate(format: "userId = %d", authorizedUserId)
-                
-                var results: [NSManagedObject] = []
-                
-                do {
-                    results = try privateMOC.fetch(fetchRequest)
-                }
-                catch {
-                    print("error executing fetch request: \(error)")
-                }
-                
-                if results.count > 0 {
-                    loggedUserMO = results[0] as? LoggedUserMO
-                } else {
-                    let loggedUserEntity = NSEntityDescription.entity(forEntityName: "LoggedUser", in: privateMOC)!
-                    
-                    loggedUserMO = NSManagedObject(entity: loggedUserEntity, insertInto: privateMOC) as? LoggedUserMO
-                    
-                    loggedUserMO?.userId = Int32(authorizedUserId)
-                }
-            }
-            
-            guard let loggedUser = loggedUserMO else {
-                print("loggedUser not initialized")
-                return
-            }
-            
-            // SearchItem
-            for searchHistoryItem in SearchHistoryManager.searchHistory {
-                let searchHistoryItemEntity = NSEntityDescription.entity(forEntityName: "SearchItem", in: privateMOC)!
-                
-                guard let searchHistoryItemMO = NSManagedObject(entity: searchHistoryItemEntity, insertInto: privateMOC) as? SearchHistoryItemMO else {
-                    print("Failed to create SearchHistoryItemMO in SaveHistory")
-                    return
-                }
-                
-                searchHistoryItemMO.searchQuery = searchHistoryItem.searchQuery
-                
-                // SearchItem.visitedQuestions
-                for question in searchHistoryItem.visitedQuestions {
-                    
-                    let questionEntity = NSEntityDescription.entity(forEntityName: "BriefQuestion", in: privateMOC)!
-                    
-                    guard let questionMO = NSManagedObject(entity: questionEntity, insertInto: privateMOC) as? BriefQuestionMO else {
-                        print("Failed to create BriefQuestionMO in SaveQuestion")
-                        return
-                    }
-                    
-                    if let acceptedAnswerId = question.acceptedAnswerId {
-                        questionMO.acceptedAnswerId = Int32(acceptedAnswerId)
-                    }
-                    
-                    questionMO.questionId = Int32(question.questionId)
-                    
-                    questionMO.title = question.title?.string
-                    questionMO.dateSaved = Date()
-                    
-                    self.fillCommonData(commonDataMO: questionMO, intermediateCommonData: question, context: privateMOC)
-                    
-                    questionMO.searchHistoryItem = searchHistoryItemMO
-                    searchHistoryItemMO.mutableSetValue(forKey: "questions").add(questionMO)
-                }
-                
-                searchHistoryItemMO.loggedUser = loggedUser
-                loggedUser.mutableSetValue(forKey: "history").add(searchHistoryItem)
-            }
-            
-            // Save everything
-            do{
-                try privateMOC.save()
-                
-                managedContext.performAndWait {
-                    appDelegate.dataController.saveContext()
-                }
-            } catch {
-                print("Failed to save context: \(error)")
-                exit(0)
-            }
-        }
-    }
-    
-    func deleteHistory()
-    {
-        
     }
     
     // MARK: - Question data operations
@@ -268,6 +165,7 @@ class DataController: NSObject
                 
                 managedContext.performAndWait {
                     appDelegate.dataController.saveContext()
+                    self.isNeedUpdate = true
                 }
             } catch {
                 print("Failed to save context: \(error)")
