@@ -19,6 +19,8 @@ class Comment : Codable
     var commentId : Int = 0
     var body : String = ""
     
+    // MARK: - Coding Keys
+    
     private enum CodingKeys : String, CodingKey
     {
         case creationDate = "creation_date"

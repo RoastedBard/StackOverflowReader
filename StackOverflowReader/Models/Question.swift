@@ -26,6 +26,8 @@ class Question : Codable
     var closedReason : String?
     var questionId : Int = 0
     
+    // MARK: - Coding Keys
+    
     private enum CodingKeys: String, CodingKey
     {
         case isAnswered = "is_answered"

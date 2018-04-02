@@ -122,8 +122,21 @@ class AuthorizationManager
         if self.isAuthorized == true {
             APICallHelper.APICall(request: APIRequestType.LogOutRequest, apiCallParameter: AuthorizationManager.accessToken){ (apiWrapperResult : APIResponseWrapper<LogOutResponse>?) in
                 
+                // De-authorize
                 removeAccessToken()
+                
+                // Clear cookies
                 deleteCookies()
+                
+                guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+                    return
+                }
+                
+                // Save context
+                appDelegate.dataController.saveContext()
+                
+                // Clear search history
+                SearchHistoryManager.searchHistory.removeAll()
                 
                 self.isAuthorized = false
                 

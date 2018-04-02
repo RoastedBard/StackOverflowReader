@@ -27,6 +27,8 @@ class SavedPostsTableViewController: UITableViewController
     {
         super.viewDidLoad()
         
+        self.tableView.tableFooterView = UIView()
+        
         refreshControl?.addTarget(self, action: #selector(refreshSavedPosts(_:)), for: .valueChanged)
         
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {

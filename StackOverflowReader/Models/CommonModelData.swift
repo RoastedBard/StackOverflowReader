@@ -17,6 +17,8 @@ class CommonModelData : Codable
     var creationDate : Int = 0 // unix epoch time
     var body : String = ""
     
+    // MARK: - Coding Keys
+    
     private enum CodingKeys : String, CodingKey
     {
         case creationDate = "creation_date"

@@ -34,6 +34,8 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
     {
         super.viewDidLoad()
         
+        searchResultsTableView.tableFooterView = UIView()
+        
         activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
         
         searchResultsTableView.backgroundView = activityIndicatorView
@@ -70,7 +72,8 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
     
     // MARK: - Sort dropdown
     
-    fileprivate func animateSortOptionsDropdown() {
+    fileprivate func animateSortOptionsDropdown()
+    {
         for button in searchSortButtons {
             UIView.animate(withDuration: 0.3, animations: {
                 button.isHidden = !button.isHidden
@@ -141,7 +144,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         sortByButton.isEnabled = false
         
         DispatchQueue.global(qos: .userInitiated).async {
-                APICallHelper.APICall(request: APIRequestType.BriefQuestionsRequest, apiCallParameter: self.searchQuery){ (apiWrapperResult : APIResponseWrapper<BriefQuestion>?) in
+                APICallHelper.APICall(request: APIRequestType.SearchBriefQuestionsRequest, apiCallParameter: self.searchQuery){ (apiWrapperResult : APIResponseWrapper<BriefQuestion>?) in
                     
                     if apiWrapperResult?.items?.count == 0 {
                         self.isNothingFound = true
@@ -270,13 +273,21 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         }
         
         if segue.identifier == "ShowUserInfo" {
-            if let uvc = segue.destination as? UserViewController {
-                let userId = sender as? Int
-                uvc.userId = userId ?? -1
+            if let userTabBarController = segue.destination as? UserProfileTabBarController {
+                
+                guard let userId = sender as? Int else {
+                    print("Unable to get userId")
+                    return
+                }
+                
+                //userProfileController.userId = userId
+                userTabBarController.userId = userId
             }
         }
     }
 }
+
+// MARK: - AuthorNamePressedProtocol, LoadMoreQuestionsProtocol
 
 extension SearchViewController : AuthorNamePressedProtocol, LoadMoreQuestionsProtocol
 {
@@ -290,7 +301,7 @@ extension SearchViewController : AuthorNamePressedProtocol, LoadMoreQuestionsPro
         DispatchQueue.global(qos: .userInitiated).async {
             APICallHelper.currentPage += 1
             
-            APICallHelper.APICall(request: APIRequestType.BriefQuestionsRequest, apiCallParameter: self.searchQuery){ (apiWrapperResult : APIResponseWrapper<BriefQuestion>?) in
+            APICallHelper.APICall(request: APIRequestType.SearchBriefQuestionsRequest, apiCallParameter: self.searchQuery){ (apiWrapperResult : APIResponseWrapper<BriefQuestion>?) in
                 if let newQuestions = apiWrapperResult?.items {
                     self.apiCallWrapper?.items?.append(contentsOf: newQuestions)
                     

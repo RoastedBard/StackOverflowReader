@@ -19,8 +19,6 @@ class UserViewController: UIViewController
     @IBOutlet weak var userAboutTextView: UITextView!
     @IBOutlet weak var userProfileImage: UIImageView!
     @IBOutlet weak var userLocationLabel: UILabel!
-    @IBOutlet weak var userAnswersCountLabel: UILabel!
-    @IBOutlet weak var userQuestionsCountLabel: UILabel!
     @IBOutlet weak var userLastSeenLabel: UILabel!
     @IBOutlet weak var userProfileViewsLabel: UILabel!
     @IBOutlet weak var userMemberSinceLabel: UILabel!
@@ -43,31 +41,41 @@ class UserViewController: UIViewController
     {
         super.viewDidLoad()
         
-        if userId == -1 {
-            print(">USER_INVALID_ID_ERROR: userId = -1")
-            return
-        }
-
         if isLoggedUserProfile == true {
             self.user = AuthorizationManager.authorizedUser
             self.fillViewWithUserData()
         } else {
+            guard let tabBarController = self.tabBarController as? UserProfileTabBarController else {
+                print("Failed to get tab bar controller")
+                return
+            }
+            
+            userId = tabBarController.userId
+            
+            print("userId = \(userId)")
+            
+            if userId == -1 {
+                print(">USER_INVALID_ID_ERROR: userId = -1")
+                return
+            }
+            
             DispatchQueue.global(qos: .userInitiated) .async {
-                    APICallHelper.APICall(request: APIRequestType.UserRequest, apiCallParameter: self.userId){ (apiWrapperResult : APIResponseWrapper<User>?) in
-                        guard let userModel = apiWrapperResult?.items?[0] else {
-                            print("Failed to convert user model to intermediate model")
-                            return
-                        }
-                        
-                        self.user = IntermediateUser(userModel)
-
-                        self.fillViewWithUserData()
+                APICallHelper.APICall(request: APIRequestType.UserRequest, apiCallParameter: self.userId){ (apiWrapperResult : APIResponseWrapper<User>?) in
+                    guard let userModel = apiWrapperResult?.items?[0] else {
+                        print("Failed to convert user model to intermediate model")
+                        return
                     }
+                    
+                    self.user = IntermediateUser(userModel)
+                    
+                    self.fillViewWithUserData()
+                }
             }
         }
     }
     
-    override func viewWillAppear(_ animated: Bool) {
+    override func viewWillAppear(_ animated: Bool)
+    {
         self.navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
@@ -130,20 +138,6 @@ class UserViewController: UIViewController
                 userLocationLabel.text = location.string
             }else{
                 userLocationLabel.text = "unknown"
-            }
-            
-            // Answer Count
-            if let answerCount = user.answerCount {
-                userAnswersCountLabel.text = "\(answerCount)"
-            }else{
-                userAnswersCountLabel.text = "unknown"
-            }
-            
-            // Question Count
-            if let questionCount = user.questionCount {
-                userQuestionsCountLabel.text = "\(questionCount)"
-            }else{
-                userQuestionsCountLabel.text = "unknown"
             }
             
             // View Count

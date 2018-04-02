@@ -16,6 +16,8 @@ struct AccessTokenInfo : Codable
     var expiresOnDate : Int?
     var scope : [String]
     
+    // MARK: - Coding Keys
+    
     enum CodingKeys : String, CodingKey
     {
         case accountId = "account_id"

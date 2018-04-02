@@ -16,6 +16,8 @@ class ShallowUser : Codable
     var profileImage : String?
     var displayName : String?
     
+    // MARK: - Coding Keys
+    
     private enum CodingKeys : String, CodingKey
     {
         case userId = "user_id"

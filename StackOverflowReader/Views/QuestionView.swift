@@ -24,6 +24,7 @@ class QuestionView: UITableViewHeaderFooterView
     @IBOutlet weak var saveQuestionButton: UIButton!
     @IBOutlet weak var tagCollectionView: UIView!
     @IBOutlet weak var tagCollectionViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var backgroundColorView: UIView!
     
     // MARK: - Delegates
     
@@ -62,13 +63,18 @@ class QuestionView: UITableViewHeaderFooterView
         
         authorAndDateView.fillViewWithData(date: dateFormatter.string(from: question.creationDate), authorName: question.owner?.displayName?.string, authorImageURL: question.owner?.profileImage, userId: question.owner?.userId)
         
-        showCommentsButton.isHidden = (question.comments != nil) ? false : true
+        if question.comments == nil, showCommentsButton != nil, showCommentsButton.isDescendant(of: self) {
+            showCommentsButton.removeFromSuperview()
+            authorAndDateView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 8).isActive = true
+        }
         
         self.question = question
         
         if let tags = question.tags {
             createTags(tags: tags)
         }
+        
+        self.sendSubview(toBack: backgroundColorView)
     }
     
     func createTags(tags : [String])

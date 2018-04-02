@@ -22,6 +22,8 @@ struct BriefQuestion : Codable
     var acceptedAnswerId : Int?
     var closedReason : String?
     
+    // MARK: - Coding Keys
+    
     enum CodingKeys: String, CodingKey
     {
         case isAnswered = "is_answered"

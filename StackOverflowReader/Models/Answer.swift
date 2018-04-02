@@ -20,6 +20,8 @@ class Answer : Codable
     var body : String = ""
     var comments : [Comment]?
     
+    // MARK: - Coding Keys
+    
     private enum CodingKeys: String, CodingKey
     {
         case owner

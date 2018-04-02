@@ -18,19 +18,24 @@ enum SearchSortingType : String
 
 enum APIRequestType
 {
+    case SearchBriefQuestionsRequest
     case BriefQuestionsRequest
     case FullQuestionRequest
     case UserRequest
     case MyAccountRequest
     case LogOutRequest
     case ValidateAccessTokenRequest
+    case GetUserQuestions
+    case GetUserAnswers
+    case GetMyQuestions
+    case GetMyAnswers
 }
 
 struct APIResponseWrapper<T : Codable> : Codable
 {
     var items : [T]?
-    var total : Int = 0
-    var hasMore : Bool
+    var total : Int?
+    var hasMore : Bool?
     
     enum CodingKeys : String, CodingKey
     {
@@ -46,18 +51,20 @@ class APICallHelper
     
     static var currentPage : Int = 1
     static var sort : SearchSortingType = .votes
+    static var pageSize : Int = 30
     
     fileprivate static let applicationKey : String = "Q)4aM*Ox5tlnokGsMxWYlw(("
     fileprivate static let apiRoot : String = "https://api.stackexchange.com/"
     fileprivate static let apiVersion : String = "2.2"
-    static var pageSize : Int = 30
     
     // MARK: - Filters
     
-    fileprivate static let briefQuestionsFilter : String = "!1PUgU9fzk8OTrwiO(l_6bIsha)5ivzsYW"
-    fileprivate static let fullQuestionsFilter : String = "!v)Cpd1)X)148G5bcy7XHn8n(yDS2yxYNtCnCv(qRtnF2EdvtdCwYkdOHiOpBLI(X"
-    fileprivate static let userFilter : String = "!BTTDH9mpUuRPJUS4dOfslFqNDXMy.C"
-    fileprivate static let accessTokenInfoFilter : String = "!-.-gvNflsiZx"
+    fileprivate static let briefQuestionsFilter = "!1PUgU9fzk8OTrwiO(l_6bIsha)5ivzsYW"
+    fileprivate static let fullQuestionsFilter = "!v)Cpd1)X)148G5bcy7XHn8n(yDS2yxYNtCnCv(qRtnF2EdvtdCwYkdOHiOpBLI(X"
+    fileprivate static let userFilter = "!BTTDH9mpUuRPJUS4dOfslFqNDXMy.C"
+    fileprivate static let accessTokenInfoFilter = "!-.-gvNflsiZx"
+    fileprivate static let userQuestionsFilter = "!)Ehtmgj(tvg-5.lcA5tOoZmem1aA_v5hYABG2n(aCRgoNLqrl"
+    fileprivate static let userAnswersFilter = "!)Q29mbLxf6w-Je1B4y.ajpy_"
     
     fileprivate static var url : URL?
     
@@ -73,9 +80,13 @@ class APICallHelper
     {
         switch request
         {
-        case .BriefQuestionsRequest:
+        case .SearchBriefQuestionsRequest:
             let searchQuery = apiCallParameter as! String
             url = URL(string: "\(apiRoot)\(apiVersion)/search/advanced?site=stackoverflow&key=\(applicationKey)&page=\(currentPage)&pagesize=\(pageSize)&sort=\(sort.rawValue)&q=\(searchQuery)&filter=\(briefQuestionsFilter)")!
+            
+        case .BriefQuestionsRequest:
+            let questionIdsString = apiCallParameter as! String
+            url = URL(string: "\(apiRoot)\(apiVersion)/questions/\(questionIdsString)?order=desc&sort=activity&site=stackoverflow&key=\(applicationKey)&filter=\(briefQuestionsFilter)")!
             
         case .FullQuestionRequest:
             let questionId = apiCallParameter as! Int
@@ -91,11 +102,25 @@ class APICallHelper
             
         case .LogOutRequest:
             let accessToken = apiCallParameter as! String
-            url = URL(string: "\(apiRoot)\(apiVersion)/apps/\(accessToken)/de-authenticate")!
+            url = URL(string: "\(apiRoot)\(apiVersion)/apps/\(accessToken)/de-authenticate?key=\(applicationKey)")!
             
         case .ValidateAccessTokenRequest:
             let accessToken = apiCallParameter as! String
-            url = URL(string: "\(apiRoot)\(apiVersion)/access-tokens/\(accessToken)?filter=\(accessTokenInfoFilter)")!
+            url = URL(string: "\(apiRoot)\(apiVersion)/access-tokens/\(accessToken)?key=\(applicationKey)&filter=\(accessTokenInfoFilter)")!
+            
+        case .GetUserQuestions:
+            let userId = apiCallParameter as! Int
+            url = URL(string:"\(apiRoot)\(apiVersion)/users/\(userId)/questions?&pagesize=\(pageSize)&page=\(currentPage)&order=desc&sort=activity&site=stackoverflow&key=\(applicationKey)&filter=\(userQuestionsFilter)")!
+            
+        case .GetUserAnswers:
+            let userId = apiCallParameter as! Int
+            url = URL(string:"\(apiRoot)\(apiVersion)/users/\(userId)/answers?order=desc&sort=activity&site=stackoverflow&key=\(applicationKey)&filter=\(userAnswersFilter)")!
+            
+        case .GetMyQuestions:
+            url = URL(string:"\(apiRoot)\(apiVersion)/me/questions?&pagesize=\(pageSize)&page=\(currentPage)&order=desc&sort=activity&site=stackoverflow&key=\(applicationKey)&filter=\(userQuestionsFilter)")!
+            
+        case .GetMyAnswers:
+            url = URL(string:"\(apiRoot)\(apiVersion)/me/answers?pagesize=\(pageSize)&page=\(currentPage)&order=desc&sort=activity&site=stackoverflow&key=\(applicationKey)&filter=\(userAnswersFilter)")!
         }
     }
     

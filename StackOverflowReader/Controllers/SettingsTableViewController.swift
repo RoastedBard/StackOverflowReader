@@ -106,11 +106,14 @@ class SettingsTableViewController: UITableViewController
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
         if segue.identifier == "ShowMyProfileSegue" {
-            guard let userController = segue.destination as? UserViewController else {
-                return
+            if let userTabBarController = segue.destination as? UserProfileTabBarController {
+                guard let userProfileController = userTabBarController.viewControllers![0] as? UserViewController else {
+                    print("Unable to get UserViewController")
+                    return
+                }
+                
+                userProfileController.isLoggedUserProfile = true
             }
-            
-            userController.isLoggedUserProfile = true
         }
     }
 }

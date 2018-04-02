@@ -24,6 +24,8 @@ class User : ShallowUser
     var viewCount : Int?
     var websiteUrl : String?
     
+    // MARK: - Coding Keys
+    
     private enum CodingKeys : String, CodingKey
     {
         case aboutMe = "about_me"

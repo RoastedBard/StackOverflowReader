@@ -16,6 +16,8 @@ class LogOutResponse : Codable
     var expiresOnDate : Int = 0
     var accessToken : String = ""
     
+    // MARK: - Coding Keys
+    
     enum CodingKeys : String, CodingKey
     {
         case accountId = "account_id"

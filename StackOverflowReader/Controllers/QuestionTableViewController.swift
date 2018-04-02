@@ -20,6 +20,9 @@ class QuestionTableViewController: UITableViewController
     // MARK: - Question Data properties
     
     var questionId : Int = -1
+    var answerIdToScrollTo : Int = -1
+    var sectionToScrollTo = -1
+    var indexPathToScrollTo = IndexPath()
     var question : IntermediateQuestion?
     var questionMO : SavedQuestionMO?
     var profileImages : [Int : UIImage] = [Int : UIImage]()
@@ -58,7 +61,15 @@ class QuestionTableViewController: UITableViewController
         
         questionAndAnswerContentWidth = self.view.frame.size.width - 16 // 16 = 8 units margin on the left + 8 units margin on the right of the UItextView containing answer or question body
     }
-
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+//        if sectionToScrollTo != -1 {
+//            let indexPath = IndexPath(row: 0, section: sectionToScrollTo)
+//            tableView.scrollToRow(at: indexPath, at: .top, animated: true)
+//        }
+    }
     override func viewDidLayoutSubviews()
     {
         super.viewDidLayoutSubviews()
@@ -92,8 +103,30 @@ class QuestionTableViewController: UITableViewController
                             self.loadProfileImages()
                         }
                         
+                        if let answers = self.question?.answers {
+                            for (index, answer) in answers.enumerated() {
+                                if answer.answerId == self.answerIdToScrollTo {
+                                    self.sectionToScrollTo = index + 1
+                                    break
+                                }
+                            }
+                        }
+                        
+                        if self.answerIdToScrollTo != -1 {
+                            let indexPath = IndexPath(row: NSNotFound, section: self.sectionToScrollTo)
+                            
+                            self.tableView.reloadData()
+                            
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                                self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+                            }
+                        } else {
+                            DispatchQueue.main.async {
+                                self.tableView.reloadData()
+                            }
+                        }
+                        
                         self.activityIndicatorView.stopAnimating()
-                        self.tableView.reloadData()
                     }
                 }
             }
@@ -172,9 +205,25 @@ class QuestionTableViewController: UITableViewController
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
         if section == 0 {
-            return question?.comments?.count ?? 0
+            guard let commentCount = question?.comments?.count else {
+                return 0
+            }
+            
+            if commentCount > 3 {
+                return 4 // 3 comments + "Load more comments" cell
+            } else {
+                return commentCount
+            }
         } else {
-            return question?.answers?[section - 1].comments?.count ?? 0
+            guard let commentCount = question?.answers?[section - 1].comments?.count else {
+                return 0
+            }
+            
+            if commentCount > 3 {
+                return 4 // 3 comments + "Load more comments" cell
+            } else {
+                return commentCount
+            }
         }
     }
     
@@ -212,27 +261,45 @@ class QuestionTableViewController: UITableViewController
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! CommentTableViewCell
-        
-        cell.authorNamePressedDelegate = self
-        
         if indexPath.section == 0 {
-            guard let comment = question?.comments?[indexPath.row] else {
-                print("Failed to get comment model for question")
-                exit(0)
+            if indexPath.row >= 3 {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "ShowMoreCommentsCell", for: indexPath)
+                
+                return cell
+            } else {
+                let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! CommentTableViewCell
+                
+                cell.authorNamePressedDelegate = self
+                
+                guard let comment = question?.comments?[indexPath.row] else {
+                    print("Failed to get comment model for question")
+                    exit(0)
+                }
+                
+                cell.initializeCommentCell(comment)
+                
+                return cell
             }
-            
-            cell.initializeCommentCell(comment)
-            
         } else {
-            guard let comment = question?.answers?[indexPath.section - 1].comments?[indexPath.row] else {
-                print("Failed to get comment model for answer")
-                exit(0)
+            if indexPath.row >= 3 {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "ShowMoreCommentsCell", for: indexPath)
+                
+                return cell
+            } else {
+                let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! CommentTableViewCell
+                
+                cell.authorNamePressedDelegate = self
+                
+                guard let comment = question?.answers?[indexPath.section - 1].comments?[indexPath.row] else {
+                    print("Failed to get comment model for answer")
+                    exit(0)
+                }
+                
+                cell.initializeCommentCell(comment)
+                
+                return cell
             }
-
-            cell.initializeCommentCell(comment)
         }
-        return cell
     }
     
     override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int)
@@ -260,11 +327,21 @@ extension QuestionTableViewController : AuthorNamePressedProtocol, TagButtonPres
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
-        if let uvc = segue.destination as? UserViewController {
-            let userId = sender as? Int
-            
-            uvc.userId = userId ?? -1
-            uvc.profilePicture = profileImages[userId ?? -1]
+        if segue.identifier == "ShowUserInfo" {
+            if let userTabBarController = segue.destination as? UserProfileTabBarController {
+                guard let userProfileController = userTabBarController.viewControllers![0] as? UserViewController else {
+                    print("Unable to get UserViewController")
+                    return
+                }
+                
+                guard let userId = sender as? Int else {
+                    print("Unable to get userId")
+                    return
+                }
+                
+                userTabBarController.userId = userId
+                userProfileController.profilePicture = profileImages[userId]
+            }
         }
         
         if let searchController = segue.destination as? SearchViewController {

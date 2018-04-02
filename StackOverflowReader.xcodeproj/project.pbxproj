@@ -29,6 +29,11 @@
 		BF111D8E2062B9B800E5A547 /* HistorySettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF111D8D2062B9B800E5A547 /* HistorySettingsTableViewCell.swift */; };
 		BF118A78202CC1C6003591CD /* CommonModelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF118A77202CC1C6003591CD /* CommonModelData.swift */; };
 		BF12F268201634DC0056919E /* BadgeCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF12F267201634DC0056919E /* BadgeCount.swift */; };
+		BF19603E206D1B4E0020D02C /* UserProfileTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF19603D206D1B4E0020D02C /* UserProfileTabBarController.swift */; };
+		BF196040206D39390020D02C /* UserAnswer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF19603F206D39390020D02C /* UserAnswer.swift */; };
+		BF196042206D3A9A0020D02C /* UserQuestionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF196041206D3A9A0020D02C /* UserQuestionsTableViewController.swift */; };
+		BF196044206D4D590020D02C /* UserAnswersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF196043206D4D590020D02C /* UserAnswersTableViewController.swift */; };
+		BF196047206D57CA0020D02C /* TableViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF196046206D57CA0020D02C /* TableViewExtension.swift */; };
 		BF1F2F372061485300D7AC83 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF1F2F362061485300D7AC83 /* SettingsTableViewController.swift */; };
 		BF1F2F3A206150F900D7AC83 /* ProfileSettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF1F2F39206150F900D7AC83 /* ProfileSettingsTableViewCell.swift */; };
 		BF1F2F3C2061510800D7AC83 /* SearchSettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF1F2F3B2061510800D7AC83 /* SearchSettingsTableViewCell.swift */; };
@@ -91,6 +96,11 @@
 		BF111D8D2062B9B800E5A547 /* HistorySettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistorySettingsTableViewCell.swift; sourceTree = "<group>"; };
 		BF118A77202CC1C6003591CD /* CommonModelData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonModelData.swift; sourceTree = "<group>"; };
 		BF12F267201634DC0056919E /* BadgeCount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeCount.swift; sourceTree = "<group>"; };
+		BF19603D206D1B4E0020D02C /* UserProfileTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileTabBarController.swift; sourceTree = "<group>"; };
+		BF19603F206D39390020D02C /* UserAnswer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAnswer.swift; sourceTree = "<group>"; };
+		BF196041206D3A9A0020D02C /* UserQuestionsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserQuestionsTableViewController.swift; sourceTree = "<group>"; };
+		BF196043206D4D590020D02C /* UserAnswersTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAnswersTableViewController.swift; sourceTree = "<group>"; };
+		BF196046206D57CA0020D02C /* TableViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewExtension.swift; sourceTree = "<group>"; };
 		BF1F2F362061485300D7AC83 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		BF1F2F39206150F900D7AC83 /* ProfileSettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingsTableViewCell.swift; sourceTree = "<group>"; };
 		BF1F2F3B2061510800D7AC83 /* SearchSettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchSettingsTableViewCell.swift; sourceTree = "<group>"; };
@@ -238,6 +248,7 @@
 				BFEE044920188E900095105B /* ShallowUser.swift */,
 				BF095259202AF2F0009B9527 /* BriefQuestion.swift */,
 				BF118A77202CC1C6003591CD /* CommonModelData.swift */,
+				BF19603F206D39390020D02C /* UserAnswer.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -268,6 +279,9 @@
 				BF1F2F3D206172B400D7AC83 /* HistoryTableViewController.swift */,
 				BF1F2F362061485300D7AC83 /* SettingsTableViewController.swift */,
 				BF054BE3206A96E3003DD822 /* SavedPostsTableViewController.swift */,
+				BF19603D206D1B4E0020D02C /* UserProfileTabBarController.swift */,
+				BF196041206D3A9A0020D02C /* UserQuestionsTableViewController.swift */,
+				BF196043206D4D590020D02C /* UserAnswersTableViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -284,6 +298,7 @@
 				BF8EB27A20567B4300EBF70B /* StringExtension.swift */,
 				BF8EB2682056765100EBF70B /* AuthorizationManager.swift */,
 				BF111D8B2062B0FB00E5A547 /* SearchHistoryManager.swift */,
+				BF196046206D57CA0020D02C /* TableViewExtension.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -393,12 +408,15 @@
 				BF111D8E2062B9B800E5A547 /* HistorySettingsTableViewCell.swift in Sources */,
 				BF7CA48C20650B2F00A070E6 /* UserViewController.swift in Sources */,
 				BF09525A202AF2F0009B9527 /* BriefQuestion.swift in Sources */,
+				BF196047206D57CA0020D02C /* TableViewExtension.swift in Sources */,
 				BF0A04382007A4B4007701EB /* QuestionView.swift in Sources */,
+				BF19603E206D1B4E0020D02C /* UserProfileTabBarController.swift in Sources */,
 				BF054BE2206A41D0003DD822 /* UITextViewFixed.swift in Sources */,
 				BF1F2F3C2061510800D7AC83 /* SearchSettingsTableViewCell.swift in Sources */,
 				BF35C80C1FFE2AD100AF9FA7 /* User.swift in Sources */,
 				BF901C01203B16310089BD7E /* DataController.swift in Sources */,
 				BF35C80F1FFE33CD00AF9FA7 /* BriefQuestionTableViewCell.swift in Sources */,
+				BF196042206D3A9A0020D02C /* UserQuestionsTableViewController.swift in Sources */,
 				BF054BDD206A3FEF003DD822 /* ProfileSettingsProtocol.swift in Sources */,
 				BF23CD4E2029A168003C17ED /* CollapseCommentsProtocol.swift in Sources */,
 				BF1F2F3E206172B500D7AC83 /* HistoryTableViewController.swift in Sources */,
@@ -409,6 +427,7 @@
 				BF621C361FE8000600DFDAA4 /* SearchViewController.swift in Sources */,
 				BF8EB277205676E500EBF70B /* Utility.swift in Sources */,
 				BF070E98203C4354007D936A /* IntermediateShallowUser.swift in Sources */,
+				BF196040206D39390020D02C /* UserAnswer.swift in Sources */,
 				BF12F268201634DC0056919E /* BadgeCount.swift in Sources */,
 				BF054BE4206A96E3003DD822 /* SavedPostsTableViewController.swift in Sources */,
 				BF621C3C1FE8000600DFDAA4 /* StackOverflowReader.xcdatamodeld in Sources */,
@@ -441,6 +460,7 @@
 				BF8EB2692056765100EBF70B /* AuthorizationManager.swift in Sources */,
 				BF070EA4203C8922007D936A /* IntermediateBriefQuestion.swift in Sources */,
 				BF35C80A1FFE2AD100AF9FA7 /* Comment.swift in Sources */,
+				BF196044206D4D590020D02C /* UserAnswersTableViewController.swift in Sources */,
 				BF070E9E203C481E007D936A /* IntermediateAnswer.swift in Sources */,
 				BFEE044A20188E900095105B /* ShallowUser.swift in Sources */,
 			);

@@ -91,12 +91,25 @@ extension HistoryTableViewController : AuthorNamePressedProtocol
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
-        if let uvc = segue.destination as? UserViewController {
-            let userId = sender as? Int
-            
-            uvc.userId = userId ?? -1
-            //uvc.profilePicture = profileImages[userId ?? -1]
+        // Show User Info segue
+        
+        if segue.identifier == "ShowUserInfo" {
+            if let userTabBarController = segue.destination as? UserProfileTabBarController {
+                guard let userProfileController = userTabBarController.viewControllers![0] as? UserViewController else {
+                    print("Unable to get UserViewController")
+                    return
+                }
+                
+                guard let userId = sender as? Int else {
+                    print("Unable to get userId")
+                    return
+                }
+                
+                userTabBarController.userId = userId
+            }
         }
+        
+        // Show Question segue
         
         if segue.identifier == "ShowQuestionSeque" {
             if let qtvc = segue.destination as? QuestionTableViewController {
