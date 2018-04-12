@@ -41,7 +41,7 @@ class UserViewController: UIViewController
     {
         super.viewDidLoad()
         
-        if isLoggedUserProfile == true {
+        if isLoggedUser() == true {
             self.user = AuthorizationManager.authorizedUser
             self.fillViewWithUserData()
         } else {
@@ -60,7 +60,7 @@ class UserViewController: UIViewController
             }
             
             DispatchQueue.global(qos: .userInitiated) .async {
-                APICallHelper.APICall(request: APIRequestType.UserRequest, apiCallParameter: self.userId){ (apiWrapperResult : APIResponseWrapper<User>?) in
+                APICallHelper.APICall(request: APIRequestType.UserRequest, apiCallParameter: self.userId, apiCallParameters: nil){ (apiWrapperResult : APIResponseWrapper<User>?) in
                     guard let userModel = apiWrapperResult?.items?[0] else {
                         print("Failed to convert user model to intermediate model")
                         return
@@ -86,6 +86,16 @@ class UserViewController: UIViewController
     }
     
     // MARK: - Methods
+    
+    fileprivate func isLoggedUser() -> Bool
+    {
+        guard let tabBarController = self.tabBarController as? UserProfileTabBarController else {
+            print("Failed to get tabBarController")
+            return false
+        }
+        
+        return tabBarController.isLoggedUser
+    }
     
     private func fillViewWithUserData()
     {

@@ -22,14 +22,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate
             print(">>>>>>DataController is ready...")
         }
         
-        // Read search settings from user defaults
-        let userDefaults = UserDefaults.standard
-        userDefaults.synchronize()
-        
-        if let pageSize = userDefaults.value(forKey: "pageSize") as? Int {
-            APICallHelper.pageSize = pageSize
-        }
-        
         return true
     }
 
@@ -61,10 +53,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate
         // Saves changes in the application's managed object context before the application terminates.
         
         // Save search settings
-        let pageSize = APICallHelper.pageSize
+        let pageSize = UserSettings.searchPageSize
         let userDefaults = UserDefaults.standard
         
-        userDefaults.setValue(pageSize, forKey: "pageSize")
+        if let user = AuthorizationManager.authorizedUser {
+            let userName = user.displayName!.string
+            
+            userDefaults.setValue(pageSize, forKey: "\(userName)_pageSize")
+            userDefaults.setValue(userName, forKey: "lastLoggedUser")
+        }
+        
         userDefaults.synchronize()
         
         // Save managed context

@@ -16,6 +16,15 @@ class GreetingScreenViewController: UIViewController
     {
         // Attempt login if access token is available
         AuthorizationManager.login() {
+            
+            // Read search settings from user defaults
+            let userDefaults = UserDefaults.standard
+            
+            if let lastLoggedUser = userDefaults.string(forKey: "lastLoggedUser"), lastLoggedUser != "" {
+                let pageSize = userDefaults.integer(forKey: "\(lastLoggedUser)_pageSize")
+                UserSettings.searchPageSize = pageSize
+            }
+            
             self.performSegue(withIdentifier: "AlreadyLoggedInSegue", sender: nil)
         }
     }

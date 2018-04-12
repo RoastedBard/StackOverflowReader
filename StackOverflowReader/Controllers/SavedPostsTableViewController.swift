@@ -44,12 +44,8 @@ class SavedPostsTableViewController: UITableViewController
     {
         super.viewWillAppear(animated)
     
-        /* TODO: Hiding back button and displaying title not working
-         
-        self.navigationController?.setNavigationBarHidden(false, animated: false)
-        self.navigationController?.navigationItem.backBarButtonItem = nil
-        self.navigationController?.navigationItem.title = "Saved Posts"
-        */
+        /* TODO: Hiding back button and displaying title not working */
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
         
         if dataController.isNeedUpdate == true {
             fetchDatabase()
@@ -63,7 +59,6 @@ class SavedPostsTableViewController: UITableViewController
     override func viewWillDisappear(_ animated: Bool)
     {
         super.viewWillDisappear(animated)
-        // self.navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     
     override func didReceiveMemoryWarning()
@@ -134,11 +129,17 @@ class SavedPostsTableViewController: UITableViewController
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        return briefQuestions.count
+        return briefQuestions.count == 0 ? 1 : briefQuestions.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
+        // NoSavedQuestionsCell
+        if briefQuestions.count == 0 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "NoSavedQuestionsCell", for: indexPath)
+            return cell
+        }
+        
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "BriefQuestionTableViewCell", for: indexPath) as? BriefQuestionTableViewCell else {
             fatalError("Wrong cell type dequeued")
         }
@@ -152,22 +153,25 @@ class SavedPostsTableViewController: UITableViewController
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath)
     {
         if editingStyle == .delete {
-            
-            let briefQuestionMO = briefQuestionsMO[indexPath.row]
-            
-            guard let savedQuestion = briefQuestionMO.detailQuestion else {
-                print("Can't get detail question")
-                exit(0)
+            Utility.showConfirmationDialog(self, title: "Confirm", message: "Are you sure you want to delete this question?") {
+                let briefQuestionMO = self.briefQuestionsMO[indexPath.row]
+                
+                guard let savedQuestion = briefQuestionMO.detailQuestion else {
+                    print("Can't get detail question")
+                    exit(0)
+                }
+                
+                self.dataController.managedObjectContext.delete(savedQuestion)
+                
+                self.briefQuestions.remove(at: indexPath.row)
+                self.briefQuestionsMO.remove(at: indexPath.row)
+                
+                self.dataController.saveContext()
+                
+                DispatchQueue.main.async {
+                    tableView.deleteRows(at: [indexPath], with: .right)
+                }
             }
-            
-            dataController.managedObjectContext.delete(savedQuestion)
-            
-            briefQuestions.remove(at: indexPath.row)
-            briefQuestionsMO.remove(at: indexPath.row)
-            
-            tableView.deleteRows(at: [indexPath], with: .right)
-            
-            dataController.saveContext()
         }
     }
 

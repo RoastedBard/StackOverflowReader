@@ -107,12 +107,7 @@ class SettingsTableViewController: UITableViewController
     {
         if segue.identifier == "ShowMyProfileSegue" {
             if let userTabBarController = segue.destination as? UserProfileTabBarController {
-                guard let userProfileController = userTabBarController.viewControllers![0] as? UserViewController else {
-                    print("Unable to get UserViewController")
-                    return
-                }
-                
-                userProfileController.isLoggedUserProfile = true
+                userTabBarController.isLoggedUser = true
             }
         }
     }
@@ -129,7 +124,13 @@ extension SettingsTableViewController : ProfileSettingsProtocol
     
     func logOutAction()
     {
-        AuthorizationManager.logout {
+        if AuthorizationManager.isAuthorized {
+            Utility.showConfirmationDialog(self, title: "Confirm", message: "Are you sure you want to log out?") {
+                AuthorizationManager.logout {
+                    self.navigationController?.popToRootViewController(animated: true)
+                }
+            }
+        } else {
             self.navigationController?.popToRootViewController(animated: true)
         }
     }

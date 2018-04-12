@@ -21,8 +21,8 @@ class SearchSettingsTableViewCell: UITableViewCell
     {
         super.awakeFromNib()
         
-        searchResultsOnPageSlider.value = Float(APICallHelper.pageSize)
-        searchResultsOnPageLabel.text = "Search results on page: \(APICallHelper.pageSize)"
+        searchResultsOnPageSlider.value = Float(UserSettings.searchPageSize)
+        searchResultsOnPageLabel.text = "Search results on page: \(UserSettings.searchPageSize)"
     }
 
     override func setSelected(_ selected: Bool, animated: Bool)
@@ -35,8 +35,7 @@ class SearchSettingsTableViewCell: UITableViewCell
     @IBAction func resultsOnPageSliderValueChanged(_ sender: UISlider)
     {
         let value = Int(sender.value)
-        APICallHelper.pageSize = value
+        UserSettings.searchPageSize = value
         searchResultsOnPageLabel.text = "Search results on page: \(value)"
     }
-    
 }

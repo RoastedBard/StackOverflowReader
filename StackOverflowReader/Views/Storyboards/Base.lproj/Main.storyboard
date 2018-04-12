@@ -306,6 +306,29 @@
                                     <segue destination="K0H-hH-LP6" kind="show" identifier="ShowQuestionSeque" id="dNg-E8-g3G"/>
                                 </connections>
                             </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="NoSavedQuestionsCell" rowHeight="139" id="Cfh-Bm-gg5" customClass="BriefQuestionTableViewCell" customModule="StackOverflowReader" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="167" width="320" height="139"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Cfh-Bm-gg5" id="FgJ-Vh-dmX">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="138.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No saved questions" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zxB-gG-D0f">
+                                            <rect key="frame" x="16" y="11" width="288" height="117"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="trailingMargin" secondItem="zxB-gG-D0f" secondAttribute="trailing" id="7Pt-zX-XgI"/>
+                                        <constraint firstItem="zxB-gG-D0f" firstAttribute="leading" secondItem="FgJ-Vh-dmX" secondAttribute="leadingMargin" id="C0o-Lg-vbJ"/>
+                                        <constraint firstItem="zxB-gG-D0f" firstAttribute="top" secondItem="FgJ-Vh-dmX" secondAttribute="topMargin" id="RFJ-uQ-zms"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="zxB-gG-D0f" secondAttribute="bottom" id="v65-tV-zQE"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </tableViewCell>
                         </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="kIr-a2-HYD" id="VTv-N3-MkS"/>
@@ -793,8 +816,9 @@
                                             <rect key="frame" x="8" y="114" width="26" height="16"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
-                                            <nil key="textColor"/>
+                                            <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                                             <nil key="highlightedColor"/>
+                                            <color key="shadowColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <userDefinedRuntimeAttributes>
                                                 <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                     <real key="value" value="5"/>
@@ -815,7 +839,7 @@
                                                     <real key="value" value="1"/>
                                                 </userDefinedRuntimeAttribute>
                                                 <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                    <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="value" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                                                 </userDefinedRuntimeAttribute>
                                             </userDefinedRuntimeAttributes>
                                         </label>
@@ -872,27 +896,43 @@
                                     <outlet property="commentScoreLabel" destination="aQQ-MN-SKv" id="WuG-oA-1iZ"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ShowMoreCommentsCell" rowHeight="41" id="AkL-MS-Ruq" customClass="CommentTableViewCell" customModule="StackOverflowReader" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CollapseExpandCommentsCell" rowHeight="41" id="AkL-MS-Ruq" customClass="CollapseExpandCommentsTableViewCell" customModule="StackOverflowReader" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="185.5" width="320" height="41"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="AkL-MS-Ruq" id="SK8-ct-ZdS">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="41"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZZe-yM-hc7">
-                                            <rect key="frame" x="16" y="11" width="288" height="19"/>
-                                            <state key="normal" title="Show 42 more"/>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZZe-yM-hc7">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="41"/>
+                                            <state key="normal">
+                                                <attributedString key="attributedTitle">
+                                                    <fragment content="Show 42 more">
+                                                        <attributes>
+                                                            <color key="NSColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                                                            <font key="NSFont" size="15" name="Helvetica-Oblique"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                </attributedString>
+                                            </state>
+                                            <connections>
+                                                <action selector="expandCollapseCommentsButtonPressed:" destination="AkL-MS-Ruq" eventType="touchUpInside" id="MFe-a2-0I7"/>
+                                            </connections>
                                         </button>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
-                                        <constraint firstItem="ZZe-yM-hc7" firstAttribute="leading" secondItem="SK8-ct-ZdS" secondAttribute="leadingMargin" id="9g2-RZ-20J"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="ZZe-yM-hc7" secondAttribute="bottom" id="AUb-Vc-f8c"/>
-                                        <constraint firstItem="ZZe-yM-hc7" firstAttribute="top" secondItem="SK8-ct-ZdS" secondAttribute="topMargin" id="Wd8-5G-Sfn"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="ZZe-yM-hc7" secondAttribute="trailing" id="yim-jY-MGF"/>
+                                        <constraint firstItem="ZZe-yM-hc7" firstAttribute="leading" secondItem="SK8-ct-ZdS" secondAttribute="leading" id="9P7-5L-VKF"/>
+                                        <constraint firstAttribute="bottom" secondItem="ZZe-yM-hc7" secondAttribute="bottom" id="TtX-TZ-kzp"/>
+                                        <constraint firstAttribute="trailing" secondItem="ZZe-yM-hc7" secondAttribute="trailing" id="ijY-Fh-g0i"/>
+                                        <constraint firstItem="ZZe-yM-hc7" firstAttribute="top" secondItem="SK8-ct-ZdS" secondAttribute="top" id="jwG-kq-uwr"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <outlet property="expandCollapseCommentsButton" destination="ZZe-yM-hc7" id="TiR-YJ-oJ6"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -1113,7 +1153,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qEy-c8-A8u">
-                                <rect key="frame" x="0.0" y="20" width="320" height="499"/>
+                                <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EaS-Ni-fc2" userLabel="Content View">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="451.5"/>
@@ -1755,8 +1795,8 @@
         <image name="user" width="32" height="32"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="w8P-v4-ynr"/>
+        <segue reference="ZXt-lr-FmV"/>
         <segue reference="bWF-Dx-2BU"/>
-        <segue reference="LJV-d1-eI8"/>
+        <segue reference="dNg-E8-g3G"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -47,4 +47,20 @@ class Utility
         alertView.addAction(okAction)
         viewController.present(alertView, animated: true)
     }
+    
+    static func showConfirmationDialog(_ viewController : UIViewController, title : String, message : String, okAction: @escaping () -> Void)
+    {
+        let dialogMessage = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        let ok = UIAlertAction(title: "Ok", style: .default, handler: { (action) -> Void in
+            okAction()
+        })
+        
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel)
+        
+        dialogMessage.addAction(ok)
+        dialogMessage.addAction(cancel)
+        
+        viewController.present(dialogMessage, animated: true, completion: nil)
+    }
 }

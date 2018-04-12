@@ -78,7 +78,7 @@ class AuthorizationManager
                 return
             }
             
-            APICallHelper.APICall(request: APIRequestType.ValidateAccessTokenRequest, apiCallParameter: accessToken) { (apiWrapperResult : APIResponseWrapper<AccessTokenInfo>?) in
+            APICallHelper.APICall(request: APIRequestType.ValidateAccessTokenRequest, apiCallParameter: accessToken, apiCallParameters: nil) { (apiWrapperResult : APIResponseWrapper<AccessTokenInfo>?) in
                 if apiWrapperResult?.items == nil {
                     print("Access token is not valid")
                     return
@@ -88,13 +88,23 @@ class AuthorizationManager
                     self.isAuthorized = true
                     
                     // Get user stack overflow data
-                    APICallHelper.APICall(request: APIRequestType.MyAccountRequest, apiCallParameter: AuthorizationManager.accessToken){ (apiWrapperResult : APIResponseWrapper<User>?) in
+                    APICallHelper.APICall(request: APIRequestType.MyAccountRequest, apiCallParameter: AuthorizationManager.accessToken, apiCallParameters: nil){ (apiWrapperResult : APIResponseWrapper<User>?) in
                         guard let userModel = apiWrapperResult?.items?[0] else {
                             print("Failed to convert user model to intermediate model")
                             return
                         }
                         
                         self.authorizedUser = IntermediateUser(userModel)
+                        
+                        // Read search settings from user defaults
+                        let userDefaults = UserDefaults.standard
+                        
+                        userDefaults.synchronize()
+                        
+                        // If the record about a user exists in UserDefaults use it, otherwise use standard value
+                        if let pageSize = userDefaults.value(forKey: "\(self.authorizedUser!.displayName!.string)_pageSize") as? Int {
+                            UserSettings.searchPageSize = pageSize
+                        }
                     }
                     
                     completion()
@@ -104,7 +114,7 @@ class AuthorizationManager
             self.isAuthorized = true
             
             // Get user stack overflow data
-            APICallHelper.APICall(request: APIRequestType.MyAccountRequest, apiCallParameter: AuthorizationManager.accessToken){ (apiWrapperResult : APIResponseWrapper<User>?) in
+            APICallHelper.APICall(request: APIRequestType.MyAccountRequest, apiCallParameter: AuthorizationManager.accessToken, apiCallParameters: nil){ (apiWrapperResult : APIResponseWrapper<User>?) in
                 guard let userModel = apiWrapperResult?.items?[0] else {
                     print("Failed to convert user model to intermediate model")
                     return
@@ -120,7 +130,7 @@ class AuthorizationManager
     static func logout(completion : @escaping () -> Void)
     {
         if self.isAuthorized == true {
-            APICallHelper.APICall(request: APIRequestType.LogOutRequest, apiCallParameter: AuthorizationManager.accessToken){ (apiWrapperResult : APIResponseWrapper<LogOutResponse>?) in
+            APICallHelper.APICall(request: APIRequestType.LogOutRequest, apiCallParameter: AuthorizationManager.accessToken, apiCallParameters: nil){ (apiWrapperResult : APIResponseWrapper<LogOutResponse>?) in
                 
                 // De-authorize
                 removeAccessToken()
@@ -139,6 +149,13 @@ class AuthorizationManager
                 SearchHistoryManager.searchHistory.removeAll()
                 
                 self.isAuthorized = false
+                self.authorizedUser = nil
+                
+                let userDefaults = UserDefaults.standard
+                userDefaults.setValue("", forKey: "lastLoggedUser")
+                userDefaults.synchronize()
+                
+                UserSettings.searchPageSize = 30
                 
                 completion()
             }

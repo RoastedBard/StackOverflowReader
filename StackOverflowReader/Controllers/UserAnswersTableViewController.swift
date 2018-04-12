@@ -20,6 +20,8 @@ class UserAnswersTableViewController: UITableViewController
     var userAnswers : [UserAnswer] = [UserAnswer]()
     var isNothingFound = false
     var questionsTotal = 0
+    var questionsLeft = 0
+    var apiCallParameters = APICallParameters()
     
     // MARK: - Lifecycle
     
@@ -32,8 +34,21 @@ class UserAnswersTableViewController: UITableViewController
         activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
         
         tableView.backgroundView = activityIndicatorView
+
+        var requestType : APIRequestType = .GetMyAnswers
+        var apiCallParameter : Any? = AuthorizationManager.accessToken
         
-        getUserAnswers()
+        if isLoggedUser() == false {
+            requestType = .GetUserAnswers
+            apiCallParameter = getUserId()
+        }
+        
+        activityIndicatorView.startAnimating()
+        
+        getUserAnswers(requestType: requestType, apiCallParameter: apiCallParameter) {
+            self.activityIndicatorView.stopAnimating()
+            self.tableView.reloadData()
+        }
     }
 
     override func didReceiveMemoryWarning()
@@ -45,12 +60,20 @@ class UserAnswersTableViewController: UITableViewController
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        return briefQuestions.count
+        if isNothingFound == true {
+            return 1
+        }
+        
+        if briefQuestions.count != 0 {
+            return questionsLeft != 0 ? briefQuestions.count + 1 : briefQuestions.count // + 1 cell with "Load More" button
+        }
+        
+        return 0
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
-        if indexPath.row == briefQuestions.count - 1, briefQuestions.count != 0 {
+        if indexPath.row == briefQuestions.count, briefQuestions.count != 0 {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "LoadMoreCell", for: indexPath) as? LoadMoreTableViewCell else {
                 print("Failed to deque load more cell in SearchViewController")
                 exit(0)
@@ -58,7 +81,7 @@ class UserAnswersTableViewController: UITableViewController
             
             cell.loadMoreDelegate = self
             
-            cell.loadMoreButton.setTitle("Load \(APICallHelper.pageSize) more (\(questionsTotal) total)", for: .normal)
+            cell.loadMoreButton.setTitle("Load \(apiCallParameters.pageSize) more (\(questionsLeft) left)", for: .normal)
             
             return cell
         }
@@ -147,62 +170,106 @@ class UserAnswersTableViewController: UITableViewController
         return tabBarController.userId
     }
     
-    fileprivate func getUserAnswers()
+    fileprivate func isLoggedUser() -> Bool
     {
-        let userId = getUserId()
+        guard let tabBarController = self.tabBarController as? UserProfileTabBarController else {
+            print("Failed to get tabBarController")
+            return false
+        }
         
+        return tabBarController.isLoggedUser
+    }
+    
+    fileprivate func getQuestionIds(apiWrapperResult : APIResponseWrapper<UserAnswer>?) -> String?
+    {
+        if apiWrapperResult?.items?.count == 0 || apiWrapperResult?.items == nil {
+            isNothingFound = true
+            return nil
+        } else {
+            isNothingFound = false
+        }
+        
+        guard let userAnswers = apiWrapperResult?.items else {
+            return nil
+        }
+        
+        self.userAnswers.append(contentsOf: userAnswers)
+        
+        var questionIdsString = ""
+        
+        for (index, userAnswer) in userAnswers.enumerated() {
+            if index != userAnswers.count - 1 {
+                questionIdsString += "\(userAnswer.questionId);"
+            } else {
+                questionIdsString += "\(userAnswer.questionId)"
+            }
+        }
+        
+        if self.questionsTotal == 0 {
+            self.questionsTotal = apiWrapperResult?.total ?? 0
+            print("questionsTotal = \(self.questionsTotal)")
+            self.questionsLeft = self.questionsTotal
+        }
+        
+        self.apiCallParameters.currentPage += 1
+        
+        if self.questionsLeft < self.apiCallParameters.pageSize {
+            self.apiCallParameters.pageSize = self.questionsLeft
+            self.questionsLeft = 0
+        } else {
+            self.questionsLeft -= self.apiCallParameters.pageSize
+            
+            if self.questionsLeft < self.apiCallParameters.pageSize {
+                self.apiCallParameters.pageSize = self.questionsLeft
+            }
+        }
+        
+        print(questionIdsString)
+        
+        return questionIdsString
+    }
+    
+    fileprivate func getQuestionsContainingAnswers(questionIdsString: String, uiCompletion: @escaping () -> Void)
+    {
+        APICallHelper.APICall(request: APIRequestType.BriefQuestionsRequest, apiCallParameter: questionIdsString, apiCallParameters: apiCallParameters){ (apiWrapperResult : APIResponseWrapper<BriefQuestion>?) in
+            
+            if apiWrapperResult?.items?.count == 0 || apiWrapperResult?.items == nil {
+                self.isNothingFound = true
+            } else {
+                self.isNothingFound = false
+            }
+            
+            guard let questions = apiWrapperResult?.items else {
+                return
+            }
+            
+            for question in questions {
+                self.briefQuestions.append(IntermediateBriefQuestion(question))
+            }
+            
+            print("briefQuestions.count = \(self.briefQuestions.count)")
+            
+            uiCompletion()
+        }
+    }
+    
+    fileprivate func processAPICallResult(apiWrapperResult : APIResponseWrapper<UserAnswer>?, completion: @escaping () -> Void)
+    {
+        if let questionIdsString = getQuestionIds(apiWrapperResult: apiWrapperResult) {
+            getQuestionsContainingAnswers(questionIdsString: questionIdsString) {
+                completion()
+            }
+        } else {
+            completion()
+        }
+    }
+    
+    fileprivate func getUserAnswers(requestType: APIRequestType, apiCallParameter: Any?, completion: @escaping () -> Void)
+    {
         DispatchQueue.global(qos: .userInitiated).async {
-            APICallHelper.APICall(request: APIRequestType.GetUserAnswers, apiCallParameter: userId){ (apiWrapperResult : APIResponseWrapper<UserAnswer>?) in
-                
-                if apiWrapperResult?.items?.count == 0 {
-                    self.isNothingFound = true
-                } else {
-                    self.isNothingFound = false
-                }
-                
-                guard let userAnswers = apiWrapperResult?.items else {
-                    return
-                }
-                
-                self.userAnswers = userAnswers
-                
-                var questionIdsString = ""
-                
-                for (index, userAnswer) in userAnswers.enumerated() {
-                    if index != userAnswers.count - 1 {
-                        questionIdsString += "\(userAnswer.questionId);"
-                    } else {
-                        questionIdsString += "\(userAnswer.questionId)"
-                    }
-                }
-                
-                print(questionIdsString)
-                
-                APICallHelper.APICall(request: APIRequestType.BriefQuestionsRequest, apiCallParameter: questionIdsString){ (apiWrapperResult : APIResponseWrapper<BriefQuestion>?) in
-                    
-                    self.questionsTotal = apiWrapperResult?.total ?? 0
-                    
-                    if apiWrapperResult?.items?.count == 0 {
-                        self.isNothingFound = true
-                    } else {
-                        self.isNothingFound = false
-                    }
-                    
-                    guard let questions = apiWrapperResult?.items else {
-                        print("Failed to get questions containing user answers")
-                        return
-                    }
-                    
-                    for question in questions {
-                        self.briefQuestions.append(IntermediateBriefQuestion(question))
-                    }
-                    
-                    self.briefQuestions.sort(by: {$0.score > $1.score})
-                    
-                    self.activityIndicatorView.stopAnimating()
-                    
-                    self.tableView.reloadData()
-                    self.tableView.setContentOffset(CGPoint.zero, animated: true)
+            APICallHelper.APICall(request: requestType, apiCallParameter: apiCallParameter, apiCallParameters: self.apiCallParameters){ (apiWrapperResult : APIResponseWrapper<UserAnswer>?) in
+                self.processAPICallResult(apiWrapperResult: apiWrapperResult) {
+                    completion()
                 }
             }
         }
@@ -218,26 +285,20 @@ extension UserAnswersTableViewController : AuthorNamePressedProtocol, LoadMoreQu
         sender.isHidden = true
         activityIndicatorView.startAnimating()
         
-        let userId = getUserId()
+        var requestType : APIRequestType = .GetMyAnswers
+        var apiCallParameter : Any? = AuthorizationManager.accessToken
         
-        DispatchQueue.global(qos: .userInitiated).async {
-            APICallHelper.currentPage += 1
-            
-            APICallHelper.APICall(request: APIRequestType.GetUserQuestions, apiCallParameter: userId){ (apiWrapperResult : APIResponseWrapper<BriefQuestion>?) in
-                if let newQuestions = apiWrapperResult?.items {
-                    for question in newQuestions {
-                        self.briefQuestions.append(IntermediateBriefQuestion(question))
-                    }
-                }
-                
-                activityIndicatorView.stopAnimating()
-                
-                sender.isHidden = false
-                
-                self.tableView.reloadData()
-                
-                self.questionsTotal -= APICallHelper.pageSize
-            }
+        if isLoggedUser() == false {
+            requestType = .GetUserAnswers
+            apiCallParameter = getUserId()
+        }
+        
+        activityIndicatorView.startAnimating()
+        
+        getUserAnswers(requestType: requestType, apiCallParameter: apiCallParameter) {
+            self.activityIndicatorView.stopAnimating()
+            sender.isHidden = false
+            self.tableView.reloadData()
         }
     }
     

@@ -22,11 +22,12 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
     
     // MARK: - Properties
     
-    var searchQuery : String = ""
-    var briefQuestions : [IntermediateBriefQuestion] = [IntermediateBriefQuestion]()
+    var searchQuery = ""
+    var briefQuestions = [IntermediateBriefQuestion]()
     var apiCallWrapper : APIResponseWrapper<BriefQuestion>?
     var isNothingFound = false
     var questionsTotal = 0
+    var apiCallParameters = APICallParameters()
     
     // MARK: - Lifecycle
     
@@ -42,6 +43,8 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         
         currentSortOptionButton = searchSortButtons[0]
         
+        apiCallParameters.pageSize = UserSettings.searchPageSize
+        
         self.hideKeyboardWhenTappedAround()
         
         searchBar.delegate = self
@@ -51,8 +54,11 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         // Remove "Saved Posts" tab bar item if not authorized
         if AuthorizationManager.isAuthorized == false {
             let savedQuestionsIndex = 2 // Search = 0; History = 1; Saved Questions = 2; More = 3
+            
             guard var viewControllers = self.tabBarController?.viewControllers else { return }
+            
             viewControllers.remove(at: savedQuestionsIndex)
+            
             self.tabBarController?.viewControllers = viewControllers
         }
     }
@@ -97,22 +103,22 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
     
     @IBAction func sortByActivityButtonPressed(_ sender: UIButton)
     {
-        APICallHelper.sort = .activity
+        apiCallParameters.sort = .activity
     }
     
     @IBAction func sortByVotesButtonPressed(_ sender: UIButton)
     {
-        APICallHelper.sort = .votes
+        apiCallParameters.sort = .votes
     }
     
     @IBAction func sortByCreationButtonPressed(_ sender: UIButton)
     {
-        APICallHelper.sort = .creation
+        apiCallParameters.sort = .creation
     }
     
     @IBAction func sortByRelevanceButtonPressed(_ sender: UIButton)
     {
-        APICallHelper.sort = .relevance
+        apiCallParameters.sort = .relevance
     }
     
     // MARK: - Methods
@@ -138,13 +144,13 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         
         self.searchResultsTableView.reloadData()
         
-        APICallHelper.currentPage = 1
+        apiCallParameters.currentPage = 1
         
         activityIndicatorView.startAnimating()
         sortByButton.isEnabled = false
         
         DispatchQueue.global(qos: .userInitiated).async {
-                APICallHelper.APICall(request: APIRequestType.SearchBriefQuestionsRequest, apiCallParameter: self.searchQuery){ (apiWrapperResult : APIResponseWrapper<BriefQuestion>?) in
+            APICallHelper.APICall(request: APIRequestType.SearchBriefQuestionsRequest, apiCallParameter: self.searchQuery, apiCallParameters: self.apiCallParameters){ (apiWrapperResult : APIResponseWrapper<BriefQuestion>?) in
                     
                     if apiWrapperResult?.items?.count == 0 {
                         self.isNothingFound = true
@@ -212,7 +218,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
             
             cell.loadMoreDelegate = self
             
-            cell.loadMoreButton.setTitle("Load \(APICallHelper.pageSize) more (\(questionsTotal) total)", for: .normal)
+            cell.loadMoreButton.setTitle("Load \(apiCallParameters.pageSize) more (\(questionsTotal) total)", for: .normal)
             
             return cell
         }
@@ -299,9 +305,9 @@ extension SearchViewController : AuthorNamePressedProtocol, LoadMoreQuestionsPro
         sortByButton.isEnabled = false
         
         DispatchQueue.global(qos: .userInitiated).async {
-            APICallHelper.currentPage += 1
+            self.apiCallParameters.currentPage += 1
             
-            APICallHelper.APICall(request: APIRequestType.SearchBriefQuestionsRequest, apiCallParameter: self.searchQuery){ (apiWrapperResult : APIResponseWrapper<BriefQuestion>?) in
+            APICallHelper.APICall(request: APIRequestType.SearchBriefQuestionsRequest, apiCallParameter: self.searchQuery, apiCallParameters: self.apiCallParameters){ (apiWrapperResult : APIResponseWrapper<BriefQuestion>?) in
                 if let newQuestions = apiWrapperResult?.items {
                     self.apiCallWrapper?.items?.append(contentsOf: newQuestions)
                     
@@ -316,7 +322,7 @@ extension SearchViewController : AuthorNamePressedProtocol, LoadMoreQuestionsPro
                 
                 self.searchResultsTableView.reloadData()
                 
-                self.questionsTotal -= APICallHelper.pageSize
+                self.questionsTotal -= self.apiCallParameters.pageSize
                 
                 self.sortByButton.isEnabled = true
             }
